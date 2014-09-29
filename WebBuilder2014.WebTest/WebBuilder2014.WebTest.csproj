@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1340322C-E5C7-47F3-B1EE-2EA288040386}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebBuilder2014.WebTest</RootNamespace>
+    <AssemblyName>WebBuilder2014.WebTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\unify3\assets\css\app.css" />
+    <Content Include="Content\unify3\assets\css\headers\header1.css" />
+    <Content Include="Content\unify3\assets\css\headers\header2.css" />
+    <Content Include="Content\unify3\assets\css\pages\blog.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_404_error.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_404_error1.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_clients.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_coming_soon.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_contact.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_invoice.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_log_reg_v1.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_log_reg_v2.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_magazine.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_one.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_pricing.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_promo.css" />
+    <Content Include="Content\unify3\assets\css\pages\page_search.css" />
+    <Content Include="Content\unify3\assets\css\pages\portfolio-v1.css" />
+    <Content Include="Content\unify3\assets\css\pages\portfolio-v2.css" />
+    <Content Include="Content\unify3\assets\css\responsive.css" />
+    <Content Include="Content\unify3\assets\css\style.css" />
+    <Content Include="Content\unify3\assets\css\themes\default.css" />
+    <Content Include="Content\unify3\assets\img\bg-black.png" />
+    <Content Include="Content\unify3\assets\img\bg-black1.png" />
+    <Content Include="Content\unify3\assets\img\bg\5.jpg" />
+    <Content Include="Content\unify3\assets\img\breadcrumbs.png" />
+    <Content Include="Content\unify3\assets\img\clients\aztec.png" />
+    <Content Include="Content\unify3\assets\img\clients\aztec_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\cisco.png" />
+    <Content Include="Content\unify3\assets\img\clients\cisco_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\cocacola.png" />
+    <Content Include="Content\unify3\assets\img\clients\cocacola_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\everyday.png" />
+    <Content Include="Content\unify3\assets\img\clients\everyday_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\gamescast.png" />
+    <Content Include="Content\unify3\assets\img\clients\gamescast_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\hp.png" />
+    <Content Include="Content\unify3\assets\img\clients\hp_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\igneus.png" />
+    <Content Include="Content\unify3\assets\img\clients\igneus_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\natural.png" />
+    <Content Include="Content\unify3\assets\img\clients\natural_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\shell.png" />
+    <Content Include="Content\unify3\assets\img\clients\shell_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\spinworkx.png" />
+    <Content Include="Content\unify3\assets\img\clients\spinworkx_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\vadafone.png" />
+    <Content Include="Content\unify3\assets\img\clients\vadafone_grey.png" />
+    <Content Include="Content\unify3\assets\img\clients\walmart.png" />
+    <Content Include="Content\unify3\assets\img\clients\walmart_grey.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\amazon.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\behance.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\blogger.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\deviantart.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\dribbble.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\dropbox.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\evernote.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\facebook.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\forrst.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\github.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\googleplus.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\jolicloud.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\last-fm.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\linkedin.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\picasa.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\pintrest.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\rss.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\skype.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\spotify.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\stumbleupon.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\tumblr.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\twitter.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\vimeo.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\vk.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\wordpress.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\xing.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\yahoo.png" />
+    <Content Include="Content\unify3\assets\img\icons\social\youtube.png" />
+    <Content Include="Content\unify3\assets\img\img.jpg" />
+    <Content Include="Content\unify3\assets\img\logo1-default.png" />
+    <Content Include="Content\unify3\assets\img\logo2-default.png" />
+    <Content Include="Content\unify3\assets\img\main\1.jpg" />
+    <Content Include="Content\unify3\assets\img\main\10.jpg" />
+    <Content Include="Content\unify3\assets\img\main\11.jpg" />
+    <Content Include="Content\unify3\assets\img\main\12.jpg" />
+    <Content Include="Content\unify3\assets\img\main\13.jpg" />
+    <Content Include="Content\unify3\assets\img\main\2.jpg" />
+    <Content Include="Content\unify3\assets\img\main\3.jpg" />
+    <Content Include="Content\unify3\assets\img\main\4.jpg" />
+    <Content Include="Content\unify3\assets\img\main\5.jpg" />
+    <Content Include="Content\unify3\assets\img\main\6.jpg" />
+    <Content Include="Content\unify3\assets\img\main\7.jpg" />
+    <Content Include="Content\unify3\assets\img\main\8.jpg" />
+    <Content Include="Content\unify3\assets\img\main\9.jpg" />
+    <Content Include="Content\unify3\assets\img\mockup\iphone.png" />
+    <Content Include="Content\unify3\assets\img\mockup\iphone1.png" />
+    <Content Include="Content\unify3\assets\img\new\img1.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img10.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img11.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img15.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img4.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img5.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img6.jpg" />
+    <Content Include="Content\unify3\assets\img\new\img7.jpg" />
+    <Content Include="Content\unify3\assets\img\overlay-icon.png" />
+    <Content Include="Content\unify3\assets\img\posts\1.jpg" />
+    <Content Include="Content\unify3\assets\img\posts\2.jpg" />
+    <Content Include="Content\unify3\assets\img\posts\3.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\1.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\10.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\11.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\2.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\5.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\6.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\7.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\8.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\elastislide\9.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\layer\bg1.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\layer\bg2.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg-text.png" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg1.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg2.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg3.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg4.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\bg8.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\drink1.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\drink2.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\drink3.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\html5andcss3.png" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\imac.png" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\ipad.png" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\iphone.png" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p1.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p10.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p2.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p3.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p4.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p5.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p6.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p7.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p8.jpg" />
+    <Content Include="Content\unify3\assets\img\sliders\revolution\p9.jpg" />
+    <Content Include="Content\unify3\assets\img\team\1.jpg" />
+    <Content Include="Content\unify3\assets\img\team\2.jpg" />
+    <Content Include="Content\unify3\assets\img\team\3.jpg" />
+    <Content Include="Content\unify3\assets\img\team\4.jpg" />
+    <Content Include="Content\unify3\assets\img\testimonials\img1.jpg" />
+    <Content Include="Content\unify3\assets\img\testimonials\img2.jpg" />
+    <Content Include="Content\unify3\assets\img\testimonials\user.jpg" />
+    <Content Include="Content\unify3\assets\img\up.png" />
+    <Content Include="Content\unify3\assets\js\app.js" />
+    <Content Include="Content\unify3\assets\js\pages\contact.js" />
+    <Content Include="Content\unify3\assets\js\pages\index.js" />
+    <Content Include="Content\unify3\assets\js\pages\portfolio.js" />
+    <Content Include="Content\unify3\assets\plugins\back-to-top.js" />
+    <Content Include="Content\unify3\assets\plugins\backstretch\jquery.backstretch.min.js" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\unify3\assets\plugins\bxslider\images\bx_loader.gif" />
+    <Content Include="Content\unify3\assets\plugins\bxslider\images\controls.png" />
+    <Content Include="Content\unify3\assets\plugins\bxslider\jquery.bxslider.css" />
+    <Content Include="Content\unify3\assets\plugins\bxslider\jquery.bxslider.js" />
+    <Content Include="Content\unify3\assets\plugins\countdown\css\countdown.css" />
+    <Content Include="Content\unify3\assets\plugins\countdown\jquery.countdown.js" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\blank.gif" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\fancybox_loading.gif" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\fancybox_overlay.png" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\fancybox_sprite.png" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\jquery.fancybox.css" />
+    <Content Include="Content\unify3\assets\plugins\fancybox\source\jquery.fancybox.pack.js" />
+    <Content Include="Content\unify3\assets\plugins\flexslider\flexslider.css" />
+    <Content Include="Content\unify3\assets\plugins\flexslider\images\bg_direction_nav.png" />
+    <Content Include="Content\unify3\assets\plugins\flexslider\jquery.flexslider-min.js" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\css\font-awesome-ie7.css" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\css\font-awesome-ie7.min.css" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\font\fontawesome-webfont.svg" />
+    <Content Include="Content\unify3\assets\plugins\gmap\gmap.js" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\css\horizontal-parallax.css" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\images\aeroplane.png" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\images\balloon.png" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\images\bt-next1.png" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\images\bt-prev1.png" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\images\kite.png" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\js\horizontal-parallax.js" />
+    <Content Include="Content\unify3\assets\plugins\horizontal-parallax\js\sequence.jquery-min.js" />
+    <Content Include="Content\unify3\assets\plugins\hover-dropdown.min.js" />
+    <Content Include="Content\unify3\assets\plugins\jquery-1.10.2.min.js" />
+    <Content Include="Content\unify3\assets\plugins\jquery-migrate-1.2.1.min.js" />
+    <Content Include="Content\unify3\assets\plugins\jquery.mixitup.min.js" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\css\blank.gif" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\css\layerslider.css" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\jQuery\jquery-easing-1.3.js" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\jQuery\jquery-transit-modified.js" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\js\layerslider.kreaturamedia.jquery.js" />
+    <Content Include="Content\unify3\assets\plugins\layer_slider\js\layerslider.transitions.js" />
+    <Content Include="Content\unify3\assets\plugins\less-1.4.1.min.js" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\css\parallax-slider.css" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\1.png" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\arrows.png" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\bg-heading.png" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\bg-text.png" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\bg.jpg" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\img\html5andcss3.png" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\js\jquery.cslider.js" />
+    <Content Include="Content\unify3\assets\plugins\parallax-slider\js\modernizr.js" />
+    <Content Include="Content\unify3\assets\plugins\respond.js" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrowleft.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrowright.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrow_left.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrow_left2.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrow_right.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\arrow_right2.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\boxed_bgtile.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\bullet.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\bullets.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\bullets2.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\bullet_boxed.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\coloredbg.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\large_left.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\large_right.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\loader.gif" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\navigdots.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\navigdots_bgtile.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\shadow1.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\shadow2.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\shadow3.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\small_left.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\small_left_boxed.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\small_right.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\small_right_boxed.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\assets\timer.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\css\settings.css" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\images\gradient\g30.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\images\gradient\g40.png" />
+    <Content Include="Content\unify3\assets\plugins\revolution_slider\rs-plugin\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Content\unify3\blog_full_width.html" />
+    <Content Include="Content\unify3\blog_item_option1.html" />
+    <Content Include="Content\unify3\blog_item_option2.html" />
+    <Content Include="Content\unify3\blog_large.html" />
+    <Content Include="Content\unify3\blog_left_sidebar.html" />
+    <Content Include="Content\unify3\blog_medium.html" />
+    <Content Include="Content\unify3\blog_page.html" />
+    <Content Include="Content\unify3\blog_right_sidebar.html" />
+    <Content Include="Content\unify3\feature_accardion_and_tabs.html" />
+    <Content Include="Content\unify3\feature_boxes.html" />
+    <Content Include="Content\unify3\feature_buttons.html" />
+    <Content Include="Content\unify3\feature_components.html" />
+    <Content Include="Content\unify3\feature_forms.html" />
+    <Content Include="Content\unify3\feature_grid.html" />
+    <Content Include="Content\unify3\feature_icons.html" />
+    <Content Include="Content\unify3\feature_navigations.html" />
+    <Content Include="Content\unify3\feature_tables.html" />
+    <Content Include="Content\unify3\feature_tagline_boxes.html" />
+    <Content Include="Content\unify3\feature_testimonials.html" />
+    <Content Include="Content\unify3\feature_thumbails.html" />
+    <Content Include="Content\unify3\feature_typography.html" />
+    <Content Include="Content\unify3\index.html" />
+    <Content Include="Content\unify3\index1.html" />
+    <Content Include="Content\unify3\page_2_columns_left.html" />
+    <Content Include="Content\unify3\page_2_columns_right.html" />
+    <Content Include="Content\unify3\page_3_columns.html" />
+    <Content Include="Content\unify3\page_404_error.html" />
+    <Content Include="Content\unify3\page_404_error1.html" />
+    <Content Include="Content\unify3\page_about.html" />
+    <Content Include="Content\unify3\page_about1.html" />
+    <Content Include="Content\unify3\page_clients.html" />
+    <Content Include="Content\unify3\page_coming_soon.html" />
+    <Content Include="Content\unify3\page_contact1.html" />
+    <Content Include="Content\unify3\page_contact2.html" />
+    <Content Include="Content\unify3\page_contact3.html" />
+    <Content Include="Content\unify3\page_faq.html" />
+    <Content Include="Content\unify3\page_gallery.html" />
+    <Content Include="Content\unify3\page_home1.html" />
+    <Content Include="Content\unify3\page_home2.html" />
+    <Content Include="Content\unify3\page_home3.html" />
+    <Content Include="Content\unify3\page_home4.html" />
+    <Content Include="Content\unify3\page_home5.html" />
+    <Content Include="Content\unify3\page_home6.html" />
+    <Content Include="Content\unify3\page_home7.html" />
+    <Content Include="Content\unify3\page_invoice.html" />
+    <Content Include="Content\unify3\page_login.html" />
+    <Content Include="Content\unify3\page_login1.html" />
+    <Content Include="Content\unify3\page_meet_our_team.html" />
+    <Content Include="Content\unify3\page_pricing.html" />
+    <Content Include="Content\unify3\page_privacy.html" />
+    <Content Include="Content\unify3\page_registration.html" />
+    <Content Include="Content\unify3\page_registration1.html" />
+    <Content Include="Content\unify3\page_search.html" />
+    <Content Include="Content\unify3\page_services.html" />
+    <Content Include="Content\unify3\page_services1.html" />
+    <Content Include="Content\unify3\page_terms.html" />
+    <Content Include="Content\unify3\portfolio_2_column.html" />
+    <Content Include="Content\unify3\portfolio_3_column.html" />
+    <Content Include="Content\unify3\portfolio_4_column.html" />
+    <Content Include="Content\unify3\portfolio_item.html" />
+    <Content Include="Content\unify3\portfolio_item1.html" />
+    <Content Include="Content\unify3\portfolio_text_blocks.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\unify3\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\font\fontawesome-webfont.eot" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\font\fontawesome-webfont.woff" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\font\FontAwesome.otf" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\bootstrap.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\core.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\extras.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\font-awesome-ie7.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\icons.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\mixins.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\path.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\less\variables.less" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\font-awesome-ie7.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_bootstrap.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_core.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_extras.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_path.scss" />
+    <Content Include="Content\unify3\assets\plugins\font-awesome\scss\_variables.scss" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\unify3\assets\css\img\" />
+    <Folder Include="Content\unify3\assets\css\themes\headers\" />
+    <Folder Include="Content\unify3\assets\plugins\blockHover\css\" />
+    <Folder Include="Content\unify3\assets\plugins\layer_slider\assets\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53153</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53153/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
