@@ -18,3 +18,17 @@
         cursor:pointer;
     }
 }
+
+#wb_pagebuilder{
+    width:1280px;
+    margin:60px auto 0 auto;
+    .wb_pagesection{
+        width:100%;
+        text-align:center;
+        background-color:#ccc;
+        color:#fff;
+    }
+    .wb_sortable{
+        min-height:30px;
+    }
+}
