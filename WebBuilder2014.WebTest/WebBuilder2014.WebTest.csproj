@@ -183,6 +183,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\unify3\assets\css\app1.css" />
     <Content Include="Content\unify3\assets\css\app.css" />
     <Content Include="Content\unify3\assets\css\headers\header1.css" />
     <Content Include="Content\unify3\assets\css\headers\header2.css" />
@@ -444,6 +445,8 @@
     <Content Include="Content\unify3\feature_thumbails.html" />
     <Content Include="Content\unify3\feature_typography.html" />
     <Content Include="Content\unify3\index.html" />
+    <Content Include="Content\unify3\index3.html" />
+    <Content Include="Content\unify3\index2.html" />
     <Content Include="Content\unify3\index1.html" />
     <Content Include="Content\unify3\page_2_columns_left.html" />
     <Content Include="Content\unify3\page_2_columns_right.html" />
@@ -484,6 +487,17 @@
     <Content Include="Content\unify3\portfolio_item.html" />
     <Content Include="Content\unify3\portfolio_item1.html" />
     <Content Include="Content\unify3\portfolio_text_blocks.html" />
+    <Content Include="Content\unify3\section0111.html" />
+    <Content Include="Content\unify3\section0110.html" />
+    <Content Include="Content\unify3\section0109.html" />
+    <Content Include="Content\unify3\section0108.html" />
+    <Content Include="Content\unify3\section0107.html" />
+    <Content Include="Content\unify3\section0106.html" />
+    <Content Include="Content\unify3\section0105.html" />
+    <Content Include="Content\unify3\section0104.html" />
+    <Content Include="Content\unify3\section0103.html" />
+    <Content Include="Content\unify3\section0102.html" />
+    <Content Include="Content\unify3\section0101.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

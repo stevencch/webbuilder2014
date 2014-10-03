@@ -1,5 +1,20 @@
-﻿body {
-    background:#fff;
-    border:1px solid #fff;
-}
+﻿#wb_toolbox {
+    position: fixed;
+    top: 60px;
+    width: 300px;
 
+    .title {
+        background-color: darkblue;
+        color: #fff;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .wb_draggable {
+        margin: 5px 0;
+        border: 1px solid blue;
+        cursor:pointer;
+    }
+}

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>Unify | Welcome...</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- CSS Global Compulsory-->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css">
+    <link rel="stylesheet" href="assets/css/app1.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <style>
+        /*Sliders
+        ------------------------------------*/
+        /*Main Parallax Sldier*/
+        .da-slide h2 i {
+            background: url(../../plugins/parallax-slider/img/bg-heading.png) repeat;
+        }
+
+        /*Sequence Parallax Sldier*/
+        .sequence-inner {
+            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(#defce7));
+            background: -webkit-linear-gradient(#fff, #defce7);
+            background: -moz-linear-gradient(#fff, #defce7);
+            background: -ms-linear-gradient(#fff, #defce7);
+            background: -o-linear-gradient(#fff, #defce7);
+            background: linear-gradient(#fff, #defce7);
+        }
+
+        #sequence-theme h2 {
+            background: rgba(114, 192, 44, 0.8);
+        }
+
+        #sequence-theme .info p {
+            background: rgba(114, 192, 44, 0.8);
+    </style>
+</head>
+<body>
+
+    <!--=== Slider ===-->
+    <div class="slider-inner">
+        <div id="da-slider" class="da-slider">
+            <div class="da-slide">
+                <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+                <div class="da-img"><img src="assets/plugins/parallax-slider/img/1.png" alt="" /></div>
+            </div>
+            <div class="da-slide">
+                <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
+                <div class="da-img">
+                    <iframe src="http://player.vimeo.com/video/47911018" width="530" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="da-slide">
+                <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+                <div class="da-img"><img src="assets/plugins/parallax-slider/img/html5andcss3.png" alt="image01" /></div>
+            </div>
+            <div class="da-arrows">
+                <span class="da-arrows-prev"></span>
+                <span class="da-arrows-next"></span>
+            </div>
+        </div><!--/da-slider-->
+    </div><!--/slider-->
+    <!--=== End Slider ===-->
+    <!-- JS Global Compulsory -->
+    <script type="text/javascript" src="assets/plugins/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/parallax-slider/js/modernizr.js"></script>
+    <script type="text/javascript" src="assets/plugins/parallax-slider/js/jquery.cslider.js"></script>
+    <script>
+        $(function () {
+            $('#da-slider').cslider();
+        });
+    </script>
+</body>
+</html>
