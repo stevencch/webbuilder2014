@@ -1,6 +1,7 @@
 ﻿#wb_toolbox {
   position: fixed;
   top: 60px;
+  right: 0;
   width: 300px; }
   #wb_toolbox .title {
     background-color: darkblue;
@@ -13,13 +14,14 @@
     cursor: pointer; }
 
 #wb_pagebuilder {
-  width: 1280px;
+  width: 1024px;
   margin: 60px auto 0 auto; }
   #wb_pagebuilder .wb_pagesection {
     width: 100%;
     text-align: center;
     background-color: #ccc;
-    color: #fff; }
+    color: #fff;
+    margin: 15px 0; }
   #wb_pagebuilder .wb_sortable {
     min-height: 30px; }
 
