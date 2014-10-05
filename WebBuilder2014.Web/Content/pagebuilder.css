@@ -2,7 +2,17 @@
   position: fixed;
   top: 60px;
   right: 0;
-  width: 300px; }
+  width: 300px;
+  z-index: 99999;
+  /*.ui-draggable-dragging {
+        width: 20%;
+        height:20%;
+    }
+
+    .ui-sortable-helper {
+        width: 20% !important;
+        height: 20% !important;
+    }*/ }
   #wb_toolbox .title {
     background-color: darkblue;
     color: #fff; }
@@ -24,5 +34,11 @@
     margin: 15px 0; }
   #wb_pagebuilder .wb_sortable {
     min-height: 30px; }
+  #wb_pagebuilder .wb_pipe {
+    border-right: 1px solid #aaa; }
+  #wb_pagebuilder .oneline {
+    clear: both;
+    float: left;
+    margin: 1px 0; }
 
 /*# sourceMappingURL=pagebuilder.css.map */

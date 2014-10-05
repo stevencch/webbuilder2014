@@ -1441,3 +1441,10 @@ ul.blog-tags a:hover i {
 .info-blocks .info-blocks-in p {
 	font-size: 12px;
 }
+
+.colnumber {
+    background-color: #cccccc;
+    color: #ffffff;
+    text-align: center;
+    font-size: 100px;
+}

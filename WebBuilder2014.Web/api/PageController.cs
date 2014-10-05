@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
+using WebBuilder2014.BLL;
 
 namespace WebBuilder2014.Web.api
 {
     public class PageController : ApiController
     {
+        BuilderService service=new BuilderService();
         // GET: api/Page
         public IEnumerable<string> Get()
         {
@@ -16,9 +19,22 @@ namespace WebBuilder2014.Web.api
         }
 
         // GET: api/Page/5
-        public string Get(int id)
+        public HttpResponseMessage Get(string id)
         {
-            return "value";
+            var section = service.GetPageSectionByCode(id);
+            if (section != null)
+            {
+                var resp = new HttpResponseMessage()
+                {
+                    Content = new StringContent(section.Json)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return resp;
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No Section");
+            }
         }
 
         // POST: api/Page

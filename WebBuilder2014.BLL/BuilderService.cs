@@ -27,14 +27,15 @@ namespace WebBuilder2014.BLL
                 PageSection result = GetPageSectionByCode(code);
                 if (result != null)
                 {
-                    result.Json = node.ToString();
+                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(node);
+                    result.Json = json;
                 }
                 else
                 {
                     dbContext.PageSections.Add(new PageSection()
                     {
                         Code = code,
-                        Json = node.ToString()
+                        Json = Newtonsoft.Json.JsonConvert.SerializeObject(node)
                     });
                 }
                 dbContext.SaveChanges();

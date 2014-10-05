@@ -1,8 +1,9 @@
 ﻿#wb_toolbox {
     position: fixed;
     top: 60px;
-    right:0;
+    right: 0;
     width: 300px;
+    z-index: 99999;
 
     .title {
         background-color: darkblue;
@@ -16,21 +17,42 @@
     .wb_draggable {
         margin: 5px 0;
         border: 1px solid blue;
-        cursor:pointer;
+        cursor: pointer;
     }
+    /*.ui-draggable-dragging {
+        width: 20%;
+        height:20%;
+    }
+
+    .ui-sortable-helper {
+        width: 20% !important;
+        height: 20% !important;
+    }*/
 }
 
-#wb_pagebuilder{
-    width:1024px;
-    margin:60px auto 0 auto;
-    .wb_pagesection{
-        width:100%;
-        text-align:center;
-        background-color:#ccc;
-        color:#fff;
-        margin:15px 0;
+#wb_pagebuilder {
+    width: 1024px;
+    margin: 60px auto 0 auto;
+
+    .wb_pagesection {
+        width: 100%;
+        text-align: center;
+        background-color: #ccc;
+        color: #fff;
+        margin: 15px 0;
     }
-    .wb_sortable{
-        min-height:30px;
+
+    .wb_sortable {
+        min-height: 30px;
+    }
+
+    .wb_pipe{
+        border-right:1px solid #aaa;
+    }
+
+    .oneline {
+        clear: both;
+        float: left;
+        margin: 1px 0;
     }
 }
