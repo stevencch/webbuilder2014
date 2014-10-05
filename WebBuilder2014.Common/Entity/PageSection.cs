@@ -15,6 +15,7 @@ namespace WebBuilder2014.Common.Entity
         [MaxLength(10)]
         public string Code { get; set; }
         [Required]
+        [MaxLength]
         public string Json { get; set; }
     }
 }
