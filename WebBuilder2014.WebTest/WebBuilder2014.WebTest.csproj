@@ -208,6 +208,13 @@
     <Content Include="Content\unify3\assets\css\responsive.css" />
     <Content Include="Content\unify3\assets\css\style.css" />
     <Content Include="Content\unify3\assets\css\themes\default.css" />
+    <Content Include="Content\unify3\assets\images\cut.png" />
+    <Content Include="Content\unify3\assets\images\door.png" />
+    <Content Include="Content\unify3\assets\images\page_white_add.png" />
+    <Content Include="Content\unify3\assets\images\page_white_copy.png" />
+    <Content Include="Content\unify3\assets\images\page_white_delete.png" />
+    <Content Include="Content\unify3\assets\images\page_white_edit.png" />
+    <Content Include="Content\unify3\assets\images\page_white_paste.png" />
     <Content Include="Content\unify3\assets\img\bg-black.png" />
     <Content Include="Content\unify3\assets\img\bg-black1.png" />
     <Content Include="Content\unify3\assets\img\bg\5.jpg" />
@@ -336,6 +343,10 @@
     <Content Include="Content\unify3\assets\img\testimonials\img2.jpg" />
     <Content Include="Content\unify3\assets\img\testimonials\user.jpg" />
     <Content Include="Content\unify3\assets\img\up.png" />
+    <Content Include="Content\unify3\assets\jquery.contextMenu.css" />
+    <Content Include="Content\unify3\assets\jquery.contextMenu.js" />
+    <Content Include="Content\unify3\assets\jquery.toolbar.js" />
+    <Content Include="Content\unify3\assets\jquery.toolbars.css" />
     <Content Include="Content\unify3\assets\js\app.js" />
     <Content Include="Content\unify3\assets\js\pages\contact.js" />
     <Content Include="Content\unify3\assets\js\pages\index.js" />

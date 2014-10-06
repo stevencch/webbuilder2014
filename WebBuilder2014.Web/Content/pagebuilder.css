@@ -25,7 +25,7 @@
 
 #wb_pagebuilder {
   width: 1024px;
-  margin: 60px auto 0 auto; }
+  margin: 0 auto 0 auto; }
   #wb_pagebuilder .wb_pagesection {
     width: 100%;
     text-align: center;
@@ -40,5 +40,20 @@
     clear: both;
     float: left;
     margin: 1px 0; }
+  #wb_pagebuilder .ui-state-placeholder {
+    background-color: #aaa;
+    min-height: 30px; }
+  #wb_pagebuilder .selectedNode {
+    border: 1px solid blue; }
+
+/*context menu*/
+.context-menu-list li {
+  display: block; }
+.context-menu-list li:before {
+  content: ''; }
+
+/*toolbar*/
+#wb_toolbar {
+  margin: 60px 0 0 0; }
 
 /*# sourceMappingURL=pagebuilder.css.map */

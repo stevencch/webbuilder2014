@@ -32,7 +32,7 @@
 
 #wb_pagebuilder {
     width: 1024px;
-    margin: 60px auto 0 auto;
+    margin: 0 auto 0 auto;
 
     .wb_pagesection {
         width: 100%;
@@ -46,8 +46,8 @@
         min-height: 30px;
     }
 
-    .wb_pipe{
-        border-right:1px solid #aaa;
+    .wb_pipe {
+        border-right: 1px solid #aaa;
     }
 
     .oneline {
@@ -55,4 +55,28 @@
         float: left;
         margin: 1px 0;
     }
+
+    .ui-state-placeholder {
+        background-color: #aaa;
+        min-height: 30px;
+    }
+
+    .selectedNode {
+        border: 1px solid blue;
+    }
+}
+
+/*context menu*/
+.context-menu-list {
+    li {
+        display: block;
+    }
+
+    li:before {
+        content: '';
+    }
+}
+/*toolbar*/
+#wb_toolbar{
+    margin:60px 0 0 0;
 }

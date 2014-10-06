@@ -226,6 +226,14 @@
     <Content Include="Content\images\t01\s0109.png" />
     <Content Include="Content\images\t01\s0110.png" />
     <Content Include="Content\images\t01\s0111.png" />
+    <Content Include="Content\plugins\contextmenu\images\cut.png" />
+    <Content Include="Content\plugins\contextmenu\images\door.png" />
+    <Content Include="Content\plugins\contextmenu\images\page_white_add.png" />
+    <Content Include="Content\plugins\contextmenu\images\page_white_copy.png" />
+    <Content Include="Content\plugins\contextmenu\images\page_white_delete.png" />
+    <Content Include="Content\plugins\contextmenu\images\page_white_edit.png" />
+    <Content Include="Content\plugins\contextmenu\images\page_white_paste.png" />
+    <Content Include="Content\plugins\contextmenu\jquery.contextMenu.css" />
     <Content Include="Content\pagebuilder.css">
       <DependentUpon>pagebuilder.scss</DependentUpon>
     </Content>
@@ -569,6 +577,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.1.js" />
     <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
+    <Content Include="Scripts\jquery.contextMenu.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
