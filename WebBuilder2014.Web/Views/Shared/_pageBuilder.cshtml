@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="wbApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,9 +26,17 @@
 
         @RenderBody()
     <script src="~/Scripts/jquery-2.1.1.js"></script>
+    
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.1.js"></script>
-    <script src="~/Scripts/pagebuilder.js"></script>
+    <script src="~/Scripts/underscore.js"></script>
+    @*/*angular*/*@
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/app/wbApp.js"></script>
+    <script src="~/Scripts/app/directive/wbPage.js"></script>
+    <script src="~/Scripts/app/controller/wbController.js"></script>
+
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

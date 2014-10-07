@@ -1,0 +1,1 @@
+﻿var wbApp = angular.module('wbApp', []);
