@@ -112,7 +112,7 @@
                     <div class="form-group">
                         <div id="textPanel">
                             <div class="list-group">
-                                <div class="list-group-item" ng-repeat="editText in editTextList"><div ng-click="selectEditText(editText)"> {{edittext.text}}</div></div>
+                                <div class="list-group-item" ng-repeat="editText in editTextList"><div ng-click="selectEditText($index)"> {{editText.text}}</div></div>
                             </div>
                         </div>
                     </div>

@@ -63,8 +63,8 @@ wbApp.controller('wbController', function ($scope) {
             show: true
         });
     }
-    $scope.selectEditText = function (editText) {
-        window.console && console.log(editText.text) || alert(editText.text);
+    $scope.selectEditText = function (index) {
+        window.console && console.log($scope.editTextList[index].text) || alert($scope.editTextList[index].text);
     };
 
     /*########################################################################################################helper function*/
