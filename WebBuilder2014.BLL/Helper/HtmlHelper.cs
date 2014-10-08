@@ -27,7 +27,7 @@ namespace WebBuilder2014.BLL.Helper
         private static void ConvertDocumentNode(HtmlNode html, NodeModel node, NodeModel parent)
         {
             node.Type = html.Name;
-            if (html.Name.Equals("#text"))
+            if (html.Name.Equals("#text") && !parent.Type.Equals("style") && !parent.Type.Equals("script"))
             {
                 if (currentNode == null)
                 {
