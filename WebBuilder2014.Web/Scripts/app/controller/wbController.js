@@ -13,7 +13,7 @@ String.prototype.short = function (i) {
 };
 /*########################################################################################################global variable*/
 var uid = 0;
-var currentSection = null;
+
 var tempContent = '';
 var currentNode = null;
 var currntTextList = null;
@@ -184,14 +184,16 @@ wbApp.controller('wbController', function ($scope) {
     }
 
     $scope.sortableStop=function (event, ui) {
-        currentSection = ui.item;
-        $.get("/api/page/" + currentSection.attr('sid'), function (data) {
+        currentNode = ui.item;
+        $.get("/api/page/" + currentNode.attr('sid'), function (data) {
             tempContent = '';
             $scope.getHtml(data);
-            currentSection.html(tempContent);
-            $scope.triggerJs(currentSection.attr('sid'));
+            currentNode.html(tempContent);
+            $('.selectedNode').removeClass('selectedNode');
+            currentNode.addClass("selectedNode");
+            $scope.triggerJs(currentNode.attr('sid'));
             //layout
-            currentSection.find('.wb_sortable').sortable({
+            currentNode.find('.wb_sortable').sortable({
                 revert: true,
                 placeholder: "ui-state-placeholder",
                 stop: $scope.sortableStop
@@ -200,5 +202,9 @@ wbApp.controller('wbController', function ($scope) {
         }).fail(function () {
             alert('fail');
         });
+    }
+
+    $scope.searchImage = function () {
+
     }
 });

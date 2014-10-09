@@ -63,10 +63,8 @@
   #wb_EditTextModal #textPanel .list-group-item {
     cursor: pointer; }
 
-#wb_EditImageModal #imagePanel {
-  width: 300px; }
-  #wb_EditImageModal #imagePanel .editImageItem img {
-    width: 250px; }
+#wb_EditImageModal #imagePanel .editImageItem img {
+  width: 100%; }
 #wb_EditImageModal .modal-dialog {
   width: 850px; }
 

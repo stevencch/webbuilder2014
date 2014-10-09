@@ -130,20 +130,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <form role="form">
-                            <div class="form-group">
-                                <div id="imagePanel">
-                                    <div class="list-group">
-                                        <div class="list-group-item" ng-repeat="editImage in editImageList">
-                                            <div class="editImageItem editImageItem-{{$index}}" ng-click="selectEditImage($index)">
-                                                <div><img ng-src="{{editImage.image}}" /></div>
-                                                <div class="imageSize">{{editImage.width}} X {{editImage.height}}</div>
-                                            </div>
+                        <div class="form-group">
+                            <div id="imagePanel">
+                                <div class="list-group">
+                                    <div class="list-group-item" ng-repeat="editImage in editImageList">
+                                        <div class="editImageItem editImageItem-{{$index}}" ng-click="selectEditImage($index)">
+                                            <div><img ng-src="{{editImage.image}}" /></div>
+                                            <div class="imageSize">{{editImage.width}} X {{editImage.height}}</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-md-8 imagePanel">
                         <!-- Nav tabs -->
@@ -154,13 +152,14 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="search">
-                                <form role="form" class="form-inline">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="textSearch" placeholder="Search">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-sm" id="btnSearch">Search</button>
-                                    </div>
+                                <form role="form">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="textSearch" placeholder="Search">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button type="button" class="btn btn-primary btn-sm" id="btnSearch" ng-click="searchImage" >Search</button>
+                                        </div>
                                 </form>
                                 <div id="searchPanel" class="clearfix"></div>
                             </div>
