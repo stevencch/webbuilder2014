@@ -110,6 +110,14 @@
             border:1px solid blue;
         }
     }
+    #uploadPanel{
+        .uploadImage{
+            width:500px;
+            img{
+                width:100%;
+            }
+        }
+    }
     #myFolderPanel{
         .wb_MyFolderImage{
             width:120px;

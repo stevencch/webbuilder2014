@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using WebBuilder2014.Common.Model;
+using WebGrease.Css.Extensions;
 
 namespace WebBuilder2014.Web.api
 {
@@ -56,19 +57,19 @@ namespace WebBuilder2014.Web.api
             if (httpRequest.Files.Count > 0)
             {
                 var files = new List<ImageModel>();
-
+                Directory.GetFiles(ImageController.Path + ImageController.myTempPath).ForEach(x=>File.Delete(x));
                 // interate the files and save on the server
                 foreach (string f in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[f];
-                    var filePath = ImageController.Path + ImageController.myFolderPath + postedFile.FileName;
+                    var filePath = ImageController.Path + ImageController.myTempPath + postedFile.FileName;
                     postedFile.SaveAs(filePath);
                     var file = new FileInfo(filePath);
                     var image = Image.FromFile(file.FullName);
                     files.Add(new ImageModel()
                     {
                         Id = 0,
-                        Url = imagePath + file.Name,
+                        Url = ImageController.myTempPath + file.Name,
                         Name = file.Name,
                         Height = image.Height,
                         Width = image.Width,
@@ -94,8 +95,8 @@ namespace WebBuilder2014.Web.api
             var files = new List<ImageModel>();
             try
             {
-                var filePath = ImageController.Path + ImageController.myTempPath + "new_" + cropImage.Name;
-                using (FileStream fs = new FileStream(filePath, FileMode.CreateNew))
+                var filePath = ImageController.Path + ImageController.myFolderPath + "new_" + cropImage.Name;
+                using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
                 {
                     fs.Write(bytes, 0, bytes.Count());
                     fs.Flush();
@@ -105,7 +106,7 @@ namespace WebBuilder2014.Web.api
                 files.Add(new ImageModel()
                 {
                     Id = 0,
-                    Url = myTempPath + file.Name,
+                    Url = myFolderPath + file.Name,
                     Name = file.Name,
                     Height = image.Height,
                     Width = image.Width,
@@ -120,8 +121,9 @@ namespace WebBuilder2014.Web.api
         }
 
         [Route("api/image/move")]
-        public HttpResponseMessage Move(string url)
+        public HttpResponseMessage Move(GenericModel model)
         {
+            string url = model.String1;
             File.Copy(Path + url, Path + myFolderPath +  url.ToLower().Replace(imagePath,"new_").Replace("/","_"),true);
             return Request.CreateResponse(HttpStatusCode.OK, "new_" + url.ToLower().Replace(imagePath, "new_").Replace("/", "_"));
         }

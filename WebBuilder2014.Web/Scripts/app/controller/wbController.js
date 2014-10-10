@@ -286,6 +286,7 @@ wbApp.controller('wbController', function ($scope) {
     }
 
     $scope.uploadImage = function () {
+        $('#btnUpload').html("");
         $('#btnUpload').html("Uploading...");
         var formData = new FormData();
         var opmlFile = $('#fileUpload')[0];
@@ -299,7 +300,11 @@ wbApp.controller('wbController', function ($scope) {
             processData: false
         }).done(function (data) {
             $('#btnUpload').html("Upload");
-            $('#uploadPanel').html('<div><img src="'+data[0].Url+'"/></div><div class="imageSize">'+data[0].Width+' X '+data[0].Height+'</div>');
+            selectedSearchImage = {
+                Name: data[0].Name,
+                Url: data[0].Url
+            };
+            $('#uploadPanel').html('<div class="uploadImage"><img src="'+data[0].Url+'"/></div><div class="imageSize">'+data[0].Width+' X '+data[0].Height+'</div>');
         }).fail(function () {
             alert('fail');
             $('#btnUpload').html("Upload");
@@ -323,12 +328,13 @@ wbApp.controller('wbController', function ($scope) {
         selectedMyFolderImage = $scope.myfolderImageList[index];
     };
 
+    //save to my folder
     $scope.saveImage = function () {
         $.ajax({
             type: 'POST',
             dataType: "json",
             url: '/api/image/move',
-            data: JSON.stringify({ url: selectedSearchImage.Url }),
+            data: JSON.stringify({ String1: selectedSearchImage.Url }),
             contentType: "application/json; charset=utf-8"
         }).done(function () {
             $('#myFolderTab').tab('show');

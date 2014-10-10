@@ -73,6 +73,10 @@
     width: 100%; }
 #wb_EditImageModal #searchPanel .selected {
   border: 1px solid blue; }
+#wb_EditImageModal #uploadPanel .uploadImage {
+  width: 500px; }
+  #wb_EditImageModal #uploadPanel .uploadImage img {
+    width: 100%; }
 #wb_EditImageModal #myFolderPanel .wb_MyFolderImage {
   width: 120px;
   float: left;
