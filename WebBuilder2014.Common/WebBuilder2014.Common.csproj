@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Entity\PageSection.cs" />
     <Compile Include="Model\AttributeModel.cs" />
+    <Compile Include="Model\CropImageModel.cs" />
     <Compile Include="Model\ImageModel.cs" />
     <Compile Include="Model\NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

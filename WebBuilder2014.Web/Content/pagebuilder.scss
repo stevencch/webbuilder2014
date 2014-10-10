@@ -97,6 +97,32 @@
             width:100%;
         }
     }
+    #searchPanel{
+        .wb_searchImage{
+            width:120px;
+            float:left;
+            margin:5px 2px;
+            img{
+                width:100%;
+            }
+        }
+        .selected{
+            border:1px solid blue;
+        }
+    }
+    #myFolderPanel{
+        .wb_MyFolderImage{
+            width:120px;
+            float:left;
+            margin:5px 2px;
+            img{
+                width:100%;
+            }
+        }
+        .selected{
+            border:1px solid blue;
+        }
+    }
     .modal-dialog{
         width:850px;
     }

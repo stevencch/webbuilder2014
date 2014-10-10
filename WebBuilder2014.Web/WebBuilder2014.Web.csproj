@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8854.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
@@ -240,6 +241,7 @@
     <Content Include="Content\pagebuilder.min.css">
       <DependentUpon>pagebuilder.css</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\cropbox\jquery.cropbox.css" />
     <Content Include="Content\templates\t00\section0005.html" />
     <Content Include="Content\templates\t00\section0006.html" />
     <Content Include="Content\templates\t00\section0007.html" />
@@ -582,6 +584,8 @@
     <Content Include="Scripts\jquery-ui-1.11.1.js" />
     <Content Include="Scripts\jquery-ui.min-1.11.1.js" />
     <Content Include="Scripts\jquery.contextMenu.js" />
+    <Content Include="Scripts\jquery.cropbox.js" />
+    <Content Include="Scripts\jquery.mousewheel.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -800,6 +804,8 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\image_folder\myfolder\" />
+    <Folder Include="Content\image_folder\mytemp\" />
     <Folder Include="Content\templates\t01\assets\css\img\" />
     <Folder Include="Content\templates\t01\assets\css\themes\headers\" />
     <Folder Include="Content\templates\t01\assets\plugins\blockHover\css\" />

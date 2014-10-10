@@ -19,7 +19,17 @@ var currentNode = null;
 var currntTextList = null;
 var currentEditText = null;
 var currntImageList = null;
+var currentImageNode = null;
 var currentEditImage = null;
+var currentSelectedImage = null;
+var imageLoadStep = 0;
+var imageLoadStepTry = 3;
+var imageLoadCount = 50;
+var imageUrl = [];
+var imageLoad = [];
+var selectedSearchImage = null;
+var selectedMyFolderImage = null;
+
 
 wbApp.controller('wbController', function ($scope) {
     //########################################################################################################init
@@ -74,7 +84,30 @@ wbApp.controller('wbController', function ($scope) {
         $("#wb_EditImageModal").draggable({
             handle: ".modal-title"
         });
+
+        $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
     };
+
+    $scope.sortableStop = function (event, ui) {
+        currentNode = ui.item;
+        $.get("/api/page/" + currentNode.attr('sid'), function (data) {
+            tempContent = '';
+            $scope.getHtml(data);
+            currentNode.html(tempContent);
+            $('.selectedNode').removeClass('selectedNode');
+            currentNode.addClass("selectedNode");
+            $scope.triggerJs(currentNode.attr('sid'));
+            //layout
+            currentNode.find('.wb_sortable').sortable({
+                revert: true,
+                placeholder: "ui-state-placeholder",
+                stop: $scope.sortableStop
+            });
+
+        }).fail(function () {
+            alert('fail');
+        });
+    }
     //########################################################################################################edit text
     $scope.editTextList = [];
     $scope.editText = function () {
@@ -105,7 +138,11 @@ wbApp.controller('wbController', function ($scope) {
         });
     };
     //########################################################################################################edit image
+    $scope.cropwidth = 0;
+    $scope.cropheight = 0;
     $scope.editImageList = [];
+    $scope.searchImageList = [];
+    $scope.myfolderImageList = [];
     $scope.editImage = function () {
         $scope.updateEditImageList();
         $('#wb_EditImageModal').modal({
@@ -114,14 +151,13 @@ wbApp.controller('wbController', function ($scope) {
         });
     }
     $scope.selectEditImage = function (index) {
-        currentEditImage=$(currntImageList[index]);
+        currentImageNode = $(currntImageList[index]);
+        currentEditImage = $scope.editImageList[index];
         $('.editImageItem').removeClass('active');
-        $('.editImageItem-' + index).addClass('active');
+        $('.editImageItem-'+index).addClass('active');
+        $scope.cropwidth = currentEditImage.width;
+        $scope.cropheight = currentEditImage.height;
     };
-    $scope.saveEditImage = function () {
-        
-        $scope.updateEditImageList();
-    }
 
     $scope.updateEditImageList = function () {
         currntImageList = currentNode.find("*[imgid]");
@@ -135,6 +171,177 @@ wbApp.controller('wbController', function ($scope) {
             })
         });
     };
+
+    $scope.searchImage = function () {
+        currentSelectedImage = null;
+        $('#btnSearch').html("Loading...");
+        $('#searchPanel .content').hide();
+        $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip=0',
+            function (data) {
+                var count = 0;
+                _.each(data, function (item) {
+                    imageUrl[count] = item.Url;
+                    count++;
+                });
+                $scope.searchImageList = data;
+                $scope.$apply();
+                imageLoadStep = 0;
+                setTimeout(loadImage, 3000);
+            })
+            .fail(function () {
+                alert('fail');
+            });
+    }
+
+    function loadImage() {
+        imageLoadStep++;
+        var allPass = true;
+        for (var i = 0; i < imageLoadCount; i++) {
+            if (imageUrl[i] != null) {
+                imageLoad[i] = new Image();
+                imageLoad[i].onload = showImage(i);
+                imageLoad[i].alt = imageUrl[i].replace('/content/image_folder/', '').replace('/', '_');
+                imageLoad[i].src = imageUrl[i];
+                allPass = false;
+            }
+        }
+        if (!allPass && imageLoadStep <= imageLoadStepTry) {
+            window.console && console.log(imageLoadStep);
+            setTimeout(loadImage, 3000);
+        } else {
+            $('#btnSearch').html('Search');
+            $('#searchPanel .content').show();
+        }
+    }
+
+    function showImage(id) {
+        return function () {
+            displayImage(id);
+        };
+    }
+
+    function displayImage(id) {
+       // window.console && console.log(id);
+        $('.wb_searchImage-' + id + ' .imagePlaceHolder').append(imageLoad[id]);
+        $('.wb_searchImage-' + id).show();
+        imageUrl[id] = null;
+    }
+
+    $scope.selectSearchImage = function (index) {
+        $('.wb_searchImage').removeClass('selected');
+        $('.wb_searchImage-' + index).addClass('selected');
+        selectedSearchImage = $scope.searchImageList[index];
+    };
+
+    
+    $scope.cropImage = function () {
+        $('#wb_EditImageModal').modal('hide');
+        $('#wb_CropImage').attr('src', selectedSearchImage.Url);
+        $('#wb_CropImageModal .modal-dialog').width((parseInt($scope.cropwidth) + 50) + 'px');
+        $('#wb_CropImageModal').modal({
+            backdrop: false,
+            show: true
+        });
+        cropdata = '';
+        $('#wb_CropImage').cropbox({ width: $scope.cropwidth, height: $scope.cropheight, showControls: 'auto' })
+            .on('cropbox', function (event, results, img) {
+                $('.cropX').text(results.cropX);
+                $('.cropY').text(results.cropY);
+                $('.cropW').text(results.cropW);
+                $('.cropH').text(results.cropH);
+                cropdata = img.getDataURL();
+            });
+    }
+
+    $scope.saveCropImage = function () {
+        $('#btnSaveCropImage').html('Saving...');
+        if (cropdata) {
+            var imageData = {
+                Name: selectedSearchImage.Name,
+                Data: cropdata
+            }
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: '/api/image/save',
+                data: JSON.stringify(imageData),
+                contentType: "application/json; charset=utf-8"
+            }).done(function () {
+                $('#wb_CropImageModal').modal('hide');
+                $('#wb_EditImageModal').modal({
+                    backdrop: false,
+                    show: true
+                });
+                $('#myFolderTab').tab('show');
+                $scope.showMyFolder();
+                $('#btnSaveCropImage').html('Save To My Folder');
+            }).fail(function () {
+                alert('fail');
+                $('#btnSaveCropImage').html('Save To My Folder');
+            });
+        }
+        else {
+            alert('please crop the image.')
+        }
+    }
+
+    $scope.uploadImage = function () {
+        $('#btnUpload').html("Uploading...");
+        var formData = new FormData();
+        var opmlFile = $('#fileUpload')[0];
+        formData.append("uploadFile", opmlFile.files[0]);
+        $.ajax({
+            url: '/api/image',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function (data) {
+            $('#btnUpload').html("Upload");
+            $('#uploadPanel').html('<div><img src="'+data[0].Url+'"/></div><div class="imageSize">'+data[0].Width+' X '+data[0].Height+'</div>');
+        }).fail(function () {
+            alert('fail');
+            $('#btnUpload').html("Upload");
+        });
+    }
+
+    $scope.showMyFolder = function () {
+        $.get('/api/image/1',
+            function (data) {
+                $scope.myfolderImageList = data;
+                $scope.$apply();
+            })
+            .fail(function () {
+                alert('fail');
+            });
+    }
+
+    $scope.selectMyFolderImage = function (index) {
+        $('.wb_MyFolderImage').removeClass('selected');
+        $('.wb_MyFolderImage-' + index).addClass('selected');
+        selectedMyFolderImage = $scope.myfolderImageList[index];
+    };
+
+    $scope.saveImage = function () {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: '/api/image/move',
+            data: JSON.stringify({ url: selectedSearchImage.Url }),
+            contentType: "application/json; charset=utf-8"
+        }).done(function () {
+            $('#myFolderTab').tab('show');
+            $scope.showMyFolder();
+        }).fail(function () {
+            alert('fail');
+        });
+    }
+
+    $scope.updateImage = function () {
+        currentImageNode.attr('src', selectedMyFolderImage.Url);
+        $scope.updateEditImageList();
+    }
     /*########################################################################################################helper function*/
     $scope.getHtml=function(node) {
         if (node.Type != '#text') {
@@ -183,28 +390,7 @@ wbApp.controller('wbController', function ($scope) {
         }
     }
 
-    $scope.sortableStop=function (event, ui) {
-        currentNode = ui.item;
-        $.get("/api/page/" + currentNode.attr('sid'), function (data) {
-            tempContent = '';
-            $scope.getHtml(data);
-            currentNode.html(tempContent);
-            $('.selectedNode').removeClass('selectedNode');
-            currentNode.addClass("selectedNode");
-            $scope.triggerJs(currentNode.attr('sid'));
-            //layout
-            currentNode.find('.wb_sortable').sortable({
-                revert: true,
-                placeholder: "ui-state-placeholder",
-                stop: $scope.sortableStop
-            });
+    
 
-        }).fail(function () {
-            alert('fail');
-        });
-    }
-
-    $scope.searchImage = function () {
-
-    }
+    
 });

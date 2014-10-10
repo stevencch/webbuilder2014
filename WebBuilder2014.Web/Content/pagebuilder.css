@@ -65,6 +65,22 @@
 
 #wb_EditImageModal #imagePanel .editImageItem img {
   width: 100%; }
+#wb_EditImageModal #searchPanel .wb_searchImage {
+  width: 120px;
+  float: left;
+  margin: 5px 2px; }
+  #wb_EditImageModal #searchPanel .wb_searchImage img {
+    width: 100%; }
+#wb_EditImageModal #searchPanel .selected {
+  border: 1px solid blue; }
+#wb_EditImageModal #myFolderPanel .wb_MyFolderImage {
+  width: 120px;
+  float: left;
+  margin: 5px 2px; }
+  #wb_EditImageModal #myFolderPanel .wb_MyFolderImage img {
+    width: 100%; }
+#wb_EditImageModal #myFolderPanel .selected {
+  border: 1px solid blue; }
 #wb_EditImageModal .modal-dialog {
   width: 850px; }
 

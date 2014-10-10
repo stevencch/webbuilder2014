@@ -146,66 +146,104 @@
                     <div class="col-md-8 imagePanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#search" role="tab" data-toggle="tab">Search</a></li>
-                            <li><a href="#myFolder" role="tab" data-toggle="tab" id="myFolderTab">My Folder</a></li>
+                            <li class="active"><a href="#wb_search" role="tab" data-toggle="tab">Search</a></li>
+                            <li><a href="#wb_upload" role="tab" data-toggle="tab">Upload</a></li>
+                            <li><a href="#wb_myFolder" role="tab" data-toggle="tab" id="myFolderTab">My Folder</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="search">
+                            <div class="tab-pane active" id="wb_search">
                                 <form role="form">
                                     <div class="row">
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="textSearch" placeholder="Search">
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="textSearch" placeholder="Search">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm" id="btnSearch" ng-click="searchImage()">Search</button>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <button type="button" class="btn btn-primary btn-sm" id="btnSearch" ng-click="searchImage" >Search</button>
-                                        </div>
+                                    </div>
                                 </form>
-                                <div id="searchPanel" class="clearfix"></div>
+                                <div id="searchPanel" class="clearfix">
+                                    <div class="clearfix content">
+                                        <div ng-repeat="image in searchImageList">
+                                            <div class="wb_searchImage wb_searchImage-{{$index}}">
+                                                <div class='imagePlaceHolder' ng-click="selectSearchImage($index)"></div>
+                                                <div class='imageSize'>
+                                                    {{image.Width}} X {{image.Height}}
+                                                </div>
+                                            </div>
+                                            <div ng-class="($index>0 && ($index+1)%4==0) && 'clearfix' || ''"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane" id="myFolder">
+                            <div class="tab-pane" id="wb_upload">
                                 <form role="form" class="form-inline" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="file" class="form-control" id="fileUpload">
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-sm" id="btnUpload">Upload</button>
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <input type="file" class="form-control" id="fileUpload">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-primary btn-sm" id="btnUpload" ng-click="uploadImage()">Upload</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
-                                <div id="myFolderPanel" class="clearfix"></div>
+                                <div id="uploadPanel" class="clearfix"></div>
+                            </div>
+                            <div class="tab-pane" id="wb_myFolder">
+                                <div id="myFolderPanel" class="clearfix">
+                                    <div class="clearfix content">
+                                        <div ng-repeat="image in myfolderImageList">
+                                            <div class="wb_MyFolderImage wb_MyFolderImage-{{$index}}">
+                                                <div class='imagePlaceHolder' ng-click="selectMyFolderImage($index)">
+                                                    <img src="{{image.Url}}" />
+                                                </div>
+                                                <div class='imageSize'>
+                                                    {{image.Width}} X {{image.Height}}
+                                                </div>
+                                            </div>
+                                            <div ng-class="($index>0 && ($index+1)%4==0) && 'clearfix' || ''"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-xs-9">
-                        <form role="form" class="form-inline cropForm">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="txtCropWidth" placeholder="Width">
-                            </div>
-                            <div class="form-group">
-                                X
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="txtCropHeight" placeholder="Height">
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary" id="btnCropImage">Crop</button>
-                            </div>
-                        </form>
 
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtCropWidth" ng-value="cropwidth" />
                     </div>
-                    <div class="col-xs-3">
-                        <button type="button" class="btn btn-primary" id="btnImageSave">Save</button>
+                    <div class="col-sm-1">
+                        X
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="txtCropHeight" ng-value="cropheight">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" id="btnCropImage" ng-click="cropImage()">Crop</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="saveImage()">Save To My Folder</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="updateImage()">Update Image</button>
                     </div>
                 </div>
 
-
             </div>
+
+
         </div>
     </div>
+</div>
 </div>
 <!-- Image crop Modal -->
 <div class="modal fade" id="wb_CropImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -216,7 +254,7 @@
                 <h4 class="modal-title" id="myModalLabel">CROP IMAGE</h4>
             </div>
             <div class="modal-body">
-                <img src="#" alt="" id="pbCropImage" />
+                <img src="#" alt="" id="wb_CropImage" />
                 <div class="results">
                     <b>X</b>: <span class="cropX"></span>
                     <b>Y</b>: <span class="cropY"></span>
@@ -224,7 +262,7 @@
                     <b>H</b>: <span class="cropH"></span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnSaveCropImage">Save To My Folder</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveCropImage" ng-click="saveCropImage()">Save To My Folder</button>
                 </div>
             </div>
         </div>
