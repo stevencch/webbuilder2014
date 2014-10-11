@@ -190,6 +190,8 @@ wbApp.controller('wbController', function ($scope) {
     };
     $scope.saveEditText = function () {
         currentEditText.html(tinymce.activeEditor.getContent());
+        $scope.searchNode($scope.rootNode, 'txtid', currentEditText.attr('txtid'));
+        $scope.currentJsonNode.Children[0].Content = tinymce.activeEditor.getContent();
         $scope.updateEditTextList();
     }
 
@@ -200,7 +202,7 @@ wbApp.controller('wbController', function ($scope) {
             $scope.editTextList.push({
                 txtid: $(item).attr('txtid'),
                 text: item.innerHTML.replace(/<[^>]*>/g, ' ').short(40)
-            })
+            });
         });
     };
     //########################################################################################################edit image
@@ -413,6 +415,12 @@ wbApp.controller('wbController', function ($scope) {
     $scope.updateImage = function () {
         currentImageNode.attr('src', selectedMyFolderImage.Url);
         $scope.updateEditImageList();
+        $scope.searchNode($scope.rootNode, 'imgid', currentImageNode.attr('imgid'));
+        _.each($scope.currentJsonNode.Attributes, function(item) {
+            if (item.Key == 'src') {
+                item.Value = selectedMyFolderImage.Url;
+            }
+        });
     }
     /*########################################################################################################helper function*/
     $scope.getHtml = function (node) {
