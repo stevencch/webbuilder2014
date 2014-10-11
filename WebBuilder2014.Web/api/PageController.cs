@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using WebBuilder2014.BLL;
+using WebBuilder2014.Common.Model;
 
 namespace WebBuilder2014.Web.api
 {
@@ -37,9 +38,31 @@ namespace WebBuilder2014.Web.api
             }
         }
 
-        // POST: api/Page
-        public void Post([FromBody]string value)
+        // GET: api/Page/5
+        [Route("api/page/load")]
+        public HttpResponseMessage GetLoad()
         {
+            var section = service.GetWBPageByCode("default");
+            if (section != null)
+            {
+                var resp = new HttpResponseMessage()
+                {
+                    Content = new StringContent(section.Json)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return resp;
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No Section");
+            }
+        }
+
+        // POST: api/Page
+        public void Post(NodeModel node)
+        {
+            service.UpdateWBPage("default",node);
+
         }
 
         // PUT: api/Page/5

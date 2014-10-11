@@ -76,15 +76,21 @@
 <div id="wb_toolbar">
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group">
+            <button type="button" class="btn btn-default" id="btnEditText" ng-click="newPage()">New Page</button>
+            <button type="button" class="btn btn-default" ng-click="openPage()">Open Page</button>
+            <button type="button" class="btn btn-default" ng-click="savePage()">Save Page</button>
+        </div>
+        <div class="btn-group">
             <button type="button" class="btn btn-default" id="btnEditText" ng-click="editText()">Edit Text</button>
             <button type="button" class="btn btn-default" ng-click="editImage()">Edit Image</button>
             <button type="button" class="btn btn-default" ng-click="editSetting()">Settings</button>
         </div>
+        
     </div>
 </div>
 <div id="wb_pagebuilder">
     <div class="wb_pagesection">PAGE TOP</div>
-    <div class="wb_sortable row">
+    <div class="wb_sortable row" wb_id="rootNode" id="rootNode">
     </div>
     <div class="wb_pagesection">PAGE BOTTOM</div>
 </div>

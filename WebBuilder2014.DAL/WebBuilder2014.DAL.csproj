@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201410050148375_json-ntext.Designer.cs">
       <DependentUpon>201410050148375_json-ntext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410110217163_wppage.cs" />
+    <Compile Include="Migrations\201410110217163_wppage.Designer.cs">
+      <DependentUpon>201410110217163_wppage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="WBDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410050148375_json-ntext.resx">
       <DependentUpon>201410050148375_json-ntext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410110217163_wppage.resx">
+      <DependentUpon>201410110217163_wppage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

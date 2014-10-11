@@ -27,9 +27,9 @@ namespace WebBuilder2014.BLL.Helper
         private static void ConvertDocumentNode(HtmlNode html, NodeModel node, NodeModel parent)
         {
             node.Type = html.Name;
-            if (html.Name.Equals("#text") && !parent.Type.Equals("style") && !parent.Type.Equals("script"))
+            if (html.Name.Equals("#text"))
             {
-                if (currentNode == null)
+                if (currentNode == null && !parent.Type.Equals("style") && !parent.Type.Equals("script"))
                 {
                     parent.Attributes.Add(new AttributeModel()
                     {
@@ -40,6 +40,11 @@ namespace WebBuilder2014.BLL.Helper
                 node.Content = html.InnerText;
             }
             node.Attributes = html.Attributes.Select(x => new AttributeModel() { Key = x.Name, Value = x.Value }).ToList();
+            var wb_id = node.Attributes.Where(x => x.Key.Equals("wb_id")).FirstOrDefault();
+            if (wb_id != null)
+            {
+                wb_id.Value = Guid.NewGuid().ToString().Replace("-", "");
+            }
             var href = node.Attributes.Where(x => x.Key.Equals("href")).FirstOrDefault();
             var hrefskip = node.Attributes.Where(x => x.Key.Equals("hrefskip")).FirstOrDefault();
             if (node.Type == "a" && href != null && hrefskip == null)

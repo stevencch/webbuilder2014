@@ -13,6 +13,8 @@ namespace WebBuilder2014.DAL
     {
         public DbSet<PageSection> PageSections { get; set; }
 
+        public DbSet<WBPage> WBPages { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();

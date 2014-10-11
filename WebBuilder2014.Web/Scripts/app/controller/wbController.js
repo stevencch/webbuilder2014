@@ -32,6 +32,70 @@ var selectedMyFolderImage = null;
 
 
 wbApp.controller('wbController', function ($scope) {
+    //########################################################################################################global
+    $scope.rootNode = {
+        Type: 'div',
+        Attributes: [
+            {
+                Key: 'id',
+                Value: 'rootNode'
+            }
+        ,
+             {
+                 Key: 'wb_id',
+                 Value: 'rootNode'
+             }
+        ],
+        Children: []
+    };
+
+    $scope.currentJsonNode = null;
+    $scope.isFound = false;
+
+    //########################################################################################################page function
+    $scope.newPage = function () {
+        $scope.rootNode = {
+            Type: 'div',
+            Attributes: [
+                {
+                    Key: 'id',
+                    Value: 'rootNode'
+                },
+                {
+                    Key: 'wb_id',
+                    Value: 'rootNode'
+                }
+            ],
+            Children: []
+        };
+    };
+
+
+    $scope.openPage = function () {
+        $.get("/api/page/load", function (data) {
+            tempContent = '';
+            $scope.rootNode = data;
+            $scope.getHtml(data);
+            $('#rootNode').html(tempContent);
+        }).fail(function () {
+            alert('fail');
+        });
+    };
+    
+    $scope.savePage = function () {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: '/api/page',
+            data: JSON.stringify($scope.rootNode),
+            contentType: "application/json; charset=utf-8"
+        }).done(function () {
+            alert('saved');
+        }).fail(function () {
+            alert('fail');
+        });
+    };
+
     //########################################################################################################init
     $scope.afterRender = function () {
         //pagebuilder
@@ -90,8 +154,10 @@ wbApp.controller('wbController', function ($scope) {
 
     $scope.sortableStop = function (event, ui) {
         currentNode = ui.item;
+        $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
         $.get("/api/page/" + currentNode.attr('sid'), function (data) {
             tempContent = '';
+            $scope.currentJsonNode.Children.push(data);
             $scope.getHtml(data);
             currentNode.html(tempContent);
             $('.selectedNode').removeClass('selectedNode');
@@ -119,7 +185,7 @@ wbApp.controller('wbController', function ($scope) {
     }
     $scope.selectEditText = function (index) {
         //(window.console && console.log($scope.editTextList[index].text)) || alert($scope.editTextList[index].text);
-        currentEditText=$(currntTextList[index]);
+        currentEditText = $(currntTextList[index]);
         tinymce.activeEditor.setContent(currentEditText.html());
     };
     $scope.saveEditText = function () {
@@ -154,7 +220,7 @@ wbApp.controller('wbController', function ($scope) {
         currentImageNode = $(currntImageList[index]);
         currentEditImage = $scope.editImageList[index];
         $('.editImageItem').removeClass('active');
-        $('.editImageItem-'+index).addClass('active');
+        $('.editImageItem-' + index).addClass('active');
         $scope.cropwidth = currentEditImage.width;
         $scope.cropheight = currentEditImage.height;
     };
@@ -167,7 +233,7 @@ wbApp.controller('wbController', function ($scope) {
                 imgid: $(item).attr('imgid'),
                 image: $(item).attr('src'),
                 width: item.width,
-                height:item.height
+                height: item.height
             })
         });
     };
@@ -221,7 +287,7 @@ wbApp.controller('wbController', function ($scope) {
     }
 
     function displayImage(id) {
-       // window.console && console.log(id);
+        // window.console && console.log(id);
         $('.wb_searchImage-' + id + ' .imagePlaceHolder').append(imageLoad[id]);
         $('.wb_searchImage-' + id).show();
         imageUrl[id] = null;
@@ -233,7 +299,7 @@ wbApp.controller('wbController', function ($scope) {
         selectedSearchImage = $scope.searchImageList[index];
     };
 
-    
+
     $scope.cropImage = function () {
         $('#wb_EditImageModal').modal('hide');
         $('#wb_CropImage').attr('src', selectedSearchImage.Url);
@@ -304,7 +370,7 @@ wbApp.controller('wbController', function ($scope) {
                 Name: data[0].Name,
                 Url: data[0].Url
             };
-            $('#uploadPanel').html('<div class="uploadImage"><img src="'+data[0].Url+'"/></div><div class="imageSize">'+data[0].Width+' X '+data[0].Height+'</div>');
+            $('#uploadPanel').html('<div class="uploadImage"><img src="' + data[0].Url + '"/></div><div class="imageSize">' + data[0].Width + ' X ' + data[0].Height + '</div>');
         }).fail(function () {
             alert('fail');
             $('#btnUpload').html("Upload");
@@ -349,7 +415,7 @@ wbApp.controller('wbController', function ($scope) {
         $scope.updateEditImageList();
     }
     /*########################################################################################################helper function*/
-    $scope.getHtml=function(node) {
+    $scope.getHtml = function (node) {
         if (node.Type != '#text') {
             tempContent += '<' + node.Type;
             if (node.Attributes) {
@@ -371,7 +437,7 @@ wbApp.controller('wbController', function ($scope) {
         }
     }
 
-    $scope.triggerJs=function (code) {
+    $scope.triggerJs = function (code) {
         switch (code) {
             case 's0101':
                 $('[data-hover="dropdown"]').dropdownHover();
@@ -396,7 +462,30 @@ wbApp.controller('wbController', function ($scope) {
         }
     }
 
-    
+    $scope.searchNode = function (node, attr, value) {
+        if ($scope.rootNode == node) {
+            $scope.currentJsonNode = null;
+            $scope.isFound = false;
+        }
+        if (node.Attributes) {
+            for (var i = 0; i < node.Attributes.length; i++) {
+                if (node.Attributes[i].Key == attr && node.Attributes[i].Value == value) {
+                    $scope.currentJsonNode = node;
+                    $scope.isFound = true;
+                    break;
+                }
+            }
+        }
+        if (!$scope.isFound && node.Children) {
+            for (var j = 0; j < node.Children.length; j++) {
+                $scope.searchNode(node.Children[j], attr, value);
+                if ($scope.isFound) {
+                    break;
+                }
+            }
+        }
+    }
 
-    
+
+
 });

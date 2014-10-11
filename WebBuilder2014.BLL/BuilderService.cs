@@ -45,5 +45,38 @@ namespace WebBuilder2014.BLL
                 //TODO: Logger error
             }
         }
+
+
+        public WBPage GetWBPageByCode(string code)
+        {
+            WBPage result = dbContext.WBPages.Where(x => x.Code.Equals(code)).FirstOrDefault();
+            return result;
+        }
+
+        public void UpdateWBPage(string code, NodeModel node)
+        {
+            try
+            {
+                WBPage result = GetWBPageByCode(code);
+                if (result != null)
+                {
+                    string json = Newtonsoft.Json.JsonConvert.SerializeObject(node);
+                    result.Json = json;
+                }
+                else
+                {
+                    dbContext.WBPages.Add(new WBPage()
+                    {
+                        Code = code,
+                        Json = Newtonsoft.Json.JsonConvert.SerializeObject(node)
+                    });
+                }
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                //TODO: Logger error
+            }
+        }
     }
 }
