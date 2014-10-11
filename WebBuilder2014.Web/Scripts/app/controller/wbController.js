@@ -77,12 +77,25 @@ wbApp.controller('wbController', function ($scope) {
             $scope.rootNode = data;
             $scope.getHtml(data);
             $('#rootNode').html(tempContent);
+            $(".wb_sortable").sortable({
+                revert: true,
+                placeholder: "ui-state-placeholder",
+                stop: $scope.sortableStop
+            });
+            var sectionids=_.map($('*[sectionid]'), function(item) {
+                return $(item).attr('sectionid');
+            });
+            var sectionidset = _.uniq(sectionids);
+            _.each(sectionidset, function(item) {
+                $scope.triggerJs(item);
+            });
         }).fail(function () {
             alert('fail');
         });
     };
     
     $scope.savePage = function () {
+        $scope.reorderNode($scope.rootNode);
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -95,6 +108,41 @@ wbApp.controller('wbController', function ($scope) {
             alert('fail');
         });
     };
+    
+    $scope.reorderNode=function(node)
+    {
+        if (node.Children.length > 1) {
+            var attribute = $scope.getAttribute(node, 'wb_id');
+            var children = $('*[wb_id="' + attribute.Value + '"]').find('*[wb_id]');
+            if (children.length > 0) {
+                var orderChildren = [];
+                for (var i = 0; i < children.length; i++) {
+                    orderChildren.push(
+                        {
+                            wd_id: $(children[i]).attr('wb_id'),
+                            order: i
+                        }
+                    );
+                }
+                var newOrder = _.sortBy(node.Children, function(item) {
+                    var order = _.find(orderChildren, function(c) {
+                        var result = c.wd_id == $scope.getAttribute(item, 'wb_id').Value;
+                        return result;
+                    }).order;
+                    return order;
+                });
+
+                node.Children = newOrder;
+                
+                _.each(node.Children, function (item) {
+                    $scope.reorderNode(item);
+                });
+            }
+        }
+        
+    };
+    
+
 
     //########################################################################################################init
     $scope.afterRender = function () {
@@ -154,25 +202,32 @@ wbApp.controller('wbController', function ($scope) {
 
     $scope.sortableStop = function (event, ui) {
         currentNode = ui.item;
-        $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
-        $.get("/api/page/" + currentNode.attr('sid'), function (data) {
-            tempContent = '';
-            $scope.currentJsonNode.Children.push(data);
-            $scope.getHtml(data);
-            currentNode.html(tempContent);
-            $('.selectedNode').removeClass('selectedNode');
-            currentNode.addClass("selectedNode");
-            $scope.triggerJs(currentNode.attr('sid'));
-            //layout
-            currentNode.find('.wb_sortable').sortable({
-                revert: true,
-                placeholder: "ui-state-placeholder",
-                stop: $scope.sortableStop
-            });
+        if (currentNode.attr('sid')) {
+            $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
+            $.get("/api/page/" + currentNode.attr('sid'), function(data) {
+                tempContent = '';
+                $scope.currentJsonNode.Children.push(data);
+                $scope.currentJsonNode.Attributes.push({
+                    Key: 'sectionid',
+                    Value: currentNode.attr('sid')
+                })
+                $scope.getHtml(data);
+                currentNode.html(tempContent);
+                $('.selectedNode').removeClass('selectedNode');
+                currentNode.addClass("selectedNode");
+                $scope.triggerJs(currentNode.attr('sid'));
+                currentNode.attr('sid', '');
+                //layout
+                currentNode.find('.wb_sortable').sortable({
+                    revert: true,
+                    placeholder: "ui-state-placeholder",
+                    stop: $scope.sortableStop
+                });
 
-        }).fail(function () {
-            alert('fail');
-        });
+            }).fail(function() {
+                alert('fail');
+            });
+        } 
     }
     //########################################################################################################edit text
     $scope.editTextList = [];
@@ -470,7 +525,7 @@ wbApp.controller('wbController', function ($scope) {
         }
     }
 
-    $scope.searchNode = function (node, attr, value) {
+    $scope.searchNode = function(node, attr, value) {
         if ($scope.rootNode == node) {
             $scope.currentJsonNode = null;
             $scope.isFound = false;
@@ -492,8 +547,18 @@ wbApp.controller('wbController', function ($scope) {
                 }
             }
         }
-    }
+    };
 
+    $scope.getAttribute = function(node, key) {
+        var value=null;
+        for (var i = 0; i < node.Attributes.length; i++) {
+            if (node.Attributes[i].Key == key) {
+                value = node.Attributes[i];
+                break;
+            }
+        }
+        return value;
+    };
 
 
 });
