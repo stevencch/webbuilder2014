@@ -19,12 +19,15 @@
         border: 1px solid blue;
         cursor: pointer;
     }
-    /*.ui-draggable-dragging {
-        width: 20%;
-        height:20%;
+    .ui-draggable-dragging {
+        width: 50px !important;
+        height:25px !important;
+        img{
+            width:100%;
+        }
     }
 
-    .ui-sortable-helper {
+    /*.ui-sortable-helper {
         width: 20% !important;
         height: 20% !important;
     }*/
@@ -44,6 +47,7 @@
 
     .wb_sortable {
         min-height: 30px;
+        padding:10px 0;
     }
 
     .wb_pipe {

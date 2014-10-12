@@ -152,10 +152,8 @@ wbApp.controller('wbController', function ($scope) {
             placeholder: "ui-state-placeholder",
             stop: $scope.sortableStop
         });
-        $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function () {
-            currentNode = $(this);
-            $('.selectedNode').removeClass('selectedNode');
-            currentNode.addClass("selectedNode");
+        $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
+            $scope.selectDraggable(e,this);
         });
 
 
@@ -164,8 +162,10 @@ wbApp.controller('wbController', function ($scope) {
         $("#wb_toolbox .accordion").accordion();
         $('.wb_draggable').draggable({
             connectToSortable: ".wb_sortable",
-            helper: "clone"
-        });
+            helper:'clone',
+            cursor: "crosshair",
+            cursorAt: { left: 55,top:30 }
+    });
 
         //modal
         tinymce.init({
@@ -196,11 +196,14 @@ wbApp.controller('wbController', function ($scope) {
         $("#wb_EditImageModal").draggable({
             handle: ".modal-title"
         });
+        $("#wb_SettingsModal").draggable({
+            handle: ".modal-title"
+        });
 
         $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
     };
 
-    $scope.sortableStop = function (event, ui) {
+    $scope.sortableStop = function(event, ui) {
         currentNode = ui.item;
         if (currentNode.attr('sid')) {
             $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
@@ -223,12 +226,22 @@ wbApp.controller('wbController', function ($scope) {
                     placeholder: "ui-state-placeholder",
                     stop: $scope.sortableStop
                 });
+                $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
+                    $scope.selectDraggable(e,this);
+                });
 
             }).fail(function() {
                 alert('fail');
             });
-        } 
-    }
+        }
+    };
+
+    $scope.selectDraggable = function(e,item) {
+        currentNode = $(item);
+        $('.selectedNode').removeClass('selectedNode');
+        currentNode.addClass("selectedNode");
+        e.stopPropagation();
+    };
     //########################################################################################################edit text
     $scope.editTextList = [];
     $scope.editText = function () {
@@ -467,7 +480,7 @@ wbApp.controller('wbController', function ($scope) {
         });
     }
 
-    $scope.updateImage = function () {
+    $scope.updateImage = function() {
         currentImageNode.attr('src', selectedMyFolderImage.Url);
         $scope.updateEditImageList();
         $scope.searchNode($scope.rootNode, 'imgid', currentImageNode.attr('imgid'));
@@ -476,21 +489,62 @@ wbApp.controller('wbController', function ($scope) {
                 item.Value = selectedMyFolderImage.Url;
             }
         });
+    };
+    //########################################################################################################edit settings
+    $scope.modelSettings = [];
+    $scope.editSettings = function () {
+        $scope.updateSettingsList();
+        $('#wb_SettingsModal').modal({
+            backdrop: false,
+            show: true
+        });
+    };
+    
+    $scope.updateSettingsList=function() {
+        var settingsList = currentNode.find('*[wb_settings]');
+        $scope.modelSettings = [];
+        _.each(settingsList, function (item) {
+            var setting = $.parseJSON($(item).attr('wb_settings').replace(/'/g, '"')).settings;
+            _.each(setting, function(s) {
+                $scope.modelSettings.push(s);
+            });
+        });
     }
+
     /*########################################################################################################helper function*/
     $scope.getHtml = function (node) {
         if (node.Type != '#text') {
             tempContent += '<' + node.Type;
+            var wb_settings = null;
+            var wb_settings_repeat = null;
             if (node.Attributes) {
                 tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
                     tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
+                    if (node.Attributes[j].Key == 'wb_settings') {
+                        wb_settings = $.parseJSON(node.Attributes[j].Value.replace(/'/g,'"')).settings;
+                        wb_settings_repeat = _.find(wb_settings, function(item) {
+                            return item.type == 'repeat';
+                        });
+                    }
                 }
             }
             tempContent += '>';
             if (node.Children) {
-                for (var j = 0; j < node.Children.length; j++) {
-                    $scope.getHtml(node.Children[j]);
+                if (wb_settings_repeat) {
+                    var i = node.Children.length;
+                    var k = 0;
+                    for (var j = 0; j < parseInt(wb_settings_repeat.value); j++) {
+                        $scope.getHtml(node.Children[k]);
+                        k++;
+                        if (k >= i) {
+                            k = 0;
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < node.Children.length; j++) {
+                        $scope.getHtml(node.Children[j]);
+                    }
                 }
             }
             tempContent += '</' + node.Type + '>';

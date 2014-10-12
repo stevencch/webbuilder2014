@@ -7,22 +7,46 @@
                 <img src="/Content/images/t00/s0001.png" alt="" />
             </div>
             <!--<div class="wb_draggable" sid="s0002">
-                <img src="/Content/images/t00/s0002.png" alt="" />
-            </div>
-            <div class="wb_draggable" sid="s0003">
-                <img src="/Content/images/t00/s0003.png" alt="" />
-            </div>-->
+                    <img src="/Content/images/t00/s0002.png" alt="" />
+                </div>
+                <div class="wb_draggable" sid="s0003">
+                    <img src="/Content/images/t00/s0003.png" alt="" />
+                </div>-->
             <!--<div class="wb_draggable" sid="s0004">
-                <img src="/Content/images/t00/s0004.png" alt="" />
-            </div>
-            <div class="wb_draggable" sid="s0005">
-                <img src="/Content/images/t00/s0005.png" alt="" />
-            </div>-->
+                    <img src="/Content/images/t00/s0004.png" alt="" />
+                </div>
+                <div class="wb_draggable" sid="s0005">
+                    <img src="/Content/images/t00/s0005.png" alt="" />
+                </div>-->
             <div class="wb_draggable" sid="s0006">
                 <img src="/Content/images/t00/s0006.png" alt="" />
             </div>
             <div class="wb_draggable" sid="s0007">
                 <img src="/Content/images/t00/s0007.png" alt="" />
+            </div>
+        </div>
+        <h3>Basic Item</h3>
+        <div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="wb_draggable" sid="s9901">
+                        <img src="/Content/images/t99/s9901.png" alt="" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="wb_draggable" sid="s9902">
+                        <img src="/Content/images/t99/s9902.png" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="wb_draggable" sid="s9903">
+                        <img src="/Content/images/t99/s9903.png" alt="" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                </div>
             </div>
         </div>
         <h3>Section 1</h3>
@@ -83,9 +107,9 @@
         <div class="btn-group">
             <button type="button" class="btn btn-default" id="btnEditText" ng-click="editText()">Edit Text</button>
             <button type="button" class="btn btn-default" ng-click="editImage()">Edit Image</button>
-            <button type="button" class="btn btn-default" ng-click="editSetting()">Settings</button>
+            <button type="button" class="btn btn-default" ng-click="editSettings()">Settings</button>
         </div>
-        
+
     </div>
 </div>
 <div id="wb_pagebuilder">
@@ -243,13 +267,9 @@
                         <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="updateImage()">Update Image</button>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
-</div>
 </div>
 <!-- Image crop Modal -->
 <div class="modal fade" id="wb_CropImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -275,7 +295,7 @@
     </div>
 </div>
 <!-- Setting Modal -->
-<div class="modal fade" id="wb_SettingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="wb_SettingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -284,13 +304,12 @@
             </div>
             <div class="modal-body">
                 <form id="settingsForm" role="form">
-                    @*<div class="form-group">
-                        <div id="textPanel">
+                    <div>
+                        <div class="row form-group" ng-repeat="setting in modelSettings">
+                            <div class="col-sm-8">{{setting.desc}}</div>
+                            <div class="col-sm-4"><input type="text" ng-value="{{setting.value}}" /></div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div id="textEditor"></div>
-                    </div>*@
                 </form>
             </div>
             <div class="modal-footer">

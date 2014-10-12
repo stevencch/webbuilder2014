@@ -256,6 +256,9 @@
     <Content Include="Content\images\t01\s0109.png" />
     <Content Include="Content\images\t01\s0110.png" />
     <Content Include="Content\images\t01\s0111.png" />
+    <Content Include="Content\images\t99\s9901.png" />
+    <Content Include="Content\images\t99\s9902.png" />
+    <Content Include="Content\images\t99\s9903.png" />
     <Content Include="Content\plugins\contextmenu\images\cut.png" />
     <Content Include="Content\plugins\contextmenu\images\door.png" />
     <Content Include="Content\plugins\contextmenu\images\page_white_add.png" />
@@ -529,6 +532,9 @@
     <Content Include="Content\templates\t01\section0109.html" />
     <Content Include="Content\templates\t01\section0110.html" />
     <Content Include="Content\templates\t01\section0111.html" />
+    <Content Include="Content\templates\t99\section9903.html" />
+    <Content Include="Content\templates\t99\section9902.html" />
+    <Content Include="Content\templates\t99\section9901.html" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

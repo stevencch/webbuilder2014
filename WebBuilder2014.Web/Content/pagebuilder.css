@@ -4,12 +4,7 @@
   right: 0;
   width: 300px;
   z-index: 99999;
-  /*.ui-draggable-dragging {
-        width: 20%;
-        height:20%;
-    }
-
-    .ui-sortable-helper {
+  /*.ui-sortable-helper {
         width: 20% !important;
         height: 20% !important;
     }*/ }
@@ -22,6 +17,11 @@
     margin: 5px 0;
     border: 1px solid blue;
     cursor: pointer; }
+  #wb_toolbox .ui-draggable-dragging {
+    width: 50px !important;
+    height: 25px !important; }
+    #wb_toolbox .ui-draggable-dragging img {
+      width: 100%; }
 
 #wb_pagebuilder {
   width: 1024px;
@@ -33,7 +33,8 @@
     color: #fff;
     margin: 15px 0; }
   #wb_pagebuilder .wb_sortable {
-    min-height: 30px; }
+    min-height: 30px;
+    padding: 10px 0; }
   #wb_pagebuilder .wb_pipe {
     border-right: 1px solid #aaa; }
   #wb_pagebuilder .oneline {
