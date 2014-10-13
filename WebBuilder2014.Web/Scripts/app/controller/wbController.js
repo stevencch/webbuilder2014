@@ -12,42 +12,28 @@ String.prototype.short = function (i) {
     return this.substr(0, i);
 };
 /*########################################################################################################global variable*/
-var uid = 0;
-
-var tempContent = '';
-var currentNode = null;
-var currntTextList = null;
-var currentEditText = null;
-var currntImageList = null;
-var currentImageNode = null;
-var currentEditImage = null;
-var currentSelectedImage = null;
-var imageLoadStep = 0;
-var imageLoadStepTry = 3;
-var imageLoadCount = 50;
-var imageUrl = [];
-var imageLoad = [];
-var selectedSearchImage = null;
-var selectedMyFolderImage = null;
 
 
 wbApp.controller('wbController', function ($scope) {
+    //########################################################################################################variables
+    $scope.tempContent = '';
+    $scope.currentNode = null;
+    $scope.currntTextList = null;
+    $scope.currentEditText = null;
+    $scope.currntImageList = null;
+    $scope.currentImageNode = null;
+    $scope.currentEditImage = null;
+    $scope.currentSelectedImage = null;
+    $scope.imageLoadStep = 0;
+    $scope.imageLoadStepTry = 3;
+    $scope.imageLoadCount = 50;
+    $scope.imageUrl = [];
+    $scope.imageLoad = [];
+    $scope.selectedSearchImage = null;
+    $scope.selectedMyFolderImage = null;
+
     //########################################################################################################global
-    $scope.rootNode = {
-        Type: 'div',
-        Attributes: [
-            {
-                Key: 'id',
-                Value: 'rootNode'
-            }
-        ,
-             {
-                 Key: 'wb_id',
-                 Value: 'rootNode'
-             }
-        ],
-        Children: []
-    };
+    $scope.rootNode = $scope.newPage();
 
     $scope.currentJsonNode = null;
     $scope.isFound = false;
@@ -66,33 +52,38 @@ wbApp.controller('wbController', function ($scope) {
                     Value: 'rootNode'
                 }
             ],
-            Children: []
+            Children: [],
+            Settings: []
         };
     };
 
 
     $scope.openPage = function () {
         $.get("/api/page/load", function (data) {
-            tempContent = '';
-            $scope.rootNode = data;
-            $scope.getHtml(data);
-            $('#rootNode').html(tempContent);
-            $(".wb_sortable").sortable({
-                revert: true,
-                placeholder: "ui-state-placeholder",
-                stop: $scope.sortableStop
-            });
-            var sectionids = _.map($('*[sectionid]'), function (item) {
-                return $(item).attr('sectionid');
-            });
-            var sectionidset = _.uniq(sectionids);
-            _.each(sectionidset, function (item) {
-                $scope.triggerJs(item);
-            });
+            $scope.loadPage(data);
         }).fail(function () {
             alert('fail');
         });
     };
+    
+    $scope.loadPage=function(data) {
+        $scope.tempContent = '';
+        $scope.rootNode = data;
+        $scope.getHtml(data);
+        $('#rootNode').html($scope.tempContent);
+        $(".wb_sortable").sortable({
+            revert: true,
+            placeholder: "ui-state-placeholder",
+            stop: $scope.sortableStop
+        });
+        var sectionids = _.map($('*[sectionid]'), function (item) {
+            return $(item).attr('sectionid');
+        });
+        var sectionidset = _.uniq(sectionids);
+        _.each(sectionidset, function (item) {
+            $scope.triggerJs(item);
+        });
+    }
 
     $scope.savePage = function () {
         $scope.reorderNode($scope.rootNode);
@@ -151,8 +142,8 @@ wbApp.controller('wbController', function ($scope) {
             placeholder: "ui-state-placeholder",
             stop: $scope.sortableStop
         });
-        $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
-            $scope.selectDraggable(e, this);
+        $('#wb_pagebuilder').delegate('.wb_node', 'click', function (e) {
+            $scope.selectNode(e, this);
         });
 
 
@@ -203,24 +194,24 @@ wbApp.controller('wbController', function ($scope) {
     };
 
     $scope.sortableStop = function (event, ui) {
-        currentNode = ui.item;
-        if (currentNode.attr('sid')) {
-            $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
-            $.get("/api/page/" + currentNode.attr('sid'), function (data) {
-                tempContent = '';
+        $scope.currentNode = ui.item;
+        if ($scope.currentNode.attr('sid')) {
+            $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
+            $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
+                $scope.tempContent = '';
                 $scope.currentJsonNode.Children.push(data);
                 $scope.currentJsonNode.Attributes.push({
                     Key: 'sectionid',
-                    Value: currentNode.attr('sid')
+                    Value: $scope.currentNode.attr('sid')
                 })
                 $scope.getHtml(data);
-                currentNode.html(tempContent);
+                $scope.currentNode.html($scope.tempContent);
                 $('.selectedNode').removeClass('selectedNode');
-                currentNode.addClass("selectedNode");
-                $scope.triggerJs(currentNode.attr('sid'));
-                currentNode.attr('sid', '');
+                $scope.currentNode.addClass("selectedNode");
+                $scope.triggerJs($scope.currentNode.attr('sid'));
+                $scope.currentNode.attr('sid', '');
                 //layout
-                currentNode.find('.wb_sortable').sortable({
+                $scope.currentNode.find('.wb_sortable').sortable({
                     revert: true,
                     placeholder: "ui-state-placeholder",
                     stop: $scope.sortableStop
@@ -235,11 +226,11 @@ wbApp.controller('wbController', function ($scope) {
         }
     };
 
-    $scope.selectDraggable = function (e, item) {
-        currentNode = $(item);
+    $scope.selectNode = function (e, item) {
+        $scope.currentNode = $(item);
         $('.selectedNode').removeClass('selectedNode');
-        currentNode.addClass("selectedNode");
-        $scope.searchNode($scope.rootNode, 'wb_id', currentNode.attr('wb_id'));
+        $scope.currentNode.addClass("selectedNode");
+        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'));
         e.stopPropagation();
     };
     //########################################################################################################edit text
@@ -253,20 +244,20 @@ wbApp.controller('wbController', function ($scope) {
     }
     $scope.selectEditText = function (index) {
         //(window.console && console.log($scope.editTextList[index].text)) || alert($scope.editTextList[index].text);
-        currentEditText = $(currntTextList[index]);
-        tinymce.activeEditor.setContent(currentEditText.html());
+        $scope.currentEditText = $($scope.currntTextList[index]);
+        tinymce.activeEditor.setContent($scope.currentEditText.html());
     };
     $scope.saveEditText = function () {
-        currentEditText.html(tinymce.activeEditor.getContent());
-        $scope.searchNode($scope.rootNode, 'txtid', currentEditText.attr('txtid'));
+        $scope.currentEditText.html(tinymce.activeEditor.getContent());
+        $scope.searchNode($scope.rootNode, 'txtid', $scope.currentEditText.attr('txtid'));
         $scope.currentJsonNode.Children[0].Content = tinymce.activeEditor.getContent();
         $scope.updateEditTextList();
     }
 
     $scope.updateEditTextList = function () {
-        currntTextList = currentNode.find("*[txtid]");
+        $scope.currntTextList = $scope.currentNode.find("*[txtid]");
         $scope.editTextList = [];
-        _.each(currntTextList, function (item) {
+        _.each($scope.currntTextList, function (item) {
             $scope.editTextList.push({
                 txtid: $(item).attr('txtid'),
                 text: item.innerHTML.replace(/<[^>]*>/g, ' ').short(40)
@@ -287,18 +278,18 @@ wbApp.controller('wbController', function ($scope) {
         });
     }
     $scope.selectEditImage = function (index) {
-        currentImageNode = $(currntImageList[index]);
-        currentEditImage = $scope.editImageList[index];
+        $scope.currentImageNode = $($scope.currntImageList[index]);
+        $scope.currentEditImage = $scope.editImageList[index];
         $('.editImageItem').removeClass('active');
         $('.editImageItem-' + index).addClass('active');
-        $scope.cropwidth = currentEditImage.width;
-        $scope.cropheight = currentEditImage.height;
+        $scope.cropwidth = $scope.currentEditImage.width;
+        $scope.cropheight = $scope.currentEditImage.height;
     };
 
     $scope.updateEditImageList = function () {
-        currntImageList = currentNode.find("*[imgid]");
+        $scope.currntImageList = $scope.currentNode.find("*[imgid]");
         $scope.editImageList = [];
-        _.each(currntImageList, function (item) {
+        _.each($scope.currntImageList, function (item) {
             $scope.editImageList.push({
                 imgid: $(item).attr('imgid'),
                 image: $(item).attr('src'),
@@ -309,19 +300,19 @@ wbApp.controller('wbController', function ($scope) {
     };
 
     $scope.searchImage = function () {
-        currentSelectedImage = null;
+        $scope.currentSelectedImage = null;
         $('#btnSearch').html("Loading...");
         $('#searchPanel .content').hide();
         $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip=0',
             function (data) {
                 var count = 0;
                 _.each(data, function (item) {
-                    imageUrl[count] = item.Url;
+                    $scope.imageUrl[count] = item.Url;
                     count++;
                 });
                 $scope.searchImageList = data;
                 $scope.$apply();
-                imageLoadStep = 0;
+                $scope.imageLoadStep = 0;
                 setTimeout(loadImage, 3000);
             })
             .fail(function () {
@@ -330,19 +321,19 @@ wbApp.controller('wbController', function ($scope) {
     }
 
     function loadImage() {
-        imageLoadStep++;
+        $scope.imageLoadStep++;
         var allPass = true;
-        for (var i = 0; i < imageLoadCount; i++) {
-            if (imageUrl[i] != null) {
-                imageLoad[i] = new Image();
-                imageLoad[i].onload = showImage(i);
-                imageLoad[i].alt = imageUrl[i].replace('/content/image_folder/', '').replace('/', '_');
-                imageLoad[i].src = imageUrl[i];
+        for (var i = 0; i < $scope.imageLoadCount; i++) {
+            if ($scope.imageUrl[i] != null) {
+                $scope.imageLoad[i] = new Image();
+                $scope.imageLoad[i].onload = showImage(i);
+                $scope.imageLoad[i].alt = $scope.imageUrl[i].replace('/content/image_folder/', '').replace('/', '_');
+                $scope.imageLoad[i].src = $scope.imageUrl[i];
                 allPass = false;
             }
         }
-        if (!allPass && imageLoadStep <= imageLoadStepTry) {
-            window.console && console.log(imageLoadStep);
+        if (!allPass && $scope.imageLoadStep <= $scope.imageLoadStepTry) {
+            window.console && console.log($scope.imageLoadStep);
             setTimeout(loadImage, 3000);
         } else {
             $('#btnSearch').html('Search');
@@ -358,21 +349,21 @@ wbApp.controller('wbController', function ($scope) {
 
     function displayImage(id) {
         // window.console && console.log(id);
-        $('.wb_searchImage-' + id + ' .imagePlaceHolder').append(imageLoad[id]);
+        $('.wb_searchImage-' + id + ' .imagePlaceHolder').append($scope.imageLoad[id]);
         $('.wb_searchImage-' + id).show();
-        imageUrl[id] = null;
+        $scope.imageUrl[id] = null;
     }
 
     $scope.selectSearchImage = function (index) {
         $('.wb_searchImage').removeClass('selected');
         $('.wb_searchImage-' + index).addClass('selected');
-        selectedSearchImage = $scope.searchImageList[index];
+        $scope.selectedSearchImage = $scope.searchImageList[index];
     };
 
 
     $scope.cropImage = function () {
         $('#wb_EditImageModal').modal('hide');
-        $('#wb_CropImage').attr('src', selectedSearchImage.Url);
+        $('#wb_CropImage').attr('src', $scope.selectedSearchImage.Url);
         $('#wb_CropImageModal .modal-dialog').width((parseInt($scope.cropwidth) + 50) + 'px');
         $('#wb_CropImageModal').modal({
             backdrop: false,
@@ -393,7 +384,7 @@ wbApp.controller('wbController', function ($scope) {
         $('#btnSaveCropImage').html('Saving...');
         if (cropdata) {
             var imageData = {
-                Name: selectedSearchImage.Name,
+                Name: $scope.selectedSearchImage.Name,
                 Data: cropdata
             }
             $.ajax({
@@ -436,7 +427,7 @@ wbApp.controller('wbController', function ($scope) {
             processData: false
         }).done(function (data) {
             $('#btnUpload').html("Upload");
-            selectedSearchImage = {
+            $scope.selectedSearchImage = {
                 Name: data[0].Name,
                 Url: data[0].Url
             };
@@ -461,7 +452,7 @@ wbApp.controller('wbController', function ($scope) {
     $scope.selectMyFolderImage = function (index) {
         $('.wb_MyFolderImage').removeClass('selected');
         $('.wb_MyFolderImage-' + index).addClass('selected');
-        selectedMyFolderImage = $scope.myfolderImageList[index];
+        $scope.selectedMyFolderImage = $scope.myfolderImageList[index];
     };
 
     //save to my folder
@@ -470,7 +461,7 @@ wbApp.controller('wbController', function ($scope) {
             type: 'POST',
             dataType: "json",
             url: '/api/image/move',
-            data: JSON.stringify({ String1: selectedSearchImage.Url }),
+            data: JSON.stringify({ String1: $scope.selectedSearchImage.Url }),
             contentType: "application/json; charset=utf-8"
         }).done(function () {
             $('#myFolderTab').tab('show');
@@ -481,12 +472,12 @@ wbApp.controller('wbController', function ($scope) {
     }
 
     $scope.updateImage = function () {
-        currentImageNode.attr('src', selectedMyFolderImage.Url);
+        $scope.currentImageNode.attr('src', $scope.selectedMyFolderImage.Url);
         $scope.updateEditImageList();
-        $scope.searchNode($scope.rootNode, 'imgid', currentImageNode.attr('imgid'));
+        $scope.searchNode($scope.rootNode, 'imgid', $scope.currentImageNode.attr('imgid'));
         _.each($scope.currentJsonNode.Attributes, function (item) {
             if (item.Key == 'src') {
-                item.Value = selectedMyFolderImage.Url;
+                item.Value = $scope.selectedMyFolderImage.Url;
             }
         });
     };
@@ -532,15 +523,15 @@ wbApp.controller('wbController', function ($scope) {
             $scope.modelSettings[i].Value = $(settings[i]).val();
         }
         $('#wb_SettingsModal').modal('hide');
-        tempContent = '';
+        $scope.tempContent = '';
         $scope.getHtml($scope.rootNode);
-        $('#rootNode').html(tempContent);
+        $('#rootNode').html($scope.tempContent);
     }
 
     /*########################################################################################################helper function*/
     $scope.getHtml = function (node) {
         if (node.Type != '#text') {
-            tempContent += '<' + node.Type;
+            $scope.tempContent += '<' + node.Type;
             var wb_settings = node.Settings;
             var wb_settings_repeat = null;
             if (wb_settings && wb_settings.length > 0) {
@@ -549,12 +540,12 @@ wbApp.controller('wbController', function ($scope) {
                 });
             }
             if (node.Attributes) {
-                tempContent += ' ';
+                $scope.tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
-                    tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
+                    $scope.tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
                 }
             }
-            tempContent += '>';
+            $scope.tempContent += '>';
             if (node.Children) {
                 if (wb_settings_repeat) {
                     var i = node.Children.length;
@@ -572,10 +563,10 @@ wbApp.controller('wbController', function ($scope) {
                     }
                 }
             }
-            tempContent += '</' + node.Type + '>';
+            $scope.tempContent += '</' + node.Type + '>';
         }
         else {
-            tempContent += node.Content;
+            $scope.tempContent += node.Content;
         }
     }
 
