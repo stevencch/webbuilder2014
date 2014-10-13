@@ -8,6 +8,13 @@ namespace WebBuilder2014.Common.Model
 {
     public class NodeModel : ICloneable
     {
+        public NodeModel()
+        {
+            Attributes = new List<AttributeModel>();
+
+            Settings = new List<SettingModel>();
+        }
+
         public string Type { get; set; }
 
         public string Content { get; set; }
@@ -15,6 +22,8 @@ namespace WebBuilder2014.Common.Model
         public List<NodeModel> Children { get; set; }
 
         public List<AttributeModel> Attributes { get; set; }
+
+        public List<SettingModel> Settings { get; set; }
 
         public override string ToString()
         {

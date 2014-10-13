@@ -42,6 +42,7 @@ namespace WebBuilder2014.BLL
             }
             catch (Exception ex)
             {
+                throw ex;
                 //TODO: Logger error
             }
         }

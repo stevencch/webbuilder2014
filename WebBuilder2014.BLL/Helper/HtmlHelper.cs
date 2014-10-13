@@ -11,7 +11,7 @@ namespace WebBuilder2014.BLL.Helper
 {
     public class HtmlHelper
     {
-        private static NodeModel currentNode = null;
+
 
         public static NodeModel ConvertToNode(string html)
         {
@@ -29,7 +29,7 @@ namespace WebBuilder2014.BLL.Helper
             node.Type = html.Name;
             if (html.Name.Equals("#text"))
             {
-                if (currentNode == null && !parent.Type.Equals("style") && !parent.Type.Equals("script"))
+                if (!parent.Type.Equals("style") && !parent.Type.Equals("script"))
                 {
                     parent.Attributes.Add(new AttributeModel()
                     {
@@ -38,6 +38,23 @@ namespace WebBuilder2014.BLL.Helper
                     });
                 }
                 node.Content = html.InnerText;
+            }
+            foreach (var attr in html.Attributes)
+            {
+                if (attr.Name != "wb_settings")
+                {
+                    node.Attributes.Add(
+                        new AttributeModel()
+                        {
+                            Key = attr.Name,
+                            Value = attr.Value
+                        });
+                }
+                else
+                {
+                    SettingAttribuleModel settingModel = Newtonsoft.Json.JsonConvert.DeserializeObject<SettingAttribuleModel>(attr.Value);
+                    node.Settings = settingModel.Settings;
+                }
             }
             node.Attributes = html.Attributes.Select(x => new AttributeModel() { Key = x.Name, Value = x.Value }).ToList();
             var wb_id = node.Attributes.Where(x => x.Key.Equals("wb_id")).FirstOrDefault();
@@ -61,21 +78,12 @@ namespace WebBuilder2014.BLL.Helper
                 node.Attributes.Add(new AttributeModel() { Key = "imgid", Value = Guid.NewGuid().ToString().Replace("-", "") });
             }
             node.Children = new List<NodeModel>();
-            var group = node.Attributes.Where(x => x.Key.Equals("group")).FirstOrDefault();
-            if (group != null)
-            {
-                currentNode = node;
-                node.Attributes.Add(new AttributeModel() { Key = "txtid", Value = Guid.NewGuid().ToString().Replace("-", "") });
-            }
+
             foreach (var item in html.ChildNodes)
             {
                 NodeModel child = new NodeModel();
                 node.Children.Add(child);
                 ConvertDocumentNode(item, child, node);
-            }
-            if (currentNode == node)
-            {
-                currentNode = null;
             }
         }
 

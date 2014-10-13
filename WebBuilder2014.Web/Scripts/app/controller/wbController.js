@@ -82,18 +82,18 @@ wbApp.controller('wbController', function ($scope) {
                 placeholder: "ui-state-placeholder",
                 stop: $scope.sortableStop
             });
-            var sectionids=_.map($('*[sectionid]'), function(item) {
+            var sectionids = _.map($('*[sectionid]'), function (item) {
                 return $(item).attr('sectionid');
             });
             var sectionidset = _.uniq(sectionids);
-            _.each(sectionidset, function(item) {
+            _.each(sectionidset, function (item) {
                 $scope.triggerJs(item);
             });
         }).fail(function () {
             alert('fail');
         });
     };
-    
+
     $scope.savePage = function () {
         $scope.reorderNode($scope.rootNode);
         $.ajax({
@@ -108,9 +108,8 @@ wbApp.controller('wbController', function ($scope) {
             alert('fail');
         });
     };
-    
-    $scope.reorderNode=function(node)
-    {
+
+    $scope.reorderNode = function (node) {
         if (node.Children.length > 1) {
             var attribute = $scope.getAttribute(node, 'wb_id');
             var children = $('*[wb_id="' + attribute.Value + '"]').find('*[wb_id]');
@@ -124,8 +123,8 @@ wbApp.controller('wbController', function ($scope) {
                         }
                     );
                 }
-                var newOrder = _.sortBy(node.Children, function(item) {
-                    var order = _.find(orderChildren, function(c) {
+                var newOrder = _.sortBy(node.Children, function (item) {
+                    var order = _.find(orderChildren, function (c) {
                         var result = c.wd_id == $scope.getAttribute(item, 'wb_id').Value;
                         return result;
                     }).order;
@@ -133,15 +132,15 @@ wbApp.controller('wbController', function ($scope) {
                 });
 
                 node.Children = newOrder;
-                
+
                 _.each(node.Children, function (item) {
                     $scope.reorderNode(item);
                 });
             }
         }
-        
+
     };
-    
+
 
 
     //########################################################################################################init
@@ -153,7 +152,7 @@ wbApp.controller('wbController', function ($scope) {
             stop: $scope.sortableStop
         });
         $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
-            $scope.selectDraggable(e,this);
+            $scope.selectDraggable(e, this);
         });
 
 
@@ -162,10 +161,10 @@ wbApp.controller('wbController', function ($scope) {
         $("#wb_toolbox .accordion").accordion();
         $('.wb_draggable').draggable({
             connectToSortable: ".wb_sortable",
-            helper:'clone',
+            helper: 'clone',
             cursor: "crosshair",
-            cursorAt: { left: 55,top:30 }
-    });
+            cursorAt: { left: 55, top: 30 }
+        });
 
         //modal
         tinymce.init({
@@ -203,11 +202,11 @@ wbApp.controller('wbController', function ($scope) {
         $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
     };
 
-    $scope.sortableStop = function(event, ui) {
+    $scope.sortableStop = function (event, ui) {
         currentNode = ui.item;
         if (currentNode.attr('sid')) {
             $scope.searchNode($scope.rootNode, 'wb_id', currentNode.parent().attr('wb_id'));
-            $.get("/api/page/" + currentNode.attr('sid'), function(data) {
+            $.get("/api/page/" + currentNode.attr('sid'), function (data) {
                 tempContent = '';
                 $scope.currentJsonNode.Children.push(data);
                 $scope.currentJsonNode.Attributes.push({
@@ -227,19 +226,20 @@ wbApp.controller('wbController', function ($scope) {
                     stop: $scope.sortableStop
                 });
                 $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
-                    $scope.selectDraggable(e,this);
+                    $scope.selectDraggable(e, this);
                 });
 
-            }).fail(function() {
+            }).fail(function () {
                 alert('fail');
             });
         }
     };
 
-    $scope.selectDraggable = function(e,item) {
+    $scope.selectDraggable = function (e, item) {
         currentNode = $(item);
         $('.selectedNode').removeClass('selectedNode');
         currentNode.addClass("selectedNode");
+        $scope.searchNode($scope.rootNode, 'wb_id', currentNode.attr('wb_id'));
         e.stopPropagation();
     };
     //########################################################################################################edit text
@@ -480,11 +480,11 @@ wbApp.controller('wbController', function ($scope) {
         });
     }
 
-    $scope.updateImage = function() {
+    $scope.updateImage = function () {
         currentImageNode.attr('src', selectedMyFolderImage.Url);
         $scope.updateEditImageList();
         $scope.searchNode($scope.rootNode, 'imgid', currentImageNode.attr('imgid'));
-        _.each($scope.currentJsonNode.Attributes, function(item) {
+        _.each($scope.currentJsonNode.Attributes, function (item) {
             if (item.Key == 'src') {
                 item.Value = selectedMyFolderImage.Url;
             }
@@ -499,34 +499,59 @@ wbApp.controller('wbController', function ($scope) {
             show: true
         });
     };
-    
-    $scope.updateSettingsList=function() {
-        var settingsList = currentNode.find('*[wb_settings]');
+
+    $scope.updateSettingsList = function () {
         $scope.modelSettings = [];
-        _.each(settingsList, function (item) {
-            var setting = $.parseJSON($(item).attr('wb_settings').replace(/'/g, '"')).settings;
-            _.each(setting, function(s) {
-                $scope.modelSettings.push(s);
+        $scope.findAllSettings($scope.currentJsonNode);
+    }
+
+    $scope.findAllSettings = function (node) {
+        if (node.Settings && node.Settings.length > 0) {
+            _.each(node.Settings, function (item) {
+                $scope.modelSettings.push(item);
             });
-        });
+        }
+        if (node != $scope.currentJsonNode) {
+            var wd_id = _.find(node.Children, function (item) {
+                return item.Value == 'wb_id';
+            });
+            if (wd_id) {
+                return;
+            }
+        }
+        if (node.Children && node.Children.length > 0) {
+            _.each(node.Children, function (item) {
+                $scope.findAllSettings(item);
+            });
+        }
+    }
+
+    $scope.saveSettings = function () {
+        var settings = $('#settingsForm input');
+        for (var i = 0; i < settings.length; i++) {
+            $scope.modelSettings[i].Value = $(settings[i]).val();
+        }
+        $('#wb_SettingsModal').modal('hide');
+        tempContent = '';
+        $scope.getHtml($scope.rootNode);
+        $('#rootNode').html(tempContent);
     }
 
     /*########################################################################################################helper function*/
     $scope.getHtml = function (node) {
         if (node.Type != '#text') {
             tempContent += '<' + node.Type;
-            var wb_settings = null;
+            var wb_settings = node.Settings;
             var wb_settings_repeat = null;
+            if (wb_settings && wb_settings.length > 0) {
+                wb_settings_repeat = _.find(wb_settings, function (item) {
+                    return item.Type == 'repeat';
+                });
+            }
             if (node.Attributes) {
                 tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
                     tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
-                    if (node.Attributes[j].Key == 'wb_settings') {
-                        wb_settings = $.parseJSON(node.Attributes[j].Value.replace(/'/g,'"')).settings;
-                        wb_settings_repeat = _.find(wb_settings, function(item) {
-                            return item.type == 'repeat';
-                        });
-                    }
                 }
             }
             tempContent += '>';
@@ -534,7 +559,7 @@ wbApp.controller('wbController', function ($scope) {
                 if (wb_settings_repeat) {
                     var i = node.Children.length;
                     var k = 0;
-                    for (var j = 0; j < parseInt(wb_settings_repeat.value); j++) {
+                    for (var j = 0; j < parseInt(wb_settings_repeat.Value) ; j++) {
                         $scope.getHtml(node.Children[k]);
                         k++;
                         if (k >= i) {
@@ -579,7 +604,7 @@ wbApp.controller('wbController', function ($scope) {
         }
     }
 
-    $scope.searchNode = function(node, attr, value) {
+    $scope.searchNode = function (node, attr, value) {
         if ($scope.rootNode == node) {
             $scope.currentJsonNode = null;
             $scope.isFound = false;
@@ -603,8 +628,8 @@ wbApp.controller('wbController', function ($scope) {
         }
     };
 
-    $scope.getAttribute = function(node, key) {
-        var value=null;
+    $scope.getAttribute = function (node, key) {
+        var value = null;
         for (var i = 0; i < node.Attributes.length; i++) {
             if (node.Attributes[i].Key == key) {
                 value = node.Attributes[i];

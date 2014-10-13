@@ -50,6 +50,8 @@
     <Compile Include="Model\GenericModel.cs" />
     <Compile Include="Model\ImageModel.cs" />
     <Compile Include="Model\NodeModel.cs" />
+    <Compile Include="Model\SettingAttribuleModel.cs" />
+    <Compile Include="Model\SettingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
