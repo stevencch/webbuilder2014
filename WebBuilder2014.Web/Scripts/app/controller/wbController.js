@@ -1,4 +1,7 @@
-﻿/*########################################################################################################global function*/
+﻿/// <reference path="../../linq-vsdoc.js" />
+
+
+/*########################################################################################################global function*/
 if (!String.prototype.trim) {
     String.prototype.trim = function () {
         return this.replace(/^[\s\xA0]+|[\s\xA0]+$/g, '');
@@ -14,7 +17,7 @@ String.prototype.short = function (i) {
 /*########################################################################################################global variable*/
 
 
-wbApp.controller('wbController', function ($scope) {
+wbApp.controller('wbController',function($scope,$timeout) {
     //########################################################################################################variables
     $scope.tempContent = '';
     $scope.currentNode = null;
@@ -33,28 +36,29 @@ wbApp.controller('wbController', function ($scope) {
     $scope.selectedMyFolderImage = null;
 
     //########################################################################################################global
-    $scope.rootNode = $scope.newPage();
+    $scope.defaultRootNode = {
+        Type: 'div',
+        Attributes: [
+            {
+                Key: 'id',
+                Value: 'rootNode'
+            },
+            {
+                Key: 'wb_id',
+                Value: 'rootNode'
+            }
+        ],
+        Children: [],
+        Settings: []
+    };
+    $scope.rootNode = $scope.defaultRootNode;
 
     $scope.currentJsonNode = null;
     $scope.isFound = false;
 
     //########################################################################################################page function
     $scope.newPage = function () {
-        $scope.rootNode = {
-            Type: 'div',
-            Attributes: [
-                {
-                    Key: 'id',
-                    Value: 'rootNode'
-                },
-                {
-                    Key: 'wb_id',
-                    Value: 'rootNode'
-                }
-            ],
-            Children: [],
-            Settings: []
-        };
+        $scope.rootNode = $scope.defaultRootNode;
     };
 
 
@@ -123,10 +127,6 @@ wbApp.controller('wbController', function ($scope) {
                 });
 
                 node.Children = newOrder;
-
-                _.each(node.Children, function (item) {
-                    $scope.reorderNode(item);
-                });
             }
         }
 
@@ -194,35 +194,22 @@ wbApp.controller('wbController', function ($scope) {
     };
 
     $scope.sortableStop = function (event, ui) {
+        var wb_id = ui.item.attr('wb_id');
         $scope.currentNode = ui.item;
+        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
         if ($scope.currentNode.attr('sid')) {
-            $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
             $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
-                $scope.tempContent = '';
                 $scope.currentJsonNode.Children.push(data);
-                $scope.currentJsonNode.Attributes.push({
-                    Key: 'sectionid',
-                    Value: $scope.currentNode.attr('sid')
-                })
-                $scope.getHtml(data);
-                $scope.currentNode.html($scope.tempContent);
-                $('.selectedNode').removeClass('selectedNode');
-                $scope.currentNode.addClass("selectedNode");
-                $scope.triggerJs($scope.currentNode.attr('sid'));
-                $scope.currentNode.attr('sid', '');
-                //layout
-                $scope.currentNode.find('.wb_sortable').sortable({
-                    revert: true,
-                    placeholder: "ui-state-placeholder",
-                    stop: $scope.sortableStop
-                });
-                $('#wb_pagebuilder').delegate('.wb_draggable', 'click', function (e) {
-                    $scope.selectDraggable(e, this);
-                });
-
+                wb_id = Enumerable.From(data.Attributes).Where(function (x) { return x.Key == 'wb_id'; }).Select(function (x) { return x.Value }).ToArray()[0];
+                $scope.reorderNode($scope.currentJsonNode)
+                $scope.loadPage($scope.rootNode);
             }).fail(function () {
                 alert('fail');
             });
+        }
+        else {
+            $scope.reorderNode($scope.currentJsonNode)
+            $scope.loadPage($scope.rootNode);
         }
     };
 
