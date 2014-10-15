@@ -34,7 +34,7 @@ namespace WebBuilder2014.BLL.Helper
                     parent.Attributes.Add(new AttributeModel()
                     {
                         Key = "txtid",
-                        Value = Guid.NewGuid().ToString().Replace("-", "")
+                        Value = ""
                     });
                 }
                 node.Content = html.InnerText;
@@ -60,7 +60,7 @@ namespace WebBuilder2014.BLL.Helper
             var wb_id = node.Attributes.Where(x => x.Key.Equals("wb_id")).FirstOrDefault();
             if (wb_id != null)
             {
-                wb_id.Value = Guid.NewGuid().ToString().Replace("-", "");
+                wb_id.Value = "";
             }
             var href = node.Attributes.Where(x => x.Key.Equals("href")).FirstOrDefault();
             var hrefskip = node.Attributes.Where(x => x.Key.Equals("hrefskip")).FirstOrDefault();
@@ -70,12 +70,12 @@ namespace WebBuilder2014.BLL.Helper
             }
             if (node.Type == "img")
             {
-                node.Attributes.Add(new AttributeModel() { Key = "imgid", Value = Guid.NewGuid().ToString().Replace("-", "") });
+                node.Attributes.Add(new AttributeModel() { Key = "imgid", Value = "" });
             }
             var bgimage = node.Attributes.Where(x => x.Key.Equals("bgimage")).FirstOrDefault();
             if (bgimage != null)
             {
-                node.Attributes.Add(new AttributeModel() { Key = "imgid", Value = Guid.NewGuid().ToString().Replace("-", "") });
+                node.Attributes.Add(new AttributeModel() { Key = "imgid", Value = "" });
             }
             node.Children = new List<NodeModel>();
 

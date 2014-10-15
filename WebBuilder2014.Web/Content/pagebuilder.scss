@@ -19,14 +19,15 @@
         border: 1px solid blue;
         cursor: pointer;
     }
+
     .ui-draggable-dragging {
         width: 50px !important;
-        height:25px !important;
-        img{
-            width:100%;
+        height: 25px !important;
+
+        img {
+            width: 100%;
         }
     }
-
     /*.ui-sortable-helper {
         width: 20% !important;
         height: 20% !important;
@@ -47,7 +48,7 @@
 
     .wb_sortable {
         min-height: 30px;
-        padding:10px 0;
+        padding: 10px 0;
     }
 
     .wb_pipe {
@@ -65,8 +66,16 @@
         min-height: 30px;
     }
 
-    .selectedNode {
-        border: 1px solid blue;
+    .wb_node{
+        cursor:pointer;
+    }
+    
+    .selectedNode, .mouseOverNode.selectedNode{
+        border: 2px solid red;
+    }
+
+    .mouseOverNode {
+        border: 1px dashed blue;
     }
 }
 
@@ -81,61 +90,72 @@
     }
 }
 /*toolbar*/
-#wb_toolbar{
-    margin:60px 0 0 0;
+#wb_toolbar {
+    margin: 60px 0 0 0;
 }
 
 /*modal*/
-#wb_EditTextModal{
-    #textPanel{
-        height:150px;
+#wb_EditTextModal {
+    #textPanel {
+        height: 150px;
         overflow-y: scroll;
-        .list-group-item{
-            cursor:pointer;
+
+        .list-group-item {
+            cursor: pointer;
         }
     }
 }
-#wb_EditImageModal{
-    #imagePanel{
-        .editImageItem img{
-            width:100%;
+
+#wb_EditImageModal {
+    #imagePanel {
+        .editImageItem img {
+            width: 100%;
         }
     }
-    #searchPanel{
-        .wb_searchImage{
-            width:120px;
-            float:left;
-            margin:5px 2px;
-            img{
-                width:100%;
+
+    #searchPanel {
+        .wb_searchImage {
+            width: 120px;
+            float: left;
+            margin: 5px 2px;
+
+            img {
+                width: 100%;
             }
         }
-        .selected{
-            border:1px solid blue;
+
+        .selected {
+            border: 1px solid blue;
         }
     }
-    #uploadPanel{
-        .uploadImage{
-            width:500px;
-            img{
-                width:100%;
+
+    #uploadPanel {
+        .uploadImage {
+            width: 500px;
+
+            img {
+                width: 100%;
             }
         }
     }
-    #myFolderPanel{
-        .wb_MyFolderImage{
-            width:120px;
-            float:left;
-            margin:5px 2px;
-            img{
-                width:100%;
+
+    #myFolderPanel {
+        .wb_MyFolderImage {
+            width: 120px;
+            float: left;
+            margin: 5px 2px;
+
+            img {
+                width: 100%;
             }
         }
-        .selected{
-            border:1px solid blue;
+
+        .selected {
+            border: 1px solid blue;
         }
     }
-    .modal-dialog{
-        width:850px;
+
+    .modal-dialog {
+        width: 850px;
     }
 }

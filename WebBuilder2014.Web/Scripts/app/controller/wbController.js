@@ -14,10 +14,12 @@ String.prototype.short = function (i) {
     }
     return this.substr(0, i);
 };
+
+
 /*########################################################################################################global variable*/
 
 
-wbApp.controller('wbController',function($scope,$timeout) {
+wbApp.controller('wbController', function ($scope, $timeout) {
     //########################################################################################################variables
     $scope.tempContent = '';
     $scope.currentNode = null;
@@ -46,6 +48,10 @@ wbApp.controller('wbController',function($scope,$timeout) {
             {
                 Key: 'wb_id',
                 Value: 'rootNode'
+            },
+            {
+                Key: 'class',
+                Value: 'wb_sortable row'
             }
         ],
         Children: [],
@@ -69,12 +75,12 @@ wbApp.controller('wbController',function($scope,$timeout) {
             alert('fail');
         });
     };
-    
-    $scope.loadPage=function(data) {
+
+    $scope.loadPage = function (data) {
         $scope.tempContent = '';
         $scope.rootNode = data;
         $scope.getHtml(data);
-        $('#rootNode').html($scope.tempContent);
+        $('#htmlRoot').html($scope.tempContent);
         $(".wb_sortable").sortable({
             revert: true,
             placeholder: "ui-state-placeholder",
@@ -142,6 +148,9 @@ wbApp.controller('wbController',function($scope,$timeout) {
             placeholder: "ui-state-placeholder",
             stop: $scope.sortableStop
         });
+        $('#wb_pagebuilder').delegate('.wb_node', 'mouseenter', function (e) {
+            $scope.mouseOverNode(e, this);
+        });
         $('#wb_pagebuilder').delegate('.wb_node', 'click', function (e) {
             $scope.selectNode(e, this);
         });
@@ -199,6 +208,8 @@ wbApp.controller('wbController',function($scope,$timeout) {
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
         if ($scope.currentNode.attr('sid')) {
             $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
+                $scope.fillUUID(data);
+                $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
                 $scope.currentJsonNode.Children.push(data);
                 wb_id = Enumerable.From(data.Attributes).Where(function (x) { return x.Key == 'wb_id'; }).Select(function (x) { return x.Value }).ToArray()[0];
                 $scope.reorderNode($scope.currentJsonNode)
@@ -213,6 +224,13 @@ wbApp.controller('wbController',function($scope,$timeout) {
         }
     };
 
+    $scope.mouseOverNode = function (e, item) {
+        $scope.currentNode = $(item);
+        $('.mouseOverNode').removeClass('mouseOverNode');
+        $scope.currentNode.addClass("mouseOverNode");
+        e.stopPropagation();
+    };
+
     $scope.selectNode = function (e, item) {
         $scope.currentNode = $(item);
         $('.selectedNode').removeClass('selectedNode');
@@ -220,6 +238,29 @@ wbApp.controller('wbController',function($scope,$timeout) {
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'));
         e.stopPropagation();
     };
+
+    $scope.generateUUID = function () {
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
+        });
+        return uuid;
+    };
+
+    $scope.fillUUID = function (node) {
+        var list = ['wb_id', 'txtid', 'imgid'];
+        _.each(list, function (item) {
+            var attr = $scope.getAttribute(node, item);
+            if (attr) {
+                attr.Value = $scope.generateUUID();
+            }
+        });
+        _.each(node.Children, function (item) {
+            $scope.fillUUID(item);
+        });
+    }
     //########################################################################################################edit text
     $scope.editTextList = [];
     $scope.editText = function () {
@@ -529,6 +570,9 @@ wbApp.controller('wbController',function($scope,$timeout) {
             if (node.Attributes) {
                 $scope.tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
+                    if (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid') {
+                        node.Attributes[j].Value = $scope.generateUUID();
+                    }
                     $scope.tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
                 }
             }

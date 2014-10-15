@@ -44,8 +44,12 @@
   #wb_pagebuilder .ui-state-placeholder {
     background-color: #aaa;
     min-height: 30px; }
-  #wb_pagebuilder .selectedNode {
-    border: 1px solid blue; }
+  #wb_pagebuilder .wb_node {
+    cursor: pointer; }
+  #wb_pagebuilder .selectedNode, #wb_pagebuilder .mouseOverNode.selectedNode {
+    border: 2px solid red; }
+  #wb_pagebuilder .mouseOverNode {
+    border: 1px dashed blue; }
 
 /*context menu*/
 .context-menu-list li {
