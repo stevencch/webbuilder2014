@@ -1,14 +1,18 @@
-﻿.ui-draggable-dragging {
+﻿#htmlRoot .ui-draggable-dragging {
   width: 50px !important;
   height: 25px !important; }
-  .ui-draggable-dragging img {
+  #htmlRoot .ui-draggable-dragging img {
     width: 100%; }
+#htmlRoot.mouseOn .wb_node {
+  padding: 5px; }
+#htmlRoot #hiddenModel {
+  display: none; }
 
 #wb_toolbox {
   position: fixed;
   top: 60px;
   right: 0;
-  width: 300px;
+  width: 300px !important;
   z-index: 99999; }
   #wb_toolbox .title {
     background-color: darkblue;
@@ -32,25 +36,25 @@
   #wb_pagebuilder .wb_sortable {
     min-height: 30px; }
     #wb_pagebuilder .wb_sortable.showTopBottom {
-      border: 1px solid #333; }
+      border: 1px solid red; }
   #wb_pagebuilder .bigGap {
     padding: 30px 0;
-    border-top: 1px dashed #ddd;
-    border-bottom: 1px dashed #ddd; }
+    border-top: 1px dashed blue;
+    border-bottom: 1px dashed blue; }
   #wb_pagebuilder .wb_pipe.emptyCol {
     border-right: 5px solid #000; }
   #wb_pagebuilder .emptyCol {
     min-height: 75px; }
     #wb_pagebuilder .emptyCol.col-md-3 {
-      background: url('/content/images/c3.png') repeat #ddd; }
+      background: url('/content/images/c3.png') no-repeat #ddd; }
     #wb_pagebuilder .emptyCol.col-md-4 {
-      background: url('/content/images/c4.png') repeat #ddd; }
+      background: url('/content/images/c4.png') no-repeat #ddd; }
     #wb_pagebuilder .emptyCol.col-md-6 {
-      background: url('/content/images/c6.png') repeat #ddd; }
+      background: url('/content/images/c6.png') no-repeat #ddd; }
     #wb_pagebuilder .emptyCol.col-md-8 {
-      background: url('/content/images/c8.png') repeat #ddd; }
+      background: url('/content/images/c8.png') no-repeat #ddd; }
     #wb_pagebuilder .emptyCol.col-md-9 {
-      background: url('/content/images/c9.png') repeat #ddd; }
+      background: url('/content/images/c9.png') no-repeat #ddd; }
   #wb_pagebuilder .oneline {
     clear: both;
     float: left;

@@ -1,9 +1,21 @@
-﻿.ui-draggable-dragging {
-    width: 50px !important;
-    height: 25px !important;
+﻿#htmlRoot {
+    .ui-draggable-dragging {
+        width: 50px !important;
+        height: 25px !important;
 
-    img {
-        width: 100%;
+        img {
+            width: 100%;
+        }
+    }
+
+    &.mouseOn {
+        .wb_node {
+            padding: 5px;
+        }
+    }
+
+    #hiddenModel{
+        display:none;
     }
 }
 
@@ -12,7 +24,7 @@
     position: fixed;
     top: 60px;
     right: 0;
-    width: 300px;
+    width: 300px !important;
     z-index: 99999;
 
     .title {
@@ -35,6 +47,8 @@
     width: 1024px;
     margin: 0 auto 0 auto;
 
+
+
     .wb_pagesection {
         width: 100%;
         text-align: center;
@@ -47,14 +61,14 @@
         min-height: 30px;
 
         &.showTopBottom {
-            border: 1px solid #333;
+            border: 1px solid red;
         }
     }
 
     .bigGap {
         padding: 30px 0;
-        border-top: 1px dashed #ddd;
-        border-bottom: 1px dashed #ddd;
+        border-top: 1px dashed blue;
+        border-bottom: 1px dashed blue;
     }
 
     .wb_pipe {
@@ -63,22 +77,27 @@
         }
     }
 
-    .emptyCol{
+    .emptyCol {
         min-height: 75px;
-        &.col-md-3{
-            background:url('/content/images/c3.png') repeat #ddd;
+
+        &.col-md-3 {
+            background: url('/content/images/c3.png') no-repeat #ddd;
         }
-        &.col-md-4{
-            background:url('/content/images/c4.png') repeat #ddd;
+
+        &.col-md-4 {
+            background: url('/content/images/c4.png') no-repeat #ddd;
         }
-        &.col-md-6{
-            background:url('/content/images/c6.png') repeat #ddd;
+
+        &.col-md-6 {
+            background: url('/content/images/c6.png') no-repeat #ddd;
         }
-        &.col-md-8{
-            background:url('/content/images/c8.png') repeat #ddd;
+
+        &.col-md-8 {
+            background: url('/content/images/c8.png') no-repeat #ddd;
         }
-        &.col-md-9{
-            background:url('/content/images/c9.png') repeat #ddd;
+
+        &.col-md-9 {
+            background: url('/content/images/c9.png') no-repeat #ddd;
         }
     }
 

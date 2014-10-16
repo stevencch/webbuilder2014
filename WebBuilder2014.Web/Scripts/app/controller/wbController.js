@@ -154,11 +154,15 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             opacity: 0.4,
             appendTo: document.body
         });
-        $('#wb_pagebuilder').delegate('.wb_node', 'mouseenter', function (e) {
-            $scope.mouseEnterNode(e, this);
+        $('#htmlRoot').on('mouseenter', function (e) {
+            $(this).addClass('mouseOn');
         });
-        $('#wb_pagebuilder').delegate('.wb_node', 'mouseleave', function (e) {
-            $scope.mouseLeaveNode(e, this);
+        $('#htmlRoot').on('mouseleave', function (e) {
+            $(this).removeClass('mouseOn');
+            $('.mouseOverNode').removeClass('mouseOverNode');
+        });
+        $('#wb_pagebuilder').delegate('.wb_node', 'mouseover', function (e) {
+            $scope.mouseOverNode(e, this);
         });
         $('#wb_pagebuilder').delegate('.wb_node', 'click', function (e) {
             $scope.selectNode(e, this);
@@ -175,7 +179,6 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             opacity: 0.4,
             refreshPositions: true,
             snap: true,
-            cursorAt: { left: 55, top: 30 },
             appendTo: document.body,
             start: function (event, ui) {
                 $('.wb_sortable').addClass('bigGap');
@@ -249,21 +252,19 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
     };
 
-    $scope.mouseEnterNode = function (e, item) {
-        $scope.currentNode.addClass("mouseOverNode");
+    $scope.mouseOverNode = function (e, item) {
+        $('.mouseOverNode').removeClass('mouseOverNode');
+        $(item).addClass("mouseOverNode");
         e.stopPropagation();
     };
 
-    $scope.mouseLeaveNode = function (e, item) {
-        $('.mouseOverNode').removeClass('mouseOverNode');
-        e.stopPropagation();
-    };
 
     $scope.selectNode = function (e, item) {
         $scope.currentNode = $(item);
         $('.selectedNode').removeClass('selectedNode');
         $scope.currentNode.addClass("selectedNode");
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'));
+        $scope.currentNode.append($('#hiddenModel .modelButtons'));
         e.stopPropagation();
     };
 
