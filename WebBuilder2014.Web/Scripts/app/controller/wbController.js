@@ -300,7 +300,10 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
     }
     $scope.selectEditText = function (index) {
-        //(window.console && console.log($scope.editTextList[index].text)) || alert($scope.editTextList[index].text);
+        _.each($scope.editTextList, function (item) {
+            item.isActive = false;
+        });
+        $scope.editTextList[index].isActive = true;
         $scope.currentEditText = $($scope.currntTextList[index]);
         tinymce.activeEditor.setContent($scope.currentEditText.html());
     };
@@ -320,6 +323,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                 text: item.innerHTML.replace(/<[^>]*>/g, ' ').short(40)
             });
         });
+        $scope.selectEditText(0);
     };
     //########################################################################################################edit image
     $scope.cropwidth = 0;

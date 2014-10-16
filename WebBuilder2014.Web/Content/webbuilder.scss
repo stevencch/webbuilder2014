@@ -13,12 +13,11 @@
             padding: 5px;
         }
     }
-
-    #hiddenModel{
-        display:none;
-    }
 }
 
+#hiddenModel {
+    display: none;
+}
 
 #wb_toolbox {
     position: fixed;
@@ -114,6 +113,18 @@
 
     .wb_node {
         cursor: pointer;
+        position:relative;
+    }
+
+    .modelButtons {
+        position: absolute;
+        background-color: #ddd;
+        padding: 5px;
+        top:0;
+        i{
+            border:1px solid #666;
+            padding:2px;
+        }
     }
 
     .selectedNode, .mouseOverNode.selectedNode {

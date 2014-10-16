@@ -5,7 +5,8 @@
     width: 100%; }
 #htmlRoot.mouseOn .wb_node {
   padding: 5px; }
-#htmlRoot #hiddenModel {
+
+#hiddenModel {
   display: none; }
 
 #wb_toolbox {
@@ -63,7 +64,16 @@
     background-color: #aaa;
     min-height: 30px; }
   #wb_pagebuilder .wb_node {
-    cursor: pointer; }
+    cursor: pointer;
+    position: relative; }
+  #wb_pagebuilder .modelButtons {
+    position: absolute;
+    background-color: #ddd;
+    padding: 5px;
+    top: 0; }
+    #wb_pagebuilder .modelButtons i {
+      border: 1px solid #666;
+      padding: 2px; }
   #wb_pagebuilder .selectedNode, #wb_pagebuilder .mouseOverNode.selectedNode {
     border: 2px solid red; }
   #wb_pagebuilder .mouseOverNode {
