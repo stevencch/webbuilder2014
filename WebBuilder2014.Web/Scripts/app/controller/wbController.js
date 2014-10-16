@@ -146,10 +146,19 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $(".wb_sortable").sortable({
             revert: true,
             placeholder: "ui-state-placeholder",
-            stop: $scope.sortableStop
+            stop: $scope.sortableStop,
+            cursor: "move",
+            forcePlaceholderSize: true,
+            forceHelperSize: true,
+            helper: "clone",
+            opacity: 0.4,
+            appendTo: document.body
         });
         $('#wb_pagebuilder').delegate('.wb_node', 'mouseenter', function (e) {
-            $scope.mouseOverNode(e, this);
+            $scope.mouseEnterNode(e, this);
+        });
+        $('#wb_pagebuilder').delegate('.wb_node', 'mouseleave', function (e) {
+            $scope.mouseLeaveNode(e, this);
         });
         $('#wb_pagebuilder').delegate('.wb_node', 'click', function (e) {
             $scope.selectNode(e, this);
@@ -162,8 +171,24 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('.wb_draggable').draggable({
             connectToSortable: ".wb_sortable",
             helper: 'clone',
-            cursor: "crosshair",
-            cursorAt: { left: 55, top: 30 }
+            cursor: "move",
+            opacity: 0.4,
+            refreshPositions: true,
+            snap: true,
+            cursorAt: { left: 55, top: 30 },
+            appendTo: document.body,
+            start: function (event, ui) {
+                $('.wb_sortable').addClass('bigGap');
+            },
+            stop: function (event, ui) {
+                $('.wb_sortable').removeClass('showTopBottom');
+                $('.wb_sortable').removeClass('bigGap');
+            },
+            drag: function (event, ui) {
+                $('.wb_sortable').removeClass('showTopBottom');
+                $('.ui-state-placeholder').parent().addClass('showTopBottom');
+            }
+
         });
 
         //modal
@@ -224,10 +249,13 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
     };
 
-    $scope.mouseOverNode = function (e, item) {
-        $scope.currentNode = $(item);
-        $('.mouseOverNode').removeClass('mouseOverNode');
+    $scope.mouseEnterNode = function (e, item) {
         $scope.currentNode.addClass("mouseOverNode");
+        e.stopPropagation();
+    };
+
+    $scope.mouseLeaveNode = function (e, item) {
+        $('.mouseOverNode').removeClass('mouseOverNode');
         e.stopPropagation();
     };
 
@@ -551,38 +579,56 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             $scope.modelSettings[i].Value = $(settings[i]).val();
         }
         $('#wb_SettingsModal').modal('hide');
-        $scope.tempContent = '';
-        $scope.getHtml($scope.rootNode);
-        $('#rootNode').html($scope.tempContent);
+        $scope.loadPage($scope.rootNode);
     }
 
     /*########################################################################################################helper function*/
-    $scope.getHtml = function (node) {
+    $scope.getHtml = function (node, parent) {
         if (node.Type != '#text') {
             $scope.tempContent += '<' + node.Type;
             var wb_settings = node.Settings;
+            //repeat
             var wb_settings_repeat = null;
             if (wb_settings && wb_settings.length > 0) {
                 wb_settings_repeat = _.find(wb_settings, function (item) {
                     return item.Type == 'repeat';
                 });
             }
+
+            //
             if (node.Attributes) {
                 $scope.tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
+                    //uuid
                     if (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid') {
                         node.Attributes[j].Value = $scope.generateUUID();
                     }
+                    //emptycol
+                    if (node.Attributes[j].Key == 'class') {
+                        if (node.Attributes[j].Value.indexOf('col-') >= 0) {
+                            if (node.Children && node.Children.length == 0) {
+                                if (node.Attributes[j].Value.indexOf('emptyCol') < 0) {
+                                    node.Attributes[j].Value += ' emptyCol';
+                                }
+                            } else {
+                                if (node.Attributes[j].Value.indexOf('emptyCol') >= 0) {
+                                    node.Attributes[j].Value = node.Attributes[j].Value.replace('emptyCol', '');
+                                }
+                            }
+                        }
+                    }
+                    //
                     $scope.tempContent += node.Attributes[j].Key + '="' + node.Attributes[j].Value + '" ';
                 }
             }
             $scope.tempContent += '>';
-            if (node.Children) {
+            if (node.Children && node.Children.length > 0) {
+                //repeat
                 if (wb_settings_repeat) {
                     var i = node.Children.length;
                     var k = 0;
                     for (var j = 0; j < parseInt(wb_settings_repeat.Value) ; j++) {
-                        $scope.getHtml(node.Children[k]);
+                        $scope.getHtml(node.Children[k], node);
                         k++;
                         if (k >= i) {
                             k = 0;
@@ -590,7 +636,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                     }
                 } else {
                     for (var j = 0; j < node.Children.length; j++) {
-                        $scope.getHtml(node.Children[j]);
+                        $scope.getHtml(node.Children[j], node);
                     }
                 }
             }
@@ -598,9 +644,22 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
         else {
             $scope.tempContent += node.Content;
+            //css
+            if (parent && parent.Type == 'style') {
+                var parent_wb_settings = parent.Settings;
+                var wb_settings_css = null;
+                if (parent_wb_settings && parent_wb_settings.length > 0) {
+                    wb_settings_css = _.find(parent_wb_settings, function (item) {
+                        return item.Type == 'css';
+                    });
+                }
+                if (wb_settings_css && wb_settings_css.Value != '') {
+                    $scope.tempContent += '\n' + wb_settings_css.Pattern.replace('[value]', wb_settings_css.Value);
+                }
+            }
         }
-    }
 
+    }
     $scope.triggerJs = function (code) {
         switch (code) {
             case 's0101':

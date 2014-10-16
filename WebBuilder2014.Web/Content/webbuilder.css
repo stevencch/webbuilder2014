@@ -1,13 +1,15 @@
-﻿#wb_toolbox {
+﻿.ui-draggable-dragging {
+  width: 50px !important;
+  height: 25px !important; }
+  .ui-draggable-dragging img {
+    width: 100%; }
+
+#wb_toolbox {
   position: fixed;
   top: 60px;
   right: 0;
   width: 300px;
-  z-index: 99999;
-  /*.ui-sortable-helper {
-        width: 20% !important;
-        height: 20% !important;
-    }*/ }
+  z-index: 99999; }
   #wb_toolbox .title {
     background-color: darkblue;
     color: #fff; }
@@ -17,11 +19,6 @@
     margin: 5px 0;
     border: 1px solid blue;
     cursor: pointer; }
-  #wb_toolbox .ui-draggable-dragging {
-    width: 50px !important;
-    height: 25px !important; }
-    #wb_toolbox .ui-draggable-dragging img {
-      width: 100%; }
 
 #wb_pagebuilder {
   width: 1024px;
@@ -33,10 +30,27 @@
     color: #fff;
     margin: 15px 0; }
   #wb_pagebuilder .wb_sortable {
-    min-height: 30px;
-    padding: 10px 0; }
-  #wb_pagebuilder .wb_pipe {
-    border-right: 1px solid #aaa; }
+    min-height: 30px; }
+    #wb_pagebuilder .wb_sortable.showTopBottom {
+      border: 1px solid #333; }
+  #wb_pagebuilder .bigGap {
+    padding: 30px 0;
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd; }
+  #wb_pagebuilder .wb_pipe.emptyCol {
+    border-right: 5px solid #000; }
+  #wb_pagebuilder .emptyCol {
+    min-height: 75px; }
+    #wb_pagebuilder .emptyCol.col-md-3 {
+      background: url('/content/images/c3.png') repeat #ddd; }
+    #wb_pagebuilder .emptyCol.col-md-4 {
+      background: url('/content/images/c4.png') repeat #ddd; }
+    #wb_pagebuilder .emptyCol.col-md-6 {
+      background: url('/content/images/c6.png') repeat #ddd; }
+    #wb_pagebuilder .emptyCol.col-md-8 {
+      background: url('/content/images/c8.png') repeat #ddd; }
+    #wb_pagebuilder .emptyCol.col-md-9 {
+      background: url('/content/images/c9.png') repeat #ddd; }
   #wb_pagebuilder .oneline {
     clear: both;
     float: left;
@@ -93,4 +107,4 @@
 #wb_EditImageModal .modal-dialog {
   width: 850px; }
 
-/*# sourceMappingURL=pagebuilder.css.map */
+/*# sourceMappingURL=webbuilder.css.map */

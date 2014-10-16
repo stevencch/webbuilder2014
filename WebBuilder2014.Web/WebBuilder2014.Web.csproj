@@ -235,6 +235,11 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\c3.png" />
+    <Content Include="Content\images\c4.png" />
+    <Content Include="Content\images\c6.png" />
+    <Content Include="Content\images\c8.png" />
+    <Content Include="Content\images\c9.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\t00\s0001.png" />
@@ -267,12 +272,6 @@
     <Content Include="Content\plugins\contextmenu\images\page_white_edit.png" />
     <Content Include="Content\plugins\contextmenu\images\page_white_paste.png" />
     <Content Include="Content\plugins\contextmenu\jquery.contextMenu.css" />
-    <Content Include="Content\pagebuilder.css">
-      <DependentUpon>pagebuilder.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\pagebuilder.min.css">
-      <DependentUpon>pagebuilder.css</DependentUpon>
-    </Content>
     <Content Include="Content\plugins\cropbox\jquery.cropbox.css" />
     <Content Include="Content\templates\t00\section0005.html" />
     <Content Include="Content\templates\t00\section0006.html" />
@@ -568,6 +567,12 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\webbuilder.css">
+      <DependentUpon>webbuilder.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\webbuilder.min.css">
+      <DependentUpon>webbuilder.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -582,10 +587,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Content\pagebuilder.scss" />
-    <Content Include="Content\pagebuilder.css.map">
-      <DependentUpon>pagebuilder.css</DependentUpon>
-    </Content>
     <Content Include="Content\templates\t01\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\templates\t01\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\templates\t01\assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
@@ -613,6 +614,10 @@
     <Content Include="Content\templates\t01\assets\plugins\font-awesome\scss\font-awesome.scss" />
     <Content Include="Areas\RouteDebugger\Views\Web.config" />
     <Content Include="Areas\RouteDebugger\Views\RouteDebugger\Index.cshtml" />
+    <Content Include="Content\webbuilder.scss" />
+    <Content Include="Content\webbuilder.css.map">
+      <DependentUpon>webbuilder.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
