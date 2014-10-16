@@ -228,6 +228,17 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
 
         $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
+        
+        //model buttons
+        $('#wb_pagebuilder').delegate('.btnEditText', 'click', function (e) {
+            $scope.editText();
+        });
+        $('#wb_pagebuilder').delegate('.btnEditImage', 'click', function (e) {
+            $scope.editImage();
+        });
+        $('#wb_pagebuilder').delegate('.btnEditSettings', 'click', function (e) {
+            $scope.editSettings();
+        });
     };
 
     $scope.sortableStop = function (event, ui) {
@@ -264,7 +275,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('.selectedNode').removeClass('selectedNode');
         $scope.currentNode.addClass("selectedNode");
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'));
-        $scope.currentNode.append($('#hiddenModel .modelButtons'));
+        $('#wb_pagebuilder .modelButtons').remove();
+        $scope.currentNode.append($('#hiddenModel .modelButtons').clone());
         e.stopPropagation();
     };
 
@@ -294,6 +306,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.editTextList = [];
     $scope.editText = function () {
         $scope.updateEditTextList();
+        $scope.$apply();
         $('#wb_EditTextModal').modal({
             backdrop: false,
             show: true
