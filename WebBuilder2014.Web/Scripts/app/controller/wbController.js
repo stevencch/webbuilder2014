@@ -641,6 +641,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             backdrop: false,
             show: true
         });
+        $scope.$apply();
+        $timeout($scope.initSettingForm, 0);
     };
 
     $scope.updateSettingsList = function () {
@@ -676,6 +678,15 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
         $('#wb_SettingsModal').modal('hide');
         $scope.loadPage($scope.rootNode);
+    }
+
+    $scope.initSettingForm = function () {
+        var settings = $('#settingsForm input');
+        for (var i = 0; i < settings.length; i++) {
+            if ($(settings[i]).attr('wb_desc').toLowerCase().indexOf('color') >= 0) {
+                $(settings[i]).minicolors();
+            }
+        }
     }
 
     /*########################################################################################################helper function*/

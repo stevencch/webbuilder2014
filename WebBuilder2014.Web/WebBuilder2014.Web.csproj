@@ -273,6 +273,13 @@
     <Content Include="Content\plugins\contextmenu\images\page_white_paste.png" />
     <Content Include="Content\plugins\contextmenu\jquery.contextMenu.css" />
     <Content Include="Content\plugins\cropbox\jquery.cropbox.css" />
+    <Content Include="Content\plugins\minicolors\.gitignore" />
+    <Content Include="Content\plugins\minicolors\index.html" />
+    <Content Include="Content\plugins\minicolors\jquery.minicolors.css" />
+    <Content Include="Content\plugins\minicolors\jquery.minicolors.js" />
+    <Content Include="Content\plugins\minicolors\jquery.minicolors.min.js" />
+    <Content Include="Content\plugins\minicolors\jquery.minicolors.png" />
+    <Content Include="Content\plugins\minicolors\without-bootstrap.html" />
     <Content Include="Content\templates\t00\section0005.html" />
     <Content Include="Content\templates\t00\section0006.html" />
     <Content Include="Content\templates\t00\section0007.html" />
@@ -619,6 +626,10 @@
     <Content Include="Content\webbuilder.css.map">
       <DependentUpon>webbuilder.css</DependentUpon>
     </Content>
+    <Content Include="Content\plugins\minicolors\bower.json" />
+    <Content Include="Content\plugins\minicolors\component.json" />
+    <Content Include="Content\plugins\minicolors\composer.json" />
+    <Content Include="Content\plugins\minicolors\readme.md" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

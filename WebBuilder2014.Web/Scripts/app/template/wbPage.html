@@ -308,7 +308,7 @@
                     <div>
                         <div class="row form-group" ng-repeat="setting in modelSettings">
                             <div class="col-sm-8">{{setting.Desc}}</div>
-                            <div class="col-sm-4"><input type="text" ng-value="setting.Value" /></div>
+                            <div class="col-sm-4"><input type="text" class="form-control" ng-value="setting.Value" wb_desc="{{setting.Desc}}" placeholder="#FFFFFF" /></div>
                         </div>
                     </div>
                 </form>
