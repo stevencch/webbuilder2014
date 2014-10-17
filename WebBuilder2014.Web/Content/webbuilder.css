@@ -1,4 +1,29 @@
-﻿#htmlRoot .ui-draggable-dragging {
+﻿/*fontvace*/
+.OpenSanssansserif {
+  font-family: 'Open Sans', sans-serif; }
+
+.SonsieOnecursive {
+  font-family: 'Sonsie One', cursive; }
+
+.BerkshireSwashcursive {
+  font-family: 'Berkshire Swash', cursive; }
+
+.RobotoCondensedsansserif {
+  font-family: 'Roboto Condensed', sans-serif; }
+
+.Changocursive {
+  font-family: 'Chango', cursive; }
+
+.MarckScriptcursive {
+  font-family: 'Marck Script', cursive; }
+
+.Ribeyecursive {
+  font-family: 'Ribeye', cursive; }
+
+.BerkshireSwashcursive {
+  font-family: 'Berkshire Swash', cursive; }
+
+#htmlRoot .ui-draggable-dragging {
   width: 50px !important;
   height: 25px !important; }
   #htmlRoot .ui-draggable-dragging img {
@@ -28,6 +53,8 @@
 #wb_pagebuilder {
   width: 1024px;
   margin: 0 auto 0 auto; }
+  #wb_pagebuilder .modelLoading {
+    text-align: center; }
   #wb_pagebuilder .wb_pagesection {
     width: 100%;
     text-align: center;

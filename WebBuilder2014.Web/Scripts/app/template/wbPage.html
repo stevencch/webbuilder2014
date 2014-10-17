@@ -1,4 +1,6 @@
-﻿<div id="wb_toolbox">
+﻿<link ng-repeat="ff in fontfaces" ng-href="{{ff.url}}" rel='stylesheet' type='text/css'>
+<style id="wb_fontfacestyle"></style>
+<div id="wb_toolbox">
     <div class="title">Tool</div>
     <div class="accordion">
         <h3>Layout</h3>
@@ -124,6 +126,7 @@
                 <h4 class="modal-title" id="myModalLabel">EDIT TEXT</h4>
             </div>
             <div class="modal-body">
+                <h3>Select text to edit:</h3>
                 <form role="form">
                     <div class="form-group">
                         <div id="textPanel">

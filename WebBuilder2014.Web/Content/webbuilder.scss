@@ -1,4 +1,37 @@
-﻿#htmlRoot {
+﻿/*fontvace*/
+.OpenSanssansserif {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.SonsieOnecursive {
+    font-family: 'Sonsie One', cursive;
+}
+
+.BerkshireSwashcursive {
+    font-family: 'Berkshire Swash', cursive;
+}
+
+.RobotoCondensedsansserif {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.Changocursive {
+    font-family: 'Chango', cursive;
+}
+
+.MarckScriptcursive {
+    font-family: 'Marck Script', cursive;
+}
+
+.Ribeyecursive {
+    font-family: 'Ribeye', cursive;
+}
+
+.BerkshireSwashcursive {
+    font-family: 'Berkshire Swash', cursive;
+}
+
+#htmlRoot {
     .ui-draggable-dragging {
         width: 50px !important;
         height: 25px !important;
@@ -46,7 +79,9 @@
     width: 1024px;
     margin: 0 auto 0 auto;
 
-
+    .modelLoading {
+        text-align: center;
+    }
 
     .wb_pagesection {
         width: 100%;
@@ -113,17 +148,18 @@
 
     .wb_node {
         cursor: pointer;
-        position:relative;
+        position: relative;
     }
 
     .modelButtons {
         position: absolute;
         background-color: #ddd;
         padding: 5px;
-        top:0;
-        i{
-            border:1px solid #666;
-            padding:2px;
+        top: 0;
+
+        i {
+            border: 1px solid #666;
+            padding: 2px;
         }
     }
 

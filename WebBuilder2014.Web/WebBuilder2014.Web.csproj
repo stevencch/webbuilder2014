@@ -567,6 +567,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\tinymce.css" />
     <Content Include="Content\webbuilder.css">
       <DependentUpon>webbuilder.scss</DependentUpon>
     </Content>

@@ -62,6 +62,59 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.currentJsonNode = null;
     $scope.isFound = false;
 
+
+    //########################################################################################################page resources
+    $scope.fontfaces = [
+        {
+            url: 'http://fonts.googleapis.com/css?family=Open+Sans',
+            fontFamily: "'Open Sans', sans-serif",
+            className: "OpenSanssansserif",
+            name: 'Open Sans'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Sonsie+One',
+            fontFamily: "'Sonsie One', cursive",
+            className: "SonsieOnecursive",
+            name: 'Sonsie One'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Berkshire+Swash',
+            fontFamily: "'Berkshire Swash', cursive",
+            className: "BerkshireSwashcursive",
+            name: 'Berkshire Swash'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Roboto+Condensed',
+            fontFamily: "'Roboto Condensed', sans-serif",
+            className: "RobotoCondensedsansserif",
+            name: 'Roboto Condensed'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Chango',
+            fontFamily: "'Chango', cursive",
+            className: "Changocursive",
+            name: 'Chango'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Marck+Script',
+            fontFamily: "'Marck Script', cursive",
+            className: "MarckScriptcursive",
+            name: 'Marck Script'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Ribeye',
+            fontFamily: "'Ribeye', cursive",
+            className: "Ribeyecursive",
+            name: 'Ribeye'
+        },
+        {
+            url: 'http://fonts.googleapis.com/css?family=Berkshire+Swash',
+            fontFamily: "'Berkshire Swash', cursive",
+            className: "BerkshireSwashcursive",
+            name: 'Berkshire Swash'
+        }
+    ];
+
     //########################################################################################################page function
     $scope.newPage = function () {
         $scope.rootNode = $scope.defaultRootNode;
@@ -200,13 +253,16 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             theme: "modern",
             width: 530,
             height: 300,
+            menubar: false,
             plugins: [
                  "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
                  "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                  "save table contextmenu directionality emoticons template paste textcolor"
             ],
-            content_css: "css/content.css",
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+            paste_as_text: true,
+            font_formats: $scope.getFontfaceForTinymce(),
+            content_css: "/Content/tinymce.css",
+            toolbar: "undo redo pastetext | cut copy paste |styleselect fontselect fontsizeselect | forecolor backcolor bold italic charmap | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent subscript superscript | link image media | table code",
             style_formats: [
                  { title: 'Bold text', inline: 'b' },
                  { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
@@ -228,6 +284,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
 
         $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
+
+        $scope.getFontfaceStyle();
         
         //model buttons
         $('#wb_pagebuilder').delegate('.btnEditText', 'click', function (e) {
@@ -241,11 +299,31 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
     };
 
+    $scope.getFontfaceStyle = function () {
+        var style = [];
+        _.each($scope.fontfaces, function (ff) {
+            style.push('.' + ff.className + '{font-family:' + ff.fontFamily + ';}')
+        });
+        $('#wb_fontfacestyle').html( style.join('') );
+    }
+
+    $scope.getFontfaceForTinymce = function () {
+        var fontList = '';
+        for (var i = 0; i < $scope.fontfaces.length; i++) {
+            fontList += $scope.fontfaces[i].name + '=' + $scope.fontfaces[i].fontFamily;
+            if (i != $scope.fontfaces.length - 1) {
+                fontList += ';';
+            }
+        }
+        return fontList;
+    };
+
     $scope.sortableStop = function (event, ui) {
         var wb_id = ui.item.attr('wb_id');
         $scope.currentNode = ui.item;
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
         if ($scope.currentNode.attr('sid')) {
+            $scope.currentNode.html('<h2 class="modelLoading">Loading...</h2>')
             $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
                 $scope.fillUUID(data);
                 $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
