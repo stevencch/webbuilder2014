@@ -208,14 +208,12 @@
                                 </form>
                                 <div id="searchPanel" class="clearfix">
                                     <div class="clearfix content">
-                                        <div ng-repeat="image in searchImageList">
-                                            <div class="wb_searchImage wb_searchImage-{{$index}}">
-                                                <div class='imagePlaceHolder' ng-click="selectSearchImage($index)"></div>
-                                                <div class='imageSize'>
-                                                    {{image.Width}} X {{image.Height}}
-                                                </div>
+                                        <div class="wb_searchImage wb_searchImage-{{$index}}" ng-repeat="image in searchImageList">
+                                            <div class='imagePlaceHolder' ng-click="selectSearchImage($index)"></div>
+                                            <div class='imageSize'>
+                                                {{image.Width}} X {{image.Height}}
                                             </div>
-                                            <div ng-class="($index>0 && ($index+1)%4==0) && 'clearfix' || ''"></div>
+                                            <!--<div ng-class="($index>0 && ($index+1)%4==0) && 'clearfix' || ''"></div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -262,16 +260,16 @@
                     <div ng-show="isTempImageSelected">
                         <div class="col-sm-9">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-2">
                                     <input type="text" class="form-control" id="txtCropWidth" ng-value="cropwidth" />
                                 </div>
                                 <div class="col-sm-1">
                                     X
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-2">
                                     <input type="text" class="form-control" id="txtCropHeight" ng-value="cropheight">
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                     <button type="button" class="btn btn-primary" id="btnCropImage" ng-click="cropImage()">Crop</button>
                                 </div>
                             </div>

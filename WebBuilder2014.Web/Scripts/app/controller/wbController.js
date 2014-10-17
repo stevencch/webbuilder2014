@@ -507,6 +507,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         for (var i = 0; i < $scope.imageLoadCount; i++) {
             if ($scope.imageUrl[i] != null) {
                 $scope.imageLoad[i] = new Image();
+                $scope.imageLoad[i].onerror = hideImage(i);
                 $scope.imageLoad[i].onload = showImage(i);
                 $scope.imageLoad[i].alt = $scope.imageUrl[i].replace('/content/image_folder/', '').replace('/', '_');
                 $scope.imageLoad[i].src = $scope.imageUrl[i];
@@ -518,19 +519,40 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             setTimeout(loadImage, 3000);
         } else {
             $('#btnSearch').html('Search');
+            var itemCount = 0;
+            _.each($('#searchPanel .wb_searchImage'), function (item) {
+                if (!$(item).hasClass('hidden')) {
+                    itemCount++;
+                    if (itemCount > 0 && itemCount % 4 == 0) {
+                        $(item).after($('<div class="clearfix"></div>'));
+                    }
+                }
+            });
             $('#searchPanel .content').show();
         }
     }
 
+    function hideImage(id) {
+        window.console && console.log('hide ' + id);
+        return function () {
+            removeImage(id);
+        };
+    }
+    
+    function removeImage(id) {
+        $('.wb_searchImage-' + id).addClass('hidden');
+    }
+
     function showImage(id) {
+        window.console && console.log('Load '+id);
         return function () {
             displayImage(id);
         };
     }
 
     function displayImage(id) {
+        window.console && console.log('display ' + id);
         $('.wb_searchImage-' + id + ' .imagePlaceHolder').append($scope.imageLoad[id]);
-        $('.wb_searchImage-' + id).show();
         $scope.imageUrl[id] = null;
     }
 
@@ -589,7 +611,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             });
         }
         else {
-            alert('please crop the image.')
+            alert('please crop the image.');
         }
     }
 
@@ -622,7 +644,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
 
     $scope.showMyFolder = function () {
         $scope.isTempImageSelected = false;
-        $scope.isMyFolderImageSelected = true;
+        $scope.isMyFolderImageSelected = false;
         $scope.$apply();
         $.get('/api/image/1',
             function (data) {
@@ -652,6 +674,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('.wb_MyFolderImage').removeClass('selected');
         $('.wb_MyFolderImage-' + index).addClass('selected');
         $scope.selectedMyFolderImage = $scope.myfolderImageList[index];
+        $scope.isMyFolderImageSelected = true;
     };
 
     //save to my folder

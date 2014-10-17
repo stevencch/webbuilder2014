@@ -125,12 +125,18 @@
 
 #wb_EditImageModal #imagePanel .editImageItem img {
   width: 100%; }
+#wb_EditImageModal .nav-tabs {
+  margin-bottom: 15px; }
+#wb_EditImageModal .pagination {
+  margin: 0; }
 #wb_EditImageModal #searchPanel .wb_searchImage {
   width: 120px;
   float: left;
   margin: 5px 2px; }
   #wb_EditImageModal #searchPanel .wb_searchImage img {
     width: 100%; }
+#wb_EditImageModal #searchPanel .hidden {
+  display: none; }
 #wb_EditImageModal #searchPanel .selected {
   border: 1px solid blue; }
 #wb_EditImageModal #uploadPanel .uploadImage {

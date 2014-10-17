@@ -207,6 +207,15 @@
         }
     }
 
+    .nav-tabs{
+        margin-bottom:15px;
+    }
+
+    .pagination{
+        margin:0;
+    }
+
+
     #searchPanel {
         .wb_searchImage {
             width: 120px;
@@ -218,9 +227,16 @@
             }
         }
 
+        .hidden{
+            display:none;
+        }
+
         .selected {
             border: 1px solid blue;
         }
+
+
+
     }
 
     #uploadPanel {
@@ -252,4 +268,6 @@
     .modal-dialog {
         width: 850px;
     }
+
+    
 }
