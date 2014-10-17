@@ -141,11 +141,11 @@ namespace WebBuilder2014.Web.api
         private List<ImageModel> Search(string query, string filter, int top, int skip)
         {
             List<ImageModel> searchResult = new List<ImageModel>();
-            string folder = Regex.Replace(query, "[^A-Za-z0-9]", "_");
+            string folder = Regex.Replace(query+"_"+skip, "[^A-Za-z0-9]", "_");
 
-            if (!Directory.Exists(ImageController.Path + imagePath + query))
+            if (!Directory.Exists(ImageController.Path + imagePath + folder))
             {
-                Directory.CreateDirectory(ImageController.Path + imagePath + query);
+                Directory.CreateDirectory(ImageController.Path + imagePath + folder);
                 // Create a Bing container.
                 var bingContainer = new Bing.BingSearchContainer(new Uri(rootUrl));
 

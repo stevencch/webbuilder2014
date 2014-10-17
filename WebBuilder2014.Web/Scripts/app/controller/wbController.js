@@ -195,6 +195,12 @@ wbApp.controller('wbController', function ($scope, $timeout) {
 
     //########################################################################################################init
     $scope.afterRender = function () {
+        $(document).on('focusin', function (e) {
+            if ($(e.target).closest(".mce-window").length) {
+                e.stopImmediatePropagation();
+            }
+        });
+
         //pagebuilder
         $(".wb_sortable").sortable({
             revert: true,
@@ -284,6 +290,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
 
         $('#myFolderTab').on('shown.bs.tab', $scope.showMyFolder);
+        $('#searchTab').on('shown.bs.tab', $scope.showSearchTab);
+        $('#uploadTab').on('shown.bs.tab', $scope.showUploadTab);
 
         $scope.getFontfaceStyle();
         
@@ -396,12 +404,14 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
         $scope.editTextList[index].isActive = true;
         $scope.currentEditText = $($scope.currntTextList[index]);
-        tinymce.activeEditor.setContent($scope.currentEditText.html());
+        var html = $scope.addPTag($scope.currentEditText.html());
+        tinymce.activeEditor.setContent(html);
     };
     $scope.saveEditText = function () {
-        $scope.currentEditText.html(tinymce.activeEditor.getContent());
+        var html = $scope.removePTag(tinymce.activeEditor.getContent());
+        $scope.currentEditText.html(html);
         $scope.searchNode($scope.rootNode, 'txtid', $scope.currentEditText.attr('txtid'));
-        $scope.currentJsonNode.Children[0].Content = tinymce.activeEditor.getContent();
+        $scope.currentJsonNode.Children[0].Content = html;
         $scope.updateEditTextList();
     }
 
@@ -416,7 +426,20 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
         $scope.selectEditText(0);
     };
+
+    $scope.removePTag = function (html) {
+        var result = html.replace(/<p>/g, '<br/>').replace(/<\/p>/g, '').replace('<br/>', '');
+        return result;
+    }
+
+    $scope.addPTag = function (html) {
+        var result = '<p>'+html.replace(/<br\/>/g, '</p>\n<p>').replace(/<br>/g, '</p>\n<p>')+'</p>';
+        return result;
+    }
+
     //########################################################################################################edit image
+    $scope.isTempImageSelected = false;
+    $scope.isMyFolderImageSelected = false;
     $scope.cropwidth = 0;
     $scope.cropheight = 0;
     $scope.editImageList = [];
@@ -424,20 +447,16 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.myfolderImageList = [];
     $scope.editImage = function () {
         $scope.updateEditImageList();
-        $('#wb_EditImageModal').modal({
-            backdrop: false,
-            show: true
-        });
+        if ($scope.editImageList.length) {
+            $('#wb_EditImageModal').modal({
+                backdrop: false,
+                show: true
+            });
+            $scope.$apply();
+            $scope.selectEditImage(0);
+        }
     }
-    $scope.selectEditImage = function (index) {
-        $scope.currentImageNode = $($scope.currntImageList[index]);
-        $scope.currentEditImage = $scope.editImageList[index];
-        $('.editImageItem').removeClass('active');
-        $('.editImageItem-' + index).addClass('active');
-        $scope.cropwidth = $scope.currentEditImage.width;
-        $scope.cropheight = $scope.currentEditImage.height;
-    };
-
+    
     $scope.updateEditImageList = function () {
         $scope.currntImageList = $scope.currentNode.find("*[imgid]");
         $scope.editImageList = [];
@@ -451,11 +470,21 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
     };
 
-    $scope.searchImage = function () {
+    $scope.selectEditImage = function (index) {
+        $scope.currentImageNode = $($scope.currntImageList[index]);
+        $scope.currentEditImage = $scope.editImageList[index];
+        $('.editImageItem').removeClass('active');
+        $('.editImageItem-' + index).addClass('active');
+        $scope.cropwidth = $scope.currentEditImage.width;
+        $scope.cropheight = $scope.currentEditImage.height;
+    };
+
+
+    $scope.searchImage = function (page) {
         $scope.currentSelectedImage = null;
         $('#btnSearch').html("Loading...");
         $('#searchPanel .content').hide();
-        $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip=0',
+        $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip='+(page*50),
             function (data) {
                 var count = 0;
                 _.each(data, function (item) {
@@ -500,7 +529,6 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     }
 
     function displayImage(id) {
-        // window.console && console.log(id);
         $('.wb_searchImage-' + id + ' .imagePlaceHolder').append($scope.imageLoad[id]);
         $('.wb_searchImage-' + id).show();
         $scope.imageUrl[id] = null;
@@ -510,6 +538,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('.wb_searchImage').removeClass('selected');
         $('.wb_searchImage-' + index).addClass('selected');
         $scope.selectedSearchImage = $scope.searchImageList[index];
+        $scope.isTempImageSelected = true;
     };
 
 
@@ -583,6 +612,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                 Name: data[0].Name,
                 Url: data[0].Url
             };
+            $scope.isTempImageSelected = true;
             $('#uploadPanel').html('<div class="uploadImage"><img src="' + data[0].Url + '"/></div><div class="imageSize">' + data[0].Width + ' X ' + data[0].Height + '</div>');
         }).fail(function () {
             alert('fail');
@@ -591,6 +621,9 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     }
 
     $scope.showMyFolder = function () {
+        $scope.isTempImageSelected = false;
+        $scope.isMyFolderImageSelected = true;
+        $scope.$apply();
         $.get('/api/image/1',
             function (data) {
                 $scope.myfolderImageList = data;
@@ -599,6 +632,20 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             .fail(function () {
                 alert('fail');
             });
+    }
+
+    $scope.showSearchTab = function () {
+        $('.wb_searchImage').removeClass('selected');
+        $scope.selectedSearchImage = null;
+        $scope.isTempImageSelected = false;
+        $scope.isMyFolderImageSelected = false;
+        $scope.$apply();
+    }
+
+    $scope.showUploadTab = function () {
+        $scope.isTempImageSelected = false;
+        $scope.isMyFolderImageSelected = false;
+        $scope.$apply();
     }
 
     $scope.selectMyFolderImage = function (index) {
@@ -690,6 +737,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     }
 
     /*########################################################################################################helper function*/
+    $scope.isNewUUID = false;
     $scope.getHtml = function (node, parent) {
         if (node.Type != '#text') {
             $scope.tempContent += '<' + node.Type;
@@ -707,7 +755,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                 $scope.tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
                     //uuid
-                    if (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid') {
+                    if ($scope.isNewUUID && (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid')) {
                         node.Attributes[j].Value = $scope.generateUUID();
                     }
                     //emptycol
@@ -739,8 +787,10 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                         k++;
                         if (k >= i) {
                             k = 0;
+                            $scope.isNewUUID = true;
                         }
                     }
+                    $scope.isNewUUID = false;
                 } else {
                     for (var j = 0; j < node.Children.length; j++) {
                         $scope.getHtml(node.Children[j], node);

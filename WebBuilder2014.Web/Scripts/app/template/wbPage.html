@@ -126,7 +126,7 @@
                 <h4 class="modal-title" id="myModalLabel">EDIT TEXT</h4>
             </div>
             <div class="modal-body">
-                <h3>Select text to edit:</h3>
+                <h6>Select text to edit:</h6>
                 <form role="form">
                     <div class="form-group">
                         <div id="textPanel">
@@ -164,8 +164,8 @@
                         <div class="form-group">
                             <div id="imagePanel">
                                 <div class="list-group">
-                                    <div class="list-group-item" ng-repeat="editImage in editImageList">
-                                        <div class="editImageItem editImageItem-{{$index}}" ng-click="selectEditImage($index)">
+                                    <div ng-repeat="editImage in editImageList">
+                                        <div class="list-group-item editImageItem editImageItem-{{$index}}" ng-click="selectEditImage($index)">
                                             <div><img ng-src="{{editImage.image}}" /></div>
                                             <div class="imageSize">{{editImage.width}} X {{editImage.height}}</div>
                                         </div>
@@ -177,8 +177,8 @@
                     <div class="col-md-8 imagePanel">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#wb_search" role="tab" data-toggle="tab">Search</a></li>
-                            <li><a href="#wb_upload" role="tab" data-toggle="tab">Upload</a></li>
+                            <li class="active"><a href="#wb_search" role="tab" data-toggle="tab" id="searchTab">Search</a></li>
+                            <li><a href="#wb_upload" role="tab" data-toggle="tab" id="uploadTab">Upload</a></li>
                             <li><a href="#wb_myFolder" role="tab" data-toggle="tab" id="myFolderTab">My Folder</a></li>
                         </ul>
                         <!-- Tab panes -->
@@ -187,11 +187,21 @@
                                 <form role="form">
                                     <div class="row">
                                         <div class="form-group">
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-5">
                                                 <input type="text" class="form-control" id="textSearch" placeholder="Search">
                                             </div>
-                                            <div class="col-sm-3">
-                                                <button type="button" class="btn btn-primary btn-sm" id="btnSearch" ng-click="searchImage()">Search</button>
+                                            <div class="col-sm-2">
+                                                <button type="button" class="btn btn-primary btn-sm" id="btnSearch" ng-click="searchImage(0)">Search</button>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <ul class="pagination">
+                                                    <li><a href="#" ng-click="searchImage(0)">1</a></li>
+                                                    <li><a href="#" ng-click="searchImage(1)">2</a></li>
+                                                    <li><a href="#" ng-click="searchImage(2)">3</a></li>
+                                                    <li><a href="#" ng-click="searchImage(3)">4</a></li>
+                                                    <li><a href="#" ng-click="searchImage(4)">5</a></li>
+                                                    <li><a href="#" ng-click="searchImage(5)">6</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -249,23 +259,34 @@
             <div class="modal-footer">
 
                 <div class="row">
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="txtCropWidth" ng-value="cropwidth" />
+                    <div ng-show="isTempImageSelected">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtCropWidth" ng-value="cropwidth" />
+                                </div>
+                                <div class="col-sm-1">
+                                    X
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txtCropHeight" ng-value="cropheight">
+                                </div>
+                                <div class="col-sm-5">
+                                    <button type="button" class="btn btn-primary" id="btnCropImage" ng-click="cropImage()">Crop</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="saveImage()">Save To My Folder</button>
+                        </div>
                     </div>
-                    <div class="col-sm-1">
-                        X
-                    </div>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="txtCropHeight" ng-value="cropheight">
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" id="btnCropImage" ng-click="cropImage()">Crop</button>
-                    </div>
-                    <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="saveImage()">Save To My Folder</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="updateImage()">Update Image</button>
+                    <div ng-show="isMyFolderImageSelected">
+                        <div class="col-sm-9">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary" id="btnImageSave" ng-click="updateImage()">Update Image</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -324,7 +345,7 @@
         <i class="icon-font btnEditText"></i>
         <i class="icon-picture btnEditImage"></i>
         <i class="icon-gear btnEditSettings"></i>
-</div>
+    </div>
 </div>
 
 
