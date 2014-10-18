@@ -590,6 +590,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\controller\wbController.js" />
     <Content Include="Scripts\app\directive\wbPage.js" />
+    <Content Include="Scripts\app\resource.js" />
     <Content Include="Scripts\app\template\wbPage.html" />
     <Content Include="Scripts\app\wbApp.js" />
     <Content Include="Scripts\bootstrap.js" />

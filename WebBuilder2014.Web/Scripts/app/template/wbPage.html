@@ -343,7 +343,6 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="active"><a href="#wb_icon1" role="tab" data-toggle="tab">Icon1</a></li>
                             <li><a href="#wb_icon2" role="tab" data-toggle="tab">Icon2</a></li>
-                            <li><a href="#wb_icon3" role="tab" data-toggle="tab">Icon3</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -351,7 +350,7 @@
                                 <div  class="myIconPanel clearfix">
                                     <div class="clearfix content">
                                         <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
-                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
+                                            <div ng-click="selectMyIcon($index,1)"><i class="{{icon}}"></i></div>
                                         </div>
                                     </div>
                                 </div>
@@ -359,17 +358,8 @@
                             <div class="tab-pane" id="wb_icon2">
                                 <div class="myIconPanel clearfix">
                                     <div class="clearfix content">
-                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
-                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="wb_icon3">
-                                <div class="myIconPanel clearfix">
-                                    <div class="clearfix content">
-                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
-                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
+                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList2">
+                                            <div ng-click="selectMyIcon($index,2)"><i class="{{icon}}"></i></div>
                                         </div>
                                     </div>
                                 </div>

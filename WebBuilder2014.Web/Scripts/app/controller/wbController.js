@@ -37,7 +37,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.imageLoad = [];
     $scope.selectedSearchImage = null;
     $scope.selectedMyFolderImage = null;
-    
+
     $scope.currntIconList = null;
     $scope.currentIconNode = null;
     $scope.currentEditIcon = null;
@@ -71,285 +71,12 @@ wbApp.controller('wbController', function ($scope, $timeout) {
 
 
     //########################################################################################################page resources
-    $scope.fontfaces = [
-        {
-            url: 'http://fonts.googleapis.com/css?family=Open+Sans',
-            fontFamily: "'Open Sans', sans-serif",
-            className: "OpenSanssansserif",
-            name: 'Open Sans'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Sonsie+One',
-            fontFamily: "'Sonsie One', cursive",
-            className: "SonsieOnecursive",
-            name: 'Sonsie One'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Berkshire+Swash',
-            fontFamily: "'Berkshire Swash', cursive",
-            className: "BerkshireSwashcursive",
-            name: 'Berkshire Swash'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Roboto+Condensed',
-            fontFamily: "'Roboto Condensed', sans-serif",
-            className: "RobotoCondensedsansserif",
-            name: 'Roboto Condensed'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Chango',
-            fontFamily: "'Chango', cursive",
-            className: "Changocursive",
-            name: 'Chango'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Marck+Script',
-            fontFamily: "'Marck Script', cursive",
-            className: "MarckScriptcursive",
-            name: 'Marck Script'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Ribeye',
-            fontFamily: "'Ribeye', cursive",
-            className: "Ribeyecursive",
-            name: 'Ribeye'
-        },
-        {
-            url: 'http://fonts.googleapis.com/css?family=Berkshire+Swash',
-            fontFamily: "'Berkshire Swash', cursive",
-            className: "BerkshireSwashcursive",
-            name: 'Berkshire Swash'
-        }
-    ];
+    $scope.fontfaces = fontfaces;
 
-    $scope.iconList1 = [
-     'icon-adjust',
-'icon-anchor',
-'icon-archive',
-'icon-asterisk',
-'icon-ban-circle',
-'icon-bar-chart',
-'icon-barcode',
-'icon-beaker',
-'icon-beer',
-'icon-bell',
-'icon-bell-alt',
-'icon-bolt',
-'icon-book',
-'icon-bookmark',
-'icon-bookmark-empty',
-'icon-briefcase',
-'icon-bug',
-'icon-building',
-'icon-bullhorn',
-'icon-bullseye',
-'icon-calendar',
-'icon-calendar-empty',
-'icon-camera',
-'icon-camera-retro',
-'icon-certificate',
-'icon-check',
-'icon-check-empty',
-'icon-check-minus',
-'icon-check-sign',
-'icon-circle',
-'icon-circle-blank',
-'icon-cloud',
-'icon-cloud-download',
-'icon-cloud-upload',
-'icon-code',
-'icon-code-fork',
-'icon-coffee',
-'icon-cog',
-'icon-cogs',
-'icon-collapse',
-'icon-collapse-alt',
-'icon-collapse-top',
-'icon-comment',
-'icon-comment-alt',
-'icon-comments',
-'icon-comments-alt',
-'icon-compass',
-'icon-credit-card',
-'icon-crop',
-'icon-dashboard',
-'icon-desktop',
-'icon-download',
-'icon-download-alt',
-'icon-edit',
-'icon-edit-sign',
-'icon-ellipsis-horizontal',
-'icon-ellipsis-vertical',
-'icon-envelope',
-'icon-envelope-alt',
-'icon-eraser',
-'icon-exchange',
-'icon-exclamation',
-'icon-exclamation-sign',
-'icon-expand',
-'icon-expand-alt',
-'icon-external-link',
-'icon-external-link-sign',
-'icon-eye-close',
-'icon-eye-open',
-'icon-facetime-video',
-'icon-female',
-'icon-fighter-jet',
-'icon-film',
-'icon-filter',
-'icon-fire',
-'icon-fire-extinguisher',
-'icon-flag',
-'icon-flag-alt',
-'icon-flag-checkered',
-'icon-folder-close',
-'icon-folder-close-alt',
-'icon-folder-open',
-'icon-folder-open-alt',
-'icon-food',
-'icon-frown',
-'icon-gamepad',
-'icon-gear',
-'icon-gears',
-'icon-gift',
-'icon-glass',
-'icon-globe',
-'icon-group',
-'icon-hdd',
-'icon-headphones',
-'icon-heart',
-'icon-heart-empty',
-'icon-home',
-'icon-inbox',
-'icon-info',
-'icon-info-sign',
-'icon-key',
-'icon-keyboard',
-'icon-laptop',
-'icon-leaf',
-'icon-legal',
-'icon-lemon',
-'icon-level-down',
-'icon-level-up',
-'icon-lightbulb',
-'icon-location-arrow',
-'icon-lock',
-'icon-magic',
-'icon-magnet',
-'icon-mail-forward',
-'icon-mail-reply',
-'icon-mail-reply-all',
-'icon-male',
-'icon-map-marker',
-'icon-meh',
-'icon-microphone',
-'icon-microphone-off',
-'icon-minus',
-'icon-minus-sign',
-'icon-minus-sign-alt',
-'icon-mobile-phone',
-'icon-money',
-'icon-moon',
-'icon-move',
-'icon-music',
-'icon-off',
-'icon-ok',
-'icon-ok-circle',
-'icon-ok-sign',
-'icon-pencil',
-'icon-phone',
-'icon-phone-sign',
-'icon-picture',
-'icon-plane',
-'icon-plus',
-'icon-plus-sign',
-'icon-plus-sign-alt',
-'icon-power-off',
-'icon-print',
-'icon-pushpin',
-'icon-puzzle-piece',
-'icon-qrcode',
-'icon-question',
-'icon-question-sign',
-'icon-quote-left',
-'icon-quote-right',
-'icon-random',
-'icon-refresh',
-'icon-remove',
-'icon-remove-circle',
-'icon-remove-sign',
-'icon-reorder',
-'icon-reply',
-'icon-reply-all',
-'icon-resize-horizontal',
-'icon-resize-vertical',
-'icon-retweet',
-'icon-road',
-'icon-rocket',
-'icon-rss',
-'icon-rss-sign',
-'icon-screenshot',
-'icon-search',
-'icon-share',
-'icon-share-alt',
-'icon-share-sign',
-'icon-shield',
-'icon-shopping-cart',
-'icon-sign-blank',
-'icon-signal',
-'icon-signin',
-'icon-signout',
-'icon-sitemap',
-'icon-smile',
-'icon-sort',
-'icon-sort-by-alphabet',
-'icon-sort-by-alphabet-alt',
-'icon-sort-by-attributes',
-'icon-sort-by-attributes-alt',
-'icon-sort-by-order',
-'icon-sort-by-order-alt',
-'icon-sort-down',
-'icon-sort-up',
-'icon-spinner',
-'icon-star',
-'icon-star-empty',
-'icon-star-half',
-'icon-star-half-empty',
-'icon-star-half-full',
-'icon-subscript',
-'icon-suitcase',
-'icon-sun',
-'icon-superscript',
-'icon-tablet',
-'icon-tag',
-'icon-tags',
-'icon-tasks',
-'icon-terminal',
-'icon-thumbs-down',
-'icon-thumbs-down-alt',
-'icon-thumbs-up',
-'icon-thumbs-up-alt',
-'icon-ticket',
-'icon-time',
-'icon-tint',
-'icon-trash',
-'icon-trophy',
-'icon-truck',
-'icon-umbrella',
-'icon-unchecked',
-'icon-unlock',
-'icon-unlock-alt',
-'icon-upload',
-'icon-upload-alt',
-'icon-user',
-'icon-volume-down',
-'icon-volume-off',
-'icon-volume-up',
-'icon-warning-sign',
-'icon-wrench',
-'icon-zoom-in',
-'icon-zoom-out'
-    ];
+    $scope.iconList1 = iconList1;
+    $scope.iconList2 = iconList2;
+
+
 
     //########################################################################################################page function
     $scope.newPage = function () {
@@ -993,17 +720,31 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('.editIconItem').removeClass('active');
         $('.editIconItem-' + index).addClass('active');
     };
-    
-    $scope.selectMyIcon = function (index) {
+
+    $scope.selectMyIcon = function (index, list) {
         $('.wb_myIcon').removeClass('selected');
         $('.wb_myIcon-' + index).addClass('selected');
-        $scope.selectedMyIcon = $scope.iconList1[index];
+        switch (list) {
+            case 1:
+                $scope.selectedMyIcon = $scope.iconList1[index];
+                break;
+            case 2:
+                $scope.selectedMyIcon = $scope.iconList2[index];
+                break;
+        }
+
         $scope.isIconSelected = true;
     };
-    
-    $scope.updateIcon=function() {
-        $scope.currentIconNode.attr('class',$scope.selectedMyIcon);
+
+    $scope.updateIcon = function () {
+        $scope.currentIconNode.attr('class', $scope.selectedMyIcon);
         $scope.updateEditIconList();
+        $scope.searchNode($scope.rootNode, 'iconid', $scope.currentIconNode.attr('iconid'), true);
+        _.each($scope.currentJsonNode.Attributes, function (item) {
+            if (item.Key == 'class') {
+                item.Value = $scope.selectedMyIcon;
+            }
+        });
     }
     //########################################################################################################edit settings
     $scope.modelSettings = [];
