@@ -29,6 +29,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.currentImageNode = null;
     $scope.currentEditImage = null;
     $scope.currentSelectedImage = null;
+
     $scope.imageLoadStep = 0;
     $scope.imageLoadStepTry = 3;
     $scope.imageLoadCount = 50;
@@ -36,6 +37,12 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.imageLoad = [];
     $scope.selectedSearchImage = null;
     $scope.selectedMyFolderImage = null;
+    
+    $scope.currntIconList = null;
+    $scope.currentIconNode = null;
+    $scope.currentEditIcon = null;
+    $scope.currentSelectedIcon = null;
+    $scope.selectedMyIcon = null;
 
     //########################################################################################################global
     $scope.defaultRootNode = {
@@ -51,7 +58,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             },
             {
                 Key: 'class',
-                Value: 'wb_sortable row'
+                Value: 'wb_sortable row wb_droppable'
             }
         ],
         Children: [],
@@ -115,6 +122,235 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
     ];
 
+    $scope.iconList1 = [
+     'icon-adjust',
+'icon-anchor',
+'icon-archive',
+'icon-asterisk',
+'icon-ban-circle',
+'icon-bar-chart',
+'icon-barcode',
+'icon-beaker',
+'icon-beer',
+'icon-bell',
+'icon-bell-alt',
+'icon-bolt',
+'icon-book',
+'icon-bookmark',
+'icon-bookmark-empty',
+'icon-briefcase',
+'icon-bug',
+'icon-building',
+'icon-bullhorn',
+'icon-bullseye',
+'icon-calendar',
+'icon-calendar-empty',
+'icon-camera',
+'icon-camera-retro',
+'icon-certificate',
+'icon-check',
+'icon-check-empty',
+'icon-check-minus',
+'icon-check-sign',
+'icon-circle',
+'icon-circle-blank',
+'icon-cloud',
+'icon-cloud-download',
+'icon-cloud-upload',
+'icon-code',
+'icon-code-fork',
+'icon-coffee',
+'icon-cog',
+'icon-cogs',
+'icon-collapse',
+'icon-collapse-alt',
+'icon-collapse-top',
+'icon-comment',
+'icon-comment-alt',
+'icon-comments',
+'icon-comments-alt',
+'icon-compass',
+'icon-credit-card',
+'icon-crop',
+'icon-dashboard',
+'icon-desktop',
+'icon-download',
+'icon-download-alt',
+'icon-edit',
+'icon-edit-sign',
+'icon-ellipsis-horizontal',
+'icon-ellipsis-vertical',
+'icon-envelope',
+'icon-envelope-alt',
+'icon-eraser',
+'icon-exchange',
+'icon-exclamation',
+'icon-exclamation-sign',
+'icon-expand',
+'icon-expand-alt',
+'icon-external-link',
+'icon-external-link-sign',
+'icon-eye-close',
+'icon-eye-open',
+'icon-facetime-video',
+'icon-female',
+'icon-fighter-jet',
+'icon-film',
+'icon-filter',
+'icon-fire',
+'icon-fire-extinguisher',
+'icon-flag',
+'icon-flag-alt',
+'icon-flag-checkered',
+'icon-folder-close',
+'icon-folder-close-alt',
+'icon-folder-open',
+'icon-folder-open-alt',
+'icon-food',
+'icon-frown',
+'icon-gamepad',
+'icon-gear',
+'icon-gears',
+'icon-gift',
+'icon-glass',
+'icon-globe',
+'icon-group',
+'icon-hdd',
+'icon-headphones',
+'icon-heart',
+'icon-heart-empty',
+'icon-home',
+'icon-inbox',
+'icon-info',
+'icon-info-sign',
+'icon-key',
+'icon-keyboard',
+'icon-laptop',
+'icon-leaf',
+'icon-legal',
+'icon-lemon',
+'icon-level-down',
+'icon-level-up',
+'icon-lightbulb',
+'icon-location-arrow',
+'icon-lock',
+'icon-magic',
+'icon-magnet',
+'icon-mail-forward',
+'icon-mail-reply',
+'icon-mail-reply-all',
+'icon-male',
+'icon-map-marker',
+'icon-meh',
+'icon-microphone',
+'icon-microphone-off',
+'icon-minus',
+'icon-minus-sign',
+'icon-minus-sign-alt',
+'icon-mobile-phone',
+'icon-money',
+'icon-moon',
+'icon-move',
+'icon-music',
+'icon-off',
+'icon-ok',
+'icon-ok-circle',
+'icon-ok-sign',
+'icon-pencil',
+'icon-phone',
+'icon-phone-sign',
+'icon-picture',
+'icon-plane',
+'icon-plus',
+'icon-plus-sign',
+'icon-plus-sign-alt',
+'icon-power-off',
+'icon-print',
+'icon-pushpin',
+'icon-puzzle-piece',
+'icon-qrcode',
+'icon-question',
+'icon-question-sign',
+'icon-quote-left',
+'icon-quote-right',
+'icon-random',
+'icon-refresh',
+'icon-remove',
+'icon-remove-circle',
+'icon-remove-sign',
+'icon-reorder',
+'icon-reply',
+'icon-reply-all',
+'icon-resize-horizontal',
+'icon-resize-vertical',
+'icon-retweet',
+'icon-road',
+'icon-rocket',
+'icon-rss',
+'icon-rss-sign',
+'icon-screenshot',
+'icon-search',
+'icon-share',
+'icon-share-alt',
+'icon-share-sign',
+'icon-shield',
+'icon-shopping-cart',
+'icon-sign-blank',
+'icon-signal',
+'icon-signin',
+'icon-signout',
+'icon-sitemap',
+'icon-smile',
+'icon-sort',
+'icon-sort-by-alphabet',
+'icon-sort-by-alphabet-alt',
+'icon-sort-by-attributes',
+'icon-sort-by-attributes-alt',
+'icon-sort-by-order',
+'icon-sort-by-order-alt',
+'icon-sort-down',
+'icon-sort-up',
+'icon-spinner',
+'icon-star',
+'icon-star-empty',
+'icon-star-half',
+'icon-star-half-empty',
+'icon-star-half-full',
+'icon-subscript',
+'icon-suitcase',
+'icon-sun',
+'icon-superscript',
+'icon-tablet',
+'icon-tag',
+'icon-tags',
+'icon-tasks',
+'icon-terminal',
+'icon-thumbs-down',
+'icon-thumbs-down-alt',
+'icon-thumbs-up',
+'icon-thumbs-up-alt',
+'icon-ticket',
+'icon-time',
+'icon-tint',
+'icon-trash',
+'icon-trophy',
+'icon-truck',
+'icon-umbrella',
+'icon-unchecked',
+'icon-unlock',
+'icon-unlock-alt',
+'icon-upload',
+'icon-upload-alt',
+'icon-user',
+'icon-volume-down',
+'icon-volume-off',
+'icon-volume-up',
+'icon-warning-sign',
+'icon-wrench',
+'icon-zoom-in',
+'icon-zoom-out'
+    ];
+
     //########################################################################################################page function
     $scope.newPage = function () {
         $scope.rootNode = $scope.defaultRootNode;
@@ -134,6 +370,10 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $scope.rootNode = data;
         $scope.getHtml(data);
         $('#htmlRoot').html($scope.tempContent);
+        $('.wb_droppable').droppable({
+            accept: ":not(.ui-sortable-helper)",
+            drop: $scope.droppableDrop
+        });
         $(".wb_sortable").sortable({
             revert: true,
             placeholder: "ui-state-placeholder",
@@ -146,6 +386,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         _.each(sectionidset, function (item) {
             $scope.triggerJs(item);
         });
+
+        $(".emptyCol").append($('<div class="wb_placeholder"><span>Drag Item Here</span></div>'));
     }
 
     $scope.savePage = function () {
@@ -202,17 +444,6 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         });
 
         //pagebuilder
-        $(".wb_sortable").sortable({
-            revert: true,
-            placeholder: "ui-state-placeholder",
-            stop: $scope.sortableStop,
-            cursor: "move",
-            forcePlaceholderSize: true,
-            forceHelperSize: true,
-            helper: "clone",
-            opacity: 0.4,
-            appendTo: document.body
-        });
         $('#htmlRoot').on('mouseenter', function (e) {
             $(this).addClass('mouseOn');
         });
@@ -232,8 +463,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $("#wb_toolbox").draggable({ handle: ".title" });
         $("#wb_toolbox .accordion").accordion();
         $('.wb_draggable').draggable({
-            connectToSortable: ".wb_sortable",
-            helper: 'clone',
+            helper: $scope.getDraggableHelper,
             cursor: "move",
             opacity: 0.4,
             refreshPositions: true,
@@ -251,6 +481,11 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                 $('.ui-state-placeholder').parent().addClass('showTopBottom');
             }
 
+        });
+
+        $('.wb_droppable').droppable({
+            accept: ":not(.ui-sortable-helper)",
+            drop: $scope.droppableDrop
         });
 
         //modal
@@ -294,7 +529,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('#uploadTab').on('shown.bs.tab', $scope.showUploadTab);
 
         $scope.getFontfaceStyle();
-        
+
         //model buttons
         $('#wb_pagebuilder').delegate('.btnEditText', 'click', function (e) {
             $scope.editText();
@@ -305,6 +540,9 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('#wb_pagebuilder').delegate('.btnEditSettings', 'click', function (e) {
             $scope.editSettings();
         });
+        $('#wb_pagebuilder').delegate('.btnEditIcon', 'click', function (e) {
+            $scope.editIcon();
+        });
     };
 
     $scope.getFontfaceStyle = function () {
@@ -312,7 +550,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         _.each($scope.fontfaces, function (ff) {
             style.push('.' + ff.className + '{font-family:' + ff.fontFamily + ';}')
         });
-        $('#wb_fontfacestyle').html( style.join('') );
+        $('#wb_fontfacestyle').html(style.join(''));
     }
 
     $scope.getFontfaceForTinymce = function () {
@@ -326,17 +564,39 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         return fontList;
     };
 
+    $scope.getDraggableHelper = function () {
+        return $('<i class="icon-file-text"></i>');
+    };
+
+    $scope.droppableDrop = function (event, ui) {
+        $scope.currentNode = ui.draggable;
+        $scope.searchNode($scope.rootNode, 'wb_id', $(this).attr('wb_id'), true);
+        if ($scope.currentNode.attr('sid')) {
+            $(this).html('<h2 class="modelLoading">Loading...</h2>');
+            $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
+                $scope.fillUUID(data);
+                $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
+                $scope.currentJsonNode.Children.push(data);
+                $scope.reorderNode($scope.currentJsonNode)
+                $scope.loadPage($scope.rootNode);
+            }).fail(function () {
+                alert('fail');
+            });
+        } else {
+            $scope.reorderNode($scope.currentJsonNode)
+            $scope.loadPage($scope.rootNode);
+        }
+    };
+
     $scope.sortableStop = function (event, ui) {
-        var wb_id = ui.item.attr('wb_id');
         $scope.currentNode = ui.item;
-        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'));
+        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'), true);
         if ($scope.currentNode.attr('sid')) {
             $scope.currentNode.html('<h2 class="modelLoading">Loading...</h2>')
             $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
                 $scope.fillUUID(data);
                 $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
                 $scope.currentJsonNode.Children.push(data);
-                wb_id = Enumerable.From(data.Attributes).Where(function (x) { return x.Key == 'wb_id'; }).Select(function (x) { return x.Value }).ToArray()[0];
                 $scope.reorderNode($scope.currentJsonNode)
                 $scope.loadPage($scope.rootNode);
             }).fail(function () {
@@ -360,7 +620,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $scope.currentNode = $(item);
         $('.selectedNode').removeClass('selectedNode');
         $scope.currentNode.addClass("selectedNode");
-        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'));
+        $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'), true);
         $('#wb_pagebuilder .modelButtons').remove();
         $scope.currentNode.append($('#hiddenModel .modelButtons').clone());
         e.stopPropagation();
@@ -368,7 +628,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
 
     $scope.generateUUID = function () {
         var d = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
             return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
@@ -377,7 +637,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     };
 
     $scope.fillUUID = function (node) {
-        var list = ['wb_id', 'txtid', 'imgid'];
+        var list = ['wb_id', 'txtid', 'imgid', 'iconid'];
         _.each(list, function (item) {
             var attr = $scope.getAttribute(node, item);
             if (attr) {
@@ -410,7 +670,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.saveEditText = function () {
         var html = $scope.removePTag(tinymce.activeEditor.getContent());
         $scope.currentEditText.html(html);
-        $scope.searchNode($scope.rootNode, 'txtid', $scope.currentEditText.attr('txtid'));
+        $scope.searchNode($scope.rootNode, 'txtid', $scope.currentEditText.attr('txtid'), true);
         $scope.currentJsonNode.Children[0].Content = html;
         $scope.updateEditTextList();
     }
@@ -433,7 +693,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     }
 
     $scope.addPTag = function (html) {
-        var result = '<p>'+html.replace(/<br\/>/g, '</p>\n<p>').replace(/<br>/g, '</p>\n<p>')+'</p>';
+        var result = '<p>' + html.replace(/<br\/>/g, '</p>\n<p>').replace(/<br>/g, '</p>\n<p>') + '</p>';
         return result;
     }
 
@@ -455,8 +715,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             $scope.$apply();
             $scope.selectEditImage(0);
         }
-    }
-    
+    };
+
     $scope.updateEditImageList = function () {
         $scope.currntImageList = $scope.currentNode.find("*[imgid]");
         $scope.editImageList = [];
@@ -484,7 +744,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $scope.currentSelectedImage = null;
         $('#btnSearch').html("Loading...");
         $('#searchPanel .content').hide();
-        $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip='+(page*50),
+        $.get('/api/image?query=' + $('#textSearch').val() + '&filter=size:large&top=50&skip=' + (page * 50),
             function (data) {
                 var count = 0;
                 _.each(data, function (item) {
@@ -538,13 +798,13 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             removeImage(id);
         };
     }
-    
+
     function removeImage(id) {
         $('.wb_searchImage-' + id).addClass('hidden');
     }
 
     function showImage(id) {
-        window.console && console.log('Load '+id);
+        window.console && console.log('Load ' + id);
         return function () {
             displayImage(id);
         };
@@ -696,13 +956,55 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.updateImage = function () {
         $scope.currentImageNode.attr('src', $scope.selectedMyFolderImage.Url);
         $scope.updateEditImageList();
-        $scope.searchNode($scope.rootNode, 'imgid', $scope.currentImageNode.attr('imgid'));
+        $scope.searchNode($scope.rootNode, 'imgid', $scope.currentImageNode.attr('imgid'), true);
         _.each($scope.currentJsonNode.Attributes, function (item) {
             if (item.Key == 'src') {
                 item.Value = $scope.selectedMyFolderImage.Url;
             }
         });
     };
+    //########################################################################################################edit icon
+    $scope.isIconSelected = false;
+    $scope.editIconList = [];
+
+    $scope.editIcon = function () {
+        $scope.updateEditIconList();
+        if ($scope.editIconList.length) {
+            $('#wb_EditIconModal').modal({
+                backdrop: false,
+                show: true
+            });
+            $scope.$apply();
+            $scope.selectEditIcon(0);
+        }
+    };
+
+    $scope.updateEditIconList = function () {
+        $scope.currntIconList = $scope.currentNode.find("*[iconid]");
+        $scope.editIconList = [];
+        _.each($scope.currntIconList, function (item) {
+            $scope.editIconList.push($(item).attr('class'));
+        });
+    };
+
+    $scope.selectEditIcon = function (index) {
+        $scope.currentIconNode = $($scope.currntIconList[index]);
+        $scope.currentEditIcon = $scope.editIconList[index];
+        $('.editIconItem').removeClass('active');
+        $('.editIconItem-' + index).addClass('active');
+    };
+    
+    $scope.selectMyIcon = function (index) {
+        $('.wb_myIcon').removeClass('selected');
+        $('.wb_myIcon-' + index).addClass('selected');
+        $scope.selectedMyIcon = $scope.iconList1[index];
+        $scope.isIconSelected = true;
+    };
+    
+    $scope.updateIcon=function() {
+        $scope.currentIconNode.attr('class',$scope.selectedMyIcon);
+        $scope.updateEditIconList();
+    }
     //########################################################################################################edit settings
     $scope.modelSettings = [];
     $scope.editSettings = function () {
@@ -778,7 +1080,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
                 $scope.tempContent += ' ';
                 for (var j = 0; j < node.Attributes.length; j++) {
                     //uuid
-                    if ($scope.isNewUUID && (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid')) {
+                    if ($scope.isNewUUID && (node.Attributes[j].Key == 'wb_id' || node.Attributes[j].Key == 'txtid' || node.Attributes[j].Key == 'imgid' || node.Attributes[j].Key == 'iconid')) {
                         node.Attributes[j].Value = $scope.generateUUID();
                     }
                     //emptycol
@@ -865,8 +1167,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
     }
 
-    $scope.searchNode = function (node, attr, value) {
-        if ($scope.rootNode == node) {
+    $scope.searchNode = function (node, attr, value, isStart) {
+        if (isStart) {
             $scope.currentJsonNode = null;
             $scope.isFound = false;
         }
@@ -881,7 +1183,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         }
         if (!$scope.isFound && node.Children) {
             for (var j = 0; j < node.Children.length; j++) {
-                $scope.searchNode(node.Children[j], attr, value);
+                $scope.searchNode(node.Children[j], attr, value, false);
                 if ($scope.isFound) {
                     break;
                 }

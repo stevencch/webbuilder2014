@@ -17,6 +17,7 @@ namespace WebBuilder2014.BLL
         public PageSection GetPageSectionByCode(string code)
         {
             PageSection result = dbContext.PageSections.Where(x => x.Code.Equals(code)).FirstOrDefault();
+            result.Json = result.Json.Replace("[[GUID]]", "a"+Guid.NewGuid().ToString().Replace("-", ""));
             return result;
         }
 

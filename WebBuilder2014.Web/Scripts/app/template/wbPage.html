@@ -111,7 +111,8 @@
 <div id="wb_pagebuilder">
     <div class="wb_pagesection">PAGE TOP</div>
     <div id="htmlRoot">
-        <div class="wb_sortable row" wb_id="rootNode" id="rootNode">
+        <div class="wb_sortable wb_droppable row" wb_id="rootNode" id="rootNode">
+            <div class="wb_placeholder"><span>Drag Item Here</span></div>
         </div>
     </div>
     <div class="wb_pagesection">PAGE BOTTOM</div>
@@ -314,6 +315,85 @@
         </div>
     </div>
 </div>
+<!--Icon Modal -->
+<div class="modal fade" id="wb_EditIconModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">EDIT ICON</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div id="iconPanel">
+                                <div class="list-group">
+                                    <div ng-repeat="editIcon in editIconList">
+                                        <div class="list-group-item editIconItem editIconItem-{{$index}}" ng-click="selectEditIcon($index)">
+                                            <div><i class="{{editIcon}}"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 iconPanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#wb_icon1" role="tab" data-toggle="tab">Icon1</a></li>
+                            <li><a href="#wb_icon2" role="tab" data-toggle="tab">Icon2</a></li>
+                            <li><a href="#wb_icon3" role="tab" data-toggle="tab">Icon3</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="wb_icon1">
+                                <div  class="myIconPanel clearfix">
+                                    <div class="clearfix content">
+                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
+                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="wb_icon2">
+                                <div class="myIconPanel clearfix">
+                                    <div class="clearfix content">
+                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
+                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="wb_icon3">
+                                <div class="myIconPanel clearfix">
+                                    <div class="clearfix content">
+                                        <div class="wb_myIcon wb_myIcon-{{$index}}" ng-repeat="icon in iconList1">
+                                            <div ng-click="selectMyIcon($index)"><i class="{{icon}}"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="row">
+                    <div ng-show="isIconSelected">
+                        <div class="col-sm-9">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-primary" id="btnIconSave" ng-click="updateIcon()">Update Icon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Setting Modal -->
 <div class="modal fade" id="wb_SettingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -342,6 +422,7 @@
     <div class="btn-group modelButtons">
         <i class="icon-font btnEditText"></i>
         <i class="icon-picture btnEditImage"></i>
+        <i class="icon-tags btnEditIcon"></i>
         <i class="icon-gear btnEditSettings"></i>
     </div>
 </div>

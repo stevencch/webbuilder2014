@@ -71,18 +71,10 @@
     border-bottom: 1px dashed blue; }
   #wb_pagebuilder .wb_pipe.emptyCol {
     border-right: 5px solid #000; }
-  #wb_pagebuilder .emptyCol {
-    min-height: 75px; }
-    #wb_pagebuilder .emptyCol.col-md-3 {
-      background: url('/content/images/c3.png') no-repeat #ddd; }
-    #wb_pagebuilder .emptyCol.col-md-4 {
-      background: url('/content/images/c4.png') no-repeat #ddd; }
-    #wb_pagebuilder .emptyCol.col-md-6 {
-      background: url('/content/images/c6.png') no-repeat #ddd; }
-    #wb_pagebuilder .emptyCol.col-md-8 {
-      background: url('/content/images/c8.png') no-repeat #ddd; }
-    #wb_pagebuilder .emptyCol.col-md-9 {
-      background: url('/content/images/c9.png') no-repeat #ddd; }
+  #wb_pagebuilder .wb_placeholder {
+    text-align: center;
+    font-size: 20px;
+    padding: 30px 0; }
   #wb_pagebuilder .oneline {
     clear: both;
     float: left;
@@ -153,5 +145,14 @@
   border: 1px solid blue; }
 #wb_EditImageModal .modal-dialog {
   width: 850px; }
+
+#wb_EditIconModal .myIconPanel .wb_myIcon {
+  float: left;
+  margin: 5px 2px; }
+  #wb_EditIconModal .myIconPanel .wb_myIcon i {
+    font-size: 16px; }
+#wb_EditIconModal .myIconPanel .selected {
+  background-color: #aaa;
+  color: red; }
 
 /*# sourceMappingURL=webbuilder.css.map */

@@ -111,28 +111,11 @@
         }
     }
 
-    .emptyCol {
-        min-height: 75px;
 
-        &.col-md-3 {
-            background: url('/content/images/c3.png') no-repeat #ddd;
-        }
-
-        &.col-md-4 {
-            background: url('/content/images/c4.png') no-repeat #ddd;
-        }
-
-        &.col-md-6 {
-            background: url('/content/images/c6.png') no-repeat #ddd;
-        }
-
-        &.col-md-8 {
-            background: url('/content/images/c8.png') no-repeat #ddd;
-        }
-
-        &.col-md-9 {
-            background: url('/content/images/c9.png') no-repeat #ddd;
-        }
+    .wb_placeholder {
+        text-align: center;
+        font-size: 20px;
+        padding: 30px 0;
     }
 
     .oneline {
@@ -207,12 +190,12 @@
         }
     }
 
-    .nav-tabs{
-        margin-bottom:15px;
+    .nav-tabs {
+        margin-bottom: 15px;
     }
 
-    .pagination{
-        margin:0;
+    .pagination {
+        margin: 0;
     }
 
 
@@ -227,16 +210,13 @@
             }
         }
 
-        .hidden{
-            display:none;
+        .hidden {
+            display: none;
         }
 
         .selected {
             border: 1px solid blue;
         }
-
-
-
     }
 
     #uploadPanel {
@@ -268,6 +248,21 @@
     .modal-dialog {
         width: 850px;
     }
+}
 
-    
+#wb_EditIconModal {
+    .myIconPanel {
+        .wb_myIcon {
+            float: left;
+            margin: 5px 2px;
+            i{
+                font-size:16px;
+            }
+        }
+
+        .selected {
+            background-color:#aaa;
+            color:red;
+        }
+    }
 }
