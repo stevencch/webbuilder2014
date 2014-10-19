@@ -302,6 +302,10 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $('#wb_pagebuilder').delegate('.btnEditIcon', 'click', function (e) {
             $scope.editIcon();
         });
+        $('#wb_pagebuilder').delegate('.btnDeleteModel', 'click', function (e) {
+            $scope.deleteModel();
+        });
+        
     };
 
     $scope.getFontfaceStyle = function () {
@@ -381,17 +385,23 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         return uuid;
     };
 
-    $scope.fillUUID = function (node) {
+    $scope.fillUUID = function(node) {
         var list = ['wb_id', 'txtid', 'imgid', 'iconid'];
-        _.each(list, function (item) {
+        _.each(list, function(item) {
             var attr = $scope.getAttribute(node, item);
             if (attr) {
                 attr.Value = $scope.generateUUID();
             }
         });
-        _.each(node.Children, function (item) {
+        _.each(node.Children, function(item) {
             $scope.fillUUID(item);
         });
+    };
+    
+    $scope.deleteModel = function () {
+        $scope.removeNode($scope.rootNode, 'wb_id', $scope.currentNode.attr('wb_id'), true);
+        $scope.currentNode.remove();
+        $scope.loadPage($scope.rootNode);
     }
     //########################################################################################################edit text
     $scope.editTextList = [];
@@ -944,6 +954,36 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             for (var j = 0; j < node.Children.length; j++) {
                 $scope.searchNode(node.Children[j], attr, value, false);
                 if ($scope.isFound) {
+                    break;
+                }
+            }
+        }
+    };
+
+    $scope.removeNodeIndex = -1;
+    $scope.removeNode = function (node, attr, value, isStart) {
+        if (isStart) {
+            $scope.currentJsonNode = null;
+            $scope.isFound = false;
+            $scope.removeNodeIndex = -1;
+        }
+        if (node.Attributes) {
+            for (var i = 0; i < node.Attributes.length; i++) {
+                if (node.Attributes[i].Key == attr && node.Attributes[i].Value == value) {
+                    $scope.currentJsonNode = node;
+                    $scope.isFound = true;
+                    break;
+                }
+            }
+        }
+        if (!$scope.isFound && node.Children) {
+            for (var j = 0; j < node.Children.length; j++) {
+                $scope.removeNode(node.Children[j], attr, value, false);
+                if ($scope.isFound) {
+                    if ($scope.removeNodeIndex == -1) {
+                        $scope.removeNodeIndex = j;
+                        node.Children.splice(j, 1);
+                    }
                     break;
                 }
             }
