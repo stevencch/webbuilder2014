@@ -146,7 +146,12 @@ wbApp.controller('wbController', function ($scope, $timeout) {
             $scope.triggerJs(item);
         });
 
-        $(".emptyCol").append($('<div class="wb_placeholder"><span>Drag Item Here</span></div>'));
+        _.each($(".emptyCol"), function(item) {
+            if ($(item).html() == '') {
+                $(item).append($('<div class="wb_placeholder"><span>Drag Item Here</span></div>'));
+            }
+        });
+        
     }
 
     $scope.savePage = function () {
@@ -220,7 +225,9 @@ wbApp.controller('wbController', function ($scope, $timeout) {
 
         //toolbox
         $("#wb_toolbox").draggable({ handle: ".title" });
-        $("#wb_toolbox .accordion").accordion();
+        $("#wb_toolbox .accordion").accordion({
+            heightStyle: "content"
+        });
         $('.wb_draggable').draggable({
             helper: $scope.getDraggableHelper,
             cursor: "move",
