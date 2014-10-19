@@ -34,12 +34,15 @@
 #hiddenModel {
   display: none; }
 
+#wb_designPanel {
+  display: none; }
+
 #wb_toolbox {
   position: fixed;
   top: 60px;
   right: 0;
   width: 300px !important;
-  z-index: 9999; }
+  z-index: 99999; }
   #wb_toolbox .title {
     background-color: darkblue;
     color: #fff; }

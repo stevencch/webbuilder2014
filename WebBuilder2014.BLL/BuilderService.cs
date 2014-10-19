@@ -17,7 +17,7 @@ namespace WebBuilder2014.BLL
         public PageSection GetPageSectionByCode(string code)
         {
             PageSection result = dbContext.PageSections.Where(x => x.Code.Equals(code)).FirstOrDefault();
-            result.Json = result.Json.Replace("[[GUID]]", "a"+Guid.NewGuid().ToString().Replace("-", ""));
+            result.Json = result.Json.Replace("[[GUID]]", "a"+Guid.NewGuid().ToString().Replace("-", "").Substring(0,8));
             return result;
         }
 
@@ -79,6 +79,17 @@ namespace WebBuilder2014.BLL
             {
                 //TODO: Logger error
             }
+        }
+
+        public WBTemplate GetTemplateByCode(string code)
+        {
+            WBTemplate result = dbContext.WBTemplates.Where(x => x.Code.Equals(code)).FirstOrDefault();
+            return result;
+        }
+
+        public List<string> GetWBPages()
+        {
+            return dbContext.WBPages.Select(x => x.Code).ToList();
         }
     }
 }

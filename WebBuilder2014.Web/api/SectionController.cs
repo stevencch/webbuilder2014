@@ -6,24 +6,22 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using WebBuilder2014.BLL;
-using WebBuilder2014.Common.Model;
 
 namespace WebBuilder2014.Web.api
 {
-    public class PageController : ApiController
+    public class SectionController : ApiController
     {
-        BuilderService service=new BuilderService();
-        // GET: api/Page
+        BuilderService service = new BuilderService();
+        // GET: api/Section
         public IEnumerable<string> Get()
         {
-            var pages = service.GetWBPages();
-            return pages;
+            return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Page/5
+        // GET: api/Section/5
         public HttpResponseMessage Get(string id)
         {
-            var section = service.GetWBPageByCode(id);
+            var section = service.GetPageSectionByCode(id);
             if (section != null)
             {
                 var resp = new HttpResponseMessage()
@@ -39,20 +37,17 @@ namespace WebBuilder2014.Web.api
             }
         }
 
-
-        // POST: api/Page
-        public void Post(NodeModel node)
+        // POST: api/Section
+        public void Post([FromBody]string value)
         {
-            service.UpdateWBPage(node.Content.Replace(" ","_"),node);
-
         }
 
-        // PUT: api/Page/5
+        // PUT: api/Section/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Page/5
+        // DELETE: api/Section/5
         public void Delete(int id)
         {
         }

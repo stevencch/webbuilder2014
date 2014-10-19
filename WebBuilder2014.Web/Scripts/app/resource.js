@@ -1,4 +1,25 @@
-﻿var fontfaces = [
+﻿
+var defaultRootNode = {
+    Type: 'div',
+    Attributes: [
+        {
+            Key: 'id',
+            Value: 'rootNode'
+        },
+        {
+            Key: 'wb_id',
+            Value: 'rootNode'
+        },
+        {
+            Key: 'class',
+            Value: 'wb_sortable row wb_droppable emptyCol'
+        }
+    ],
+    Children: [],
+    Settings: [],
+    Content:''
+};
+var fontfaces = [
     {
         url: 'http://fonts.googleapis.com/css?family=Open+Sans',
         fontFamily: "'Open Sans', sans-serif",
@@ -435,3 +456,14 @@ var iconList2 = [
 'icon-user-md',
 'icon-flag',
 ];
+var templateList = [
+    {
+        name: 'Blank Page',
+        code: 't00'
+    },
+    {
+        name: 'Home Page',
+        code: 't01'
+    }
+
+]

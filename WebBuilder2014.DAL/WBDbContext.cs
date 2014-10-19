@@ -15,6 +15,8 @@ namespace WebBuilder2014.DAL
 
         public DbSet<WBPage> WBPages { get; set; }
 
+        public DbSet<WBTemplate> WBTemplates { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<System.Data.Entity.ModelConfiguration.Conventions.PluralizingTableNameConvention>();

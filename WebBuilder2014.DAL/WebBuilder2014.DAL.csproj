@@ -74,6 +74,22 @@
     <Compile Include="Migrations\201410110217163_wppage.Designer.cs">
       <DependentUpon>201410110217163_wppage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410182250499_wbtemplate.cs" />
+    <Compile Include="Migrations\201410182250499_wbtemplate.Designer.cs">
+      <DependentUpon>201410182250499_wbtemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410182251588_wbtemplate1.cs" />
+    <Compile Include="Migrations\201410182251588_wbtemplate1.Designer.cs">
+      <DependentUpon>201410182251588_wbtemplate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410182252426_wbtemplate12.cs" />
+    <Compile Include="Migrations\201410182252426_wbtemplate12.Designer.cs">
+      <DependentUpon>201410182252426_wbtemplate12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410182325264_wbtemplate13.cs" />
+    <Compile Include="Migrations\201410182325264_wbtemplate13.Designer.cs">
+      <DependentUpon>201410182325264_wbtemplate13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="WBDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +115,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410110217163_wppage.resx">
       <DependentUpon>201410110217163_wppage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410182250499_wbtemplate.resx">
+      <DependentUpon>201410182250499_wbtemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410182251588_wbtemplate1.resx">
+      <DependentUpon>201410182251588_wbtemplate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410182252426_wbtemplate12.resx">
+      <DependentUpon>201410182252426_wbtemplate12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410182325264_wbtemplate13.resx">
+      <DependentUpon>201410182325264_wbtemplate13.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

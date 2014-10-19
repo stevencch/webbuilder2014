@@ -45,25 +45,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.selectedMyIcon = null;
 
     //########################################################################################################global
-    $scope.defaultRootNode = {
-        Type: 'div',
-        Attributes: [
-            {
-                Key: 'id',
-                Value: 'rootNode'
-            },
-            {
-                Key: 'wb_id',
-                Value: 'rootNode'
-            },
-            {
-                Key: 'class',
-                Value: 'wb_sortable row wb_droppable'
-            }
-        ],
-        Children: [],
-        Settings: []
-    };
+    $scope.defaultRootNode = defaultRootNode;
     $scope.rootNode = $scope.defaultRootNode;
 
     $scope.currentJsonNode = null;
@@ -76,21 +58,71 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.iconList1 = iconList1;
     $scope.iconList2 = iconList2;
 
+    $scope.templateList = templateList;
 
 
     //########################################################################################################page function
+    $scope.newPageName = '';
+    $scope.isLoadTemplate = false;
+    $scope.loadPageList = [];
     $scope.newPage = function () {
-        $scope.rootNode = $scope.defaultRootNode;
+        $('#wb_designPanel').hide();
+        $('#wb_NewPageModal').modal({
+            backdrop: false,
+            show: true
+        });
+    };
+
+    $scope.selectTemplate = function (index) {
+        $('.wb-template').removeClass('active');
+        $('.wb-template-' + index).addClass('active');
+        $scope.isLoadTemplate = false;
+        var templateId = $scope.templateList[index].code;
+        $.get("/api/template/" + templateId, function (data) {
+            $scope.rootNode = data;
+            $scope.isLoadTemplate = true;
+            $scope.$apply();
+
+        }).fail(function () {
+            alert('fail');
+        });
+    }
+
+    $scope.creatNewPage = function () {
+        $('#wb_NewPageModal').modal('hide');
+        $scope.rootNode.Content = $scope.newPageName;
+        $scope.loadPage($scope.rootNode);
+        $('#wb_designPanel').show();
     };
 
 
     $scope.openPage = function () {
-        $.get("/api/page/load", function (data) {
-            $scope.loadPage(data);
+        $('#wb_designPanel').hide();
+        $.get("/api/page", function (data) {
+            _.each(data, function(item) {
+                $scope.loadPageList.push(item.replace(/_/g, ' '))
+            });
+            $scope.$apply();
+            $('#wb_LoadPageModal').modal({
+                backdrop: false,
+                show: true
+            });
+
         }).fail(function () {
             alert('fail');
         });
     };
+    
+    $scope.loadMyPage = function (index) {
+        var pageName = $scope.loadPageList[index].replace(/ /g, '_');
+        $.get("/api/page/"+pageName, function (data) {
+            $scope.loadPage(data);
+            $('#wb_LoadPageModal').modal('hide');
+            $('#wb_designPanel').show();
+        }).fail(function () {
+            alert('fail');
+        });
+    }
 
     $scope.loadPage = function (data) {
         $scope.tempContent = '';
@@ -300,7 +332,7 @@ wbApp.controller('wbController', function ($scope, $timeout) {
         $scope.searchNode($scope.rootNode, 'wb_id', $(this).attr('wb_id'), true);
         if ($scope.currentNode.attr('sid')) {
             $(this).html('<h2 class="modelLoading">Loading...</h2>');
-            $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
+            $.get("/api/section/" + $scope.currentNode.attr('sid'), function (data) {
                 $scope.fillUUID(data);
                 $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
                 $scope.currentJsonNode.Children.push(data);
@@ -318,22 +350,8 @@ wbApp.controller('wbController', function ($scope, $timeout) {
     $scope.sortableStop = function (event, ui) {
         $scope.currentNode = ui.item;
         $scope.searchNode($scope.rootNode, 'wb_id', $scope.currentNode.parent().attr('wb_id'), true);
-        if ($scope.currentNode.attr('sid')) {
-            $scope.currentNode.html('<h2 class="modelLoading">Loading...</h2>')
-            $.get("/api/page/" + $scope.currentNode.attr('sid'), function (data) {
-                $scope.fillUUID(data);
-                $scope.currentNode.attr('wb_id', $scope.getAttribute(data, 'wb_id').Value);
-                $scope.currentJsonNode.Children.push(data);
-                $scope.reorderNode($scope.currentJsonNode)
-                $scope.loadPage($scope.rootNode);
-            }).fail(function () {
-                alert('fail');
-            });
-        }
-        else {
-            $scope.reorderNode($scope.currentJsonNode)
-            $scope.loadPage($scope.rootNode);
-        }
+        $scope.reorderNode($scope.currentJsonNode);
+        $scope.loadPage($scope.rootNode);
     };
 
     $scope.mouseOverNode = function (e, item) {
